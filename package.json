@@ -2,6 +2,10 @@
   "name": "gocon-website-2026",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@10.4.1",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
