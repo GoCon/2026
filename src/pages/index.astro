@@ -18,19 +18,28 @@ import Layout from "../layouts/Layout.astro";
     background-color: #e6e6e6;
     border-radius: 4px;
   }
+
+  .top-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
 
 <Layout title="Go Conference 2026">
   <main>
-    <h1>Go Conference 2026</h1>
-    <div style="display: flex; flex-wrap: wrap;">
-      <span>Go Conference 2026の公式ページになります</span>
-      <span></span>
+    <div class="top-container">
+      <h1>Go Conference 2026</h1>
+      <div style="display: flex; flex-wrap: wrap;">
+        <span>Go Conference 2026の公式ページになります</span>
+        <span></span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap;">
+        <span>本ページは随時更新予定なのでご了承ください</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap;"></div>
     </div>
-    <div style="display: flex; flex-wrap: wrap;">
-      <span>本ページは随時更新予定なのでご了承ください</span>
-    </div>
-    <div style="display: flex; flex-wrap: wrap;"></div>
     <div class="container">
       <div>
         <div class="card">
@@ -46,11 +55,13 @@ import Layout from "../layouts/Layout.astro";
             </li>
             <li>
               <span style="font-weight: bold">CfP 募集期間：</span>
-              未定(随時<a href="https://x.com/goconjp">Xアカウント</a>および本ホームページで公表する予定です)
+              未定(随時<a href="https://x.com/goconjp">Xアカウント</a
+              >および本ホームページで公表する予定です)
             </li>
             <li>
               <span style="font-weight: bold">スポンサー募集期間：</span>
-              未定(随時<a href="https://x.com/goconjp">Xアカウント</a>および本ホームページで公表する予定です)
+              未定(随時<a href="https://x.com/goconjp">Xアカウント</a
+              >および本ホームページで公表する予定です)
             </li>
           </ul>
         </div>
