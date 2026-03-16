@@ -1,50 +1,44 @@
-# Astro Starter Kit: Basics
+# Go Conference 2026 ウェブサイト
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Go Conference 2026 の公式ウェブサイトです。Astro 5 で構築されています。
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 必要環境
 
-## 🚀 Project Structure
+- **Node.js**: 24 以上
+- **パッケージマネージャ**: pnpm（推奨）
 
-Inside of your Astro project, you'll see the following folders and files:
+## プロジェクト構成
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+├── docs/   # 開発に伴う各種ドキュメント
+├── src/
+│   ├── assets/             # 画像・SVG 等
+│   ├── components/
+│   │   ├── GlobalStyles.astro  # デザイントークン・グローバルスタイル
+│   │   └── Welcome.astro
+│   ├── layouts/
+│   │   └── Layout.astro    # 共通レイアウト
+│   └── pages/
+│       └── index.astro
+├── astro.config.mjs
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## コマンド
 
-## 🧞 Commands
+ルートディレクトリで以下を実行します。
 
-All commands are run from the root of the project, from a terminal:
+| コマンド         | 説明                                        |
+| :--------------- | :------------------------------------------ |
+| `pnpm install`   | 依存関係のインストール                      |
+| `pnpm dev`       | 開発サーバー起動（`localhost:4321`）        |
+| `pnpm build`     | 本番ビルド（`./dist/` に出力）              |
+| `pnpm preview`   | ビルドのローカルプレビュー                  |
+| `pnpm format`    | Prettier でフォーマット                     |
+| `pnpm lint`      | ESLint でリント                             |
+| `pnpm astro ...` | Astro CLI（例: `astro add`, `astro check`） |
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `pnpm install`         | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 📚 ドキュメント
+## ドキュメント
 
 - [グローバルスタイルの使い方](docs/global-styles.md) — デザイントークン・ユーティリティクラス・フォントの利用方法
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
