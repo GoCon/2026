@@ -14,6 +14,8 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,astro}'"
   },
   "dependencies": {
+    "@fontsource-variable/noto-sans-jp": "^5.2.10",
+    "@fontsource/barlow": "^5.2.8",
     "astro": "^5.17.1"
   },
   "devDependencies": {

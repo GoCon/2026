@@ -1,4 +1,6 @@
 ---
+import GlobalStyles from "../components/GlobalStyles.astro";
+
 const currentLocale = Astro.currentLocale;
 ---
 
@@ -11,6 +13,7 @@ const currentLocale = Astro.currentLocale;
     <link rel="icon" href="" />
     <meta name="generator" content={Astro.generator} />
     <title>Go Conference 2026</title>
+    <GlobalStyles />
   </head>
   <body>
     <slot />
