@@ -5,4 +5,8 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   site: "https://gocon.github.io",
   base: "/2026",
+  i18n: {
+    defaultLocale: "ja",
+    locales: ["en", "ja"],
+  },
 });

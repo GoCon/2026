@@ -1,0 +1,147 @@
+---
+import "@fontsource-variable/noto-sans-jp";
+import "@fontsource/barlow";
+
+/** サイト全体のデザイントークンやグローバルスタイルを定義する */
+---
+
+<style is:global>
+  :root {
+    --primitive-black: #333333;
+    --primitive-light-gray: #d5e1e8;
+    --primitive-dark-gray: #798992;
+    --primitive-yellow: #f4c928;
+    --primitive-cyan: #55d3c2;
+    --primitive-blue: #00c1e5;
+    --primitive-navy: #103972;
+    --primitive-white: #ffffff;
+    --primitive-light-blue: #edfcff;
+    --primitive-light-yellow: #fffae9;
+    --primitive-light-cyan: #eefffd;
+    --primitive-red: #fd7045;
+    --primitive-color: #ffffff;
+
+    --radius-section: 80px;
+    --radius-section-sp: 80px;
+    --radius-button: 999px;
+    --radius-objects: 16px;
+
+    --surface-primary: var(--primitive-white);
+    --surface-secondary: var(--primitive-light-blue);
+    --surface-disabled: var(--primitive-light-gray);
+    --surface-primary-dark: var(--primitive-red);
+    --surface-secondary-dark: var(--primitive-navy);
+    --surface-room-a: var(--primitive-blue);
+    --surface-room-a-light: var(--primitive-light-blue);
+    --surface-room-b: var(--primitive-cyan);
+    --surface-room-b-light: var(--primitive-light-cyan);
+
+    --text-primary: var(--primitive-black);
+    --text-secondary: var(--primitive-dark-gray);
+    --text-on-fill: var(--primitive-white);
+    --text-accent: var(--primitive-blue);
+    --text-accent2: var(--primitive-red);
+
+    --space-xxxs: 4px;
+    --space-xxs: 8px;
+    --space-xs: 16px;
+    --space-s: 24px;
+    --space-m: 40px;
+    --space-l: 80px;
+    --space-xl: 120px;
+
+    --wireframe-gray: #c7c7c7;
+    --wireframe-black: #000000;
+    --wireframe-background: #f5f5f5;
+    --wireframe-background2: #d9d9d9;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    line-height: 1.75;
+    font-family: "Noto Sans JP", sans-serif;
+  }
+
+  /* 文字のスタイル */
+  .text-body-large {
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.75;
+  }
+
+  .text-body-large-strong {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.75;
+  }
+
+  .text-body-medium {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.75;
+  }
+
+  .text-body-medium-strong {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.75;
+  }
+
+  .text-body-small {
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.75;
+  }
+
+  .text-body-small-strong {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.75;
+  }
+
+  .text-section-title {
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  .text-page-title {
+    font-size: 68px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  .text-h4 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  .text-h5 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 768px) {
+    .text-section-title {
+      font-size: 32px;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    .text-page-title {
+      font-size: 40px;
+      font-weight: bold;
+      line-height: 1.5;
+      font-family: "Barlow", sans-serif;
+    }
+
+    .text-h4 {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+  }
+</style>
