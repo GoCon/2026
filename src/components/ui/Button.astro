@@ -1,0 +1,118 @@
+---
+export type ButtonVariant = "primary" | "secondary";
+export type ButtonSize = "small" | "large";
+
+type Props = {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
+  class?: string;
+  isBlankLink?: boolean;
+  href: string;
+};
+
+const {
+  variant = "primary",
+  size = "small",
+  disabled = false,
+  type = "button",
+  isBlankLink = false,
+  href,
+  class: className = "",
+} = Astro.props as Props;
+---
+
+<a href={href} target={isBlankLink ? "_blank" : undefined} rel={isBlankLink ? "noopener noreferrer" : undefined}>
+  <button
+    type={type}
+    class={`c-button ${className}`}
+    data-variant={variant}
+    data-size={size}
+    disabled={disabled}
+  >
+    <slot />
+  </button>
+</a>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+
+  .c-button {
+    --btn-radius: var(--radius-button);
+
+    /* normal / hover / disable の各値（variant / size によって上書きされる） */
+    --btn-normal-bg: var(--surface-primary-dark);
+    --btn-normal-text: var(--text-on-fill);
+    --btn-normal-border: transparent;
+
+    --btn-hover-bg: var(--surface-primary);
+    --btn-hover-text: var(--text-accent2);
+    --btn-hover-border: var(--surface-primary-dark);
+
+    --btn-disable-bg: var(--surface-disabled);
+    --btn-disable-text: var(--text-on-fill);
+    --btn-disable-border: transparent;
+
+    /* small / large の各値（size によって上書きされる） */
+    --btn-padding-y: var(--space-xxxs);
+    --btn-padding-x: var(--space-s);
+    /* .text-body-large-strong */
+    --btn-font-size: 16px;
+    --btn-line-height: 1.75;
+    --btn-font-weight: bold;
+
+    appearance: none;
+    border: 2px solid var(--btn-normal-border);
+    border-radius: var(--btn-radius);
+    padding: var(--btn-padding-y) var(--btn-padding-x);
+    background: var(--btn-normal-bg);
+    color: var(--btn-normal-text);
+    font-size: var(--btn-font-size);
+    line-height: var(--btn-line-height);
+    font-weight: var(--btn-font-weight);
+    cursor: pointer;
+
+    transition:
+      background-color 160ms ease,
+      color 160ms ease,
+      border-color 160ms ease,
+      opacity 160ms ease;
+  }
+
+  .c-button[data-variant="primary"] {
+  }
+
+  .c-button[data-variant="secondary"] {
+    --btn-normal-bg: var(--surface-secondary-dark);
+    --btn-hover-text: var(--text-primary);
+    --btn-hover-border: var(--surface-secondary-dark);
+  }
+
+  .c-button[data-size="small"] {
+  }
+
+  .c-button[data-size="large"] {
+    --btn-padding-y: var(--space-xs);
+    --btn-padding-x: var(--space-xl);
+
+    /* .text-h5 */
+    --btn-font-size: 20px;
+    --btn-line-height: 1.5;
+  }
+
+  .c-button:not(:disabled):hover {
+    background: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
+    border-color: var(--btn-hover-border);
+  }
+
+  .c-button:disabled {
+    background: var(--btn-disable-bg);
+    color: var(--btn-disable-text);
+    border-color: var(--btn-disable-border);
+    cursor: not-allowed;
+  }
+</style>

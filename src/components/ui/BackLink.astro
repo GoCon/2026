@@ -1,0 +1,47 @@
+---
+import DoubleArrowIcon from "../../assets/icons/double_arrow.svg";
+
+type Props = {
+  href: string;
+  text: string;
+}
+
+const {
+  href,
+  text,
+} = Astro.props as Props;
+---
+
+<a href={href}>
+  <DoubleArrowIcon class="link-icon"/>
+  <span class="text-body-large-strong">{text}</span>
+</a>
+
+<style>
+  a {
+    width: fit-content;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xxxs);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: var(--text-accent);
+  }
+
+  .link-icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--text-primary);
+    rotate: 180deg;
+    margin-top: 2px;
+  }
+
+  a:hover .link-icon {
+    fill: var(--text-accent);
+  }
+</style>

@@ -1,0 +1,52 @@
+---
+import OpenInNewIcon from "../../assets/icons/open_in_new.svg";
+
+type Props = {
+  href: string;
+  isBlankLink?: boolean;
+  text: string;
+}
+
+const {
+  href,
+  isBlankLink = false,
+  text,
+} = Astro.props as Props;
+---
+
+<a
+  href={href}
+  target={isBlankLink ? "_blank" : undefined}
+  rel={isBlankLink ? "noopener noreferrer" : undefined}
+>
+  <span class="text-body-large-strong">{text}</span>
+  {isBlankLink && <OpenInNewIcon class="link-icon" fill="red"/>}
+</a>
+
+<style>
+  a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xxxs);
+    color: var(--text-primary);
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  a:hover {
+    color: var(--text-accent);
+  }
+
+  .link-icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--text-primary);
+    margin-top: 2px;
+  }
+
+  a:hover .link-icon {
+    fill: var(--text-accent);
+  }
+</style>
