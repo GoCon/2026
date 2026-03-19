@@ -62,7 +62,6 @@ const {
 
     /* small / large の各値（size によって上書きされる） */
     --btn-padding-y: var(--space-xxxs);
-    --btn-padding-x: var(--space-s);
     /* .text-body-large-strong */
     --btn-font-size: 16px;
     --btn-line-height: 1.75;
@@ -71,7 +70,7 @@ const {
     appearance: none;
     border: 2px solid var(--btn-normal-border);
     border-radius: var(--btn-radius);
-    padding: var(--btn-padding-y) var(--btn-padding-x);
+    padding: var(--btn-padding-y) 0;
     background: var(--btn-normal-bg);
     color: var(--btn-normal-text);
     font-size: var(--btn-font-size);
@@ -100,7 +99,6 @@ const {
 
   .c-button[data-size="large"] {
     --btn-padding-y: var(--space-xs);
-    --btn-padding-x: var(--space-xl);
 
     /* .text-h5 */
     --btn-font-size: 20px;
