@@ -1,0 +1,34 @@
+---
+
+type Props = {
+  text: string;
+}
+
+const {
+  text,
+} = Astro.props as Props;
+---
+
+<div class="chip">
+  <h4 class="text-title-h4">{text}</h4>
+</div>
+
+<style>
+  .chip {
+    background-color: var(--surface-secondary-dark);
+    color: var(--text-on-fill);
+    padding: var(--space-xxs) var(--space-s);
+    border-radius: var(--radius-objects);
+    width: fit-content;
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .chip {
+      padding: var(--space-xxxs) var(--space-s);
+    }
+  }
+</style>
