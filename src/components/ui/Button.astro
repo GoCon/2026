@@ -23,7 +23,11 @@ const {
 } = Astro.props as Props;
 ---
 
-<a href={href} target={isBlankLink ? "_blank" : undefined} rel={isBlankLink ? "noopener noreferrer" : undefined}>
+<a
+  href={href}
+  target={isBlankLink ? "_blank" : undefined}
+  rel={isBlankLink ? "noopener noreferrer" : undefined}
+>
   <button
     type={type}
     class={`c-button ${className}`}
