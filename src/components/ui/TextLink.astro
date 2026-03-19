@@ -5,13 +5,9 @@ type Props = {
   href: string;
   isBlankLink?: boolean;
   text: string;
-}
+};
 
-const {
-  href,
-  isBlankLink = false,
-  text,
-} = Astro.props as Props;
+const { href, isBlankLink = false, text } = Astro.props as Props;
 ---
 
 <a
@@ -20,7 +16,7 @@ const {
   rel={isBlankLink ? "noopener noreferrer" : undefined}
 >
   <span class="text-body-large-strong">{text}</span>
-  {isBlankLink && <OpenInNewIcon class="link-icon" fill="red"/>}
+  {isBlankLink && <OpenInNewIcon class="link-icon" fill="red" />}
 </a>
 
 <style>

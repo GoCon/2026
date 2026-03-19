@@ -4,16 +4,13 @@ import DoubleArrowIcon from "../../assets/icons/double_arrow.svg";
 type Props = {
   href: string;
   text: string;
-}
+};
 
-const {
-  href,
-  text,
-} = Astro.props as Props;
+const { href, text } = Astro.props as Props;
 ---
 
 <a href={href}>
-  <DoubleArrowIcon class="link-icon"/>
+  <DoubleArrowIcon class="link-icon" />
   <span class="text-body-large-strong">{text}</span>
 </a>
 
