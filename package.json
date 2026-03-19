@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:netlify": "astro check && astro build --config astro.netlify.config.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write .",
