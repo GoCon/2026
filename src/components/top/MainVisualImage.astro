@@ -1,0 +1,114 @@
+---
+import imageBG from "../../assets/mainVisual/background.jpg";
+import imageGopher1 from "../../assets/mainVisual/gopher_1.png";
+import imageGopher2 from "../../assets/mainVisual/gopher_2.png";
+import imageGopher3 from "../../assets/mainVisual/gopher_3.png";
+import imageGopher4 from "../../assets/mainVisual/gopher_4.png";
+import imageGopher5 from "../../assets/mainVisual/gopher_5.png";
+---
+
+<div class="main-visual-image">
+  <img src={imageBG.src} alt="" id="background" />
+  <img src={imageGopher1.src} alt="" class="gopher" />
+  <img src={imageGopher2.src} alt="" class="gopher" />
+  <img src={imageGopher3.src} alt="" class="gopher" />
+  <img src={imageGopher4.src} alt="" class="gopher" />
+  <img src={imageGopher5.src} alt="" class="gopher" />
+</div>
+
+<style>
+  .main-visual-image {
+    position: relative;
+  }
+
+  #background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  img.gopher {
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    animation: gopher-float var(--float-duration, 6s) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+    will-change: transform;
+  }
+
+  img.gopher:nth-child(2) {
+    top: 10%;
+    left: 10%;
+    width: 300px;
+    height: auto;
+    --float-distance: 12px;
+    --float-duration: 4.8s;
+    --float-delay: -1.1s;
+  }
+
+  img.gopher:nth-child(3) {
+    top: auto;
+    bottom: 5%;
+    left: 2%;
+    width: 300px;
+    --float-distance: 16px;
+    --float-duration: 5.4s;
+    --float-delay: -3.6s;
+  }
+
+  img.gopher:nth-child(4) {
+    top: 15%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 600px;
+    height: auto;
+    margin: 0 auto;
+    --float-distance: 14px;
+    --float-duration: 4.4s;
+    --float-delay: -2.7s;
+  }
+
+  img.gopher:nth-child(5) {
+    top: auto;
+    bottom: 5%;
+    left: 28%;
+    right: auto;
+    width: 250px;
+    height: auto;
+    --float-distance: 10px;
+    --float-duration: 5.1s;
+    --float-delay: -4.2s;
+  }
+
+  img.gopher:nth-child(6) {
+    top: auto;
+    bottom: 2%;
+    left: auto;
+    right: 10%;
+    width: 300px;
+    height: auto;
+    --float-distance: 18px;
+    --float-duration: 5.7s;
+    --float-delay: -0.8s;
+  }
+
+  @keyframes gopher-float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(calc(var(--float-distance, 12px) * -1));
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    img.gopher {
+      animation: none;
+    }
+  }
+</style>

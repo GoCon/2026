@@ -1,7 +1,83 @@
 ---
+import MainVisualImage from "./MainVisualImage.astro";
 
+import logoImageColumn from "../../assets/logo_column.png";
+import logoImageRow from "../../assets/logo_row.png";
+import Button from "../ui/Button.astro";
 ---
 
-<section>
-  <h1>Main Visual</h1>
+<section id="main-visual">
+  <MainVisualImage />
+
+  <div id="sub-container">
+    <img src={logoImageColumn.src} alt="" class="logo-column" />
+    <div class="bottom-box">
+      <div class="bottom-box-content">
+        <div class="font-barlow">
+          <span class="text-date">9.11</span>
+          <span class="text-weekday">FRI</span>
+        </div>
+        <span class="text-h4">中野セントラル<br />パークカンファレンス</span>
+      </div>
+      <!-- FIXME: 募集開始後に有効にする -->
+      <!-- <Button size="large" href="#" class="mv-button">イベントに申し込む</Button> -->
+    </div>
+  </div>
 </section>
+
+<style>
+  section#main-visual {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+  }
+
+  #sub-container {
+    margin: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .logo-column {
+    width: 240px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .bottom-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    gap: 40px;
+  }
+
+  .bottom-box-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--primitive-navy);
+  }
+
+  .text-date {
+    font-size: 58.59px;
+    font-weight: 700;
+    line-height: 100%;
+    margin-right: 4.51px;
+  }
+
+  .text-weekday {
+    font-size: 40.56px;
+    font-weight: 700;
+    line-height: 100%;
+  }
+
+  .mv-button {
+    width: 100%;
+    /* margin: 0 30px; */
+  }
+</style>
