@@ -7,7 +7,7 @@ const { text } = Astro.props as Props;
 ---
 
 <div class="chip">
-  <h4 class="text-title-h4">{text}</h4>
+  <h4 class="text-h4">{text}</h4>
 </div>
 
 <style>
@@ -17,10 +17,12 @@ const { text } = Astro.props as Props;
     padding: var(--space-xxs) var(--space-s);
     border-radius: var(--radius-objects);
     width: 160px;
+    box-sizing: border-box;
+    text-align: center;
   }
 
   h4 {
-    margin: 0;
+    margin: 0 auto;
   }
 
   @media screen and (max-width: 768px) {
