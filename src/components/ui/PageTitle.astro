@@ -1,0 +1,24 @@
+---
+
+type Props = {
+  title: string;
+  subTitle: string;
+};
+
+const { title, subTitle } = Astro.props as Props;
+---
+
+<div>
+  <span class="text-h4">{subTitle}</span>
+  <span class="text-page-title">{title}</span>
+</div>
+
+<style>
+  div {
+    color: var(--text-on-fill);
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+  }
+</style>
