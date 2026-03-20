@@ -1,0 +1,47 @@
+---
+import Button from "../ui/Button.astro";
+import SectionTitle from "../ui/SectionTitle.astro";
+
+---
+
+<section id="sponsor-recruitment">
+  <SectionTitle>
+      <span class="section-title"><span style="color: var(--text-accent);">ス</span>ポンサー募集中</span>
+  </SectionTitle>
+  <span>Go Conferenceへのスポンサー応募は以下リンクからできます</span>
+  <div class="button-container">
+    <Button variant="secondary" href="https://docs.google.com/forms/d/e/1FAIpQLSdH5gsb4teQ5hdFi9GaCFtNdNNCw1G4qdzyw2NoSWYQCYplow/viewform" size="large" isBlankLink>
+      スポンサー募集フォーム
+    </Button>
+  </div>
+</section>
+
+<style>
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-l) var(--space-m);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    align-items: center;
+  }
+
+  .section-title {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .button-container {
+    max-width: 460px;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    section {
+      padding: var(--space-m) var(--space-s);
+      gap: var(--space-s);
+    }
+  }
+</style>
