@@ -9,14 +9,21 @@ import imageGopher5 from "../../assets/mainVisual/gopher_5.png";
 
 <div class="main-visual-image">
   <img src={imageBG.src} alt="" id="background" />
-  <img src={imageGopher1.src} alt="" class="gopher" />
-  <img src={imageGopher2.src} alt="" class="gopher" />
+  <img src={imageGopher1.src} alt="" class="gopher pc-only" />
+  <img src={imageGopher2.src} alt="" class="gopher pc-only" />
   <img src={imageGopher3.src} alt="" class="gopher" />
   <img src={imageGopher4.src} alt="" class="gopher" />
-  <img src={imageGopher5.src} alt="" class="gopher" />
+  <img src={imageGopher5.src} alt="" class="gopher pc-only" />
 </div>
 
 <style>
+  .pc-only {
+    display: block;
+  }
+  .sp-only {
+    display: none;
+  }
+
   .main-visual-image {
     position: relative;
   }
@@ -39,8 +46,8 @@ import imageGopher5 from "../../assets/mainVisual/gopher_5.png";
 
   img.gopher:nth-child(2) {
     top: 10%;
-    left: 10%;
-    width: 300px;
+    left: clamp(1.344rem, -0.192rem + 3.199vw, 2.688rem);
+    width: clamp(12.5rem, 5.357rem + 14.881vw, 18.75rem);
     height: auto;
     --float-distance: 12px;
     --float-duration: 4.8s;
@@ -50,8 +57,8 @@ import imageGopher5 from "../../assets/mainVisual/gopher_5.png";
   img.gopher:nth-child(3) {
     top: auto;
     bottom: 5%;
-    left: 2%;
-    width: 300px;
+    left: calc(clamp(0rem, -2.143rem + 4.464vw, 1.875rem) - 21.5px);
+    width: clamp(12.5rem, 5.357rem + 14.881vw, 18.75rem);
     --float-distance: 16px;
     --float-duration: 5.4s;
     --float-delay: -3.6s;
@@ -62,7 +69,7 @@ import imageGopher5 from "../../assets/mainVisual/gopher_5.png";
     bottom: 0;
     left: 0;
     right: 0;
-    width: 600px;
+    width: clamp(31.25rem, 24.107rem + 14.881vw, 37.5rem);
     height: auto;
     margin: 0 auto;
     --float-distance: 14px;
@@ -73,10 +80,10 @@ import imageGopher5 from "../../assets/mainVisual/gopher_5.png";
 
   img.gopher:nth-child(5) {
     top: auto;
-    bottom: 5%;
-    left: 28%;
+    bottom: calc(144px - clamp(0rem, -7.429rem + 15.476vw, 6.5rem));
+    left: clamp(8.063rem, -4.580rem + 26.339vw, 19.125rem);
     right: auto;
-    width: 250px;
+    width: clamp(11.25rem, 6.250rem + 10.417vw, 15.625rem);
     height: auto;
     --float-distance: 10px;
     --float-duration: 5.1s;
@@ -87,8 +94,8 @@ import imageGopher5 from "../../assets/mainVisual/gopher_5.png";
     top: auto;
     bottom: 2%;
     left: auto;
-    right: 10%;
-    width: 300px;
+    right: calc(clamp(0rem, -6.143rem + 12.798vw, 5.375rem) - 43px);
+    width: clamp(15.625rem, 12.054rem + 7.44vw, 18.75rem);
     height: auto;
     --float-distance: 18px;
     --float-duration: 5.7s;
@@ -111,6 +118,40 @@ import imageGopher5 from "../../assets/mainVisual/gopher_5.png";
   @media (prefers-reduced-motion: reduce) {
     img.gopher {
       animation: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pc-only {
+      display: none;
+    }
+    .sp-only {
+      display: block;
+    }
+
+    .main-visual-image {
+      height: 400px;
+    }
+
+    img.gopher:nth-child(4) {
+      top: 5%;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: clamp(300px, 264.286px + 11.161vw, 350px);
+      height: auto;
+      margin: 0 auto;
+      z-index: 10;
+    }
+
+    img.gopher:nth-child(5) {
+      top: auto;
+      bottom: calc(-1 * clamp(32px, 12.000px + 6.25vw, 60px));
+      left: 0;
+      right: 0;
+      width: clamp(170px, 148.571px + 6.696vw, 200px);
+      height: auto;
+      margin: 0 auto;
     }
   }
 </style>
