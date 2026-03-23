@@ -1,11 +1,14 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import FooterLogo from "../assets/footer_logo.svg";
-import OpenInNewIcon from "../assets/icons/open_in_new.svg";
 import XLogo from "../assets/icons/x.svg";
-import { constants } from "../constants";
+import TextLink from "./ui/TextLink.astro";
 
 const currentLocale = Astro.currentLocale || "ja";
+const tokushouText =
+  currentLocale === "ja"
+    ? "特定商取引法に基づく表記"
+    : "Act on Specified Commercial Transactions";
 ---
 
 <footer>
@@ -14,85 +17,33 @@ const currentLocale = Astro.currentLocale || "ja";
       <div class="link-list">
         <div class="link-column site-link-group">
           <div class="link-group">
-            <a href={getRelativeLocaleUrl(currentLocale)} class="text-link"
-              >Home</a
-            >
+            <TextLink href={getRelativeLocaleUrl(currentLocale)} text="Home" />
           </div>
         </div>
         <div class="link-column">
           <h3 class="column-title">About</h3>
           <div class="link-group">
-            <a href="https://go.dev/conduct" class="text-link"
-              >Code of Conduct</a
-            >
-            <a href="mailto:info@gocon.jp" class="text-link">INFO@GOCON.JP</a>
-            <a
+            <TextLink href="https://go.dev/conduct" text="Code of Conduct" />
+            <TextLink href="mailto:info@gocon.jp" text="INFO@GOCON.JP" />
+            <TextLink
               href="https://drive.google.com/file/d/1Xon1uyLT-810sxnkLMngmL67z68K3XJG/view"
-              class="text-link"
-            >
-              {
-                currentLocale === "ja"
-                  ? "特定商取引法に基づく表記"
-                  : "Act on Specified Commercial Transactions"
-              }
-            </a>
+              text={tokushouText}
+            />
           </div>
         </div>
         <div class="link-column">
           <h3 class="column-title">Past Conferences</h3>
           <div class="link-group">
-            <a
-              href="https://gocon.jp/2025"
-              class="text-link external-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><span>2025</span><OpenInNewIcon class="external-icon" /></a
-            >
-            <a
-              href="https://gocon.jp/2024"
-              class="text-link external-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><span>2024</span><OpenInNewIcon class="external-icon" /></a
-            >
-            <a
-              href="https://gocon.jp/2023"
-              class="text-link external-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><span>2023</span><OpenInNewIcon class="external-icon" /></a
-            >
-            <a
-              href="https://gocon.jp/2022spring"
-              class="text-link external-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><span>2022 Spring</span><OpenInNewIcon
-                class="external-icon"
-              /></a
-            >
-            <a
-              href="https://gocon.jp/2021autumn"
-              class="text-link external-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><span>2021 Autumn</span><OpenInNewIcon
-                class="external-icon"
-              /></a
-            >
-            <a
-              href="https://gocon.jp/2021spring"
-              class="text-link external-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><span>2021 Spring</span><OpenInNewIcon
-                class="external-icon"
-              /></a
-            >
+            <TextLink href="https://gocon.jp/2025" text="2025" />
+            <TextLink href="https://gocon.jp/2024" text="2024" />
+            <TextLink href="https://gocon.jp/2023" text="2023" />
+            <TextLink href="https://gocon.jp/2022spring" text="2022 Spring" />
+            <TextLink href="https://gocon.jp/2021autumn" text="2021 Autumn" />
+            <TextLink href="https://gocon.jp/2021spring" text="2021 Spring" />
           </div>
         </div>
         <div class="link-column social">
-          <a href="https://x.com/goconjp" class="text-link social-link">
+          <a href="https://x.com/goconjp" class="social-link">
             <XLogo class="social-icon" />
             <span>#GOCON</span>
           </a>
@@ -102,7 +53,7 @@ const currentLocale = Astro.currentLocale || "ja";
       <div class="footer-info">
         <div class="logo-container">
           <FooterLogo class="footer-logo" />
-          <span>{constants.pageTitle}</span>
+          <span>Go Conference 2026</span>
         </div>
         <p class="copyright">
           The Go gopher was designed by <a
@@ -113,7 +64,6 @@ const currentLocale = Astro.currentLocale || "ja";
       </div>
     </div>
   </div>
-  <div class="footer-gradient"></div>
 </footer>
 
 <style>
@@ -173,27 +123,22 @@ const currentLocale = Astro.currentLocale || "ja";
   .link-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-  }
-
-  .text-link {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 175%;
-    color: var(--text-primary);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-  }
-
-  .text-link:hover {
-    text-decoration: underline;
+    gap: 4px;
   }
 
   .social-link {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 175%;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .social-link:hover {
+    text-decoration: underline;
   }
 
   .social-icon {
@@ -201,21 +146,9 @@ const currentLocale = Astro.currentLocale || "ja";
     height: 24px;
   }
 
-  .external-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .external-icon {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-  }
-
   hr {
     width: 100%;
-    border: 1px solid var(--primitive-light-gray);
+    border: 1px solid var(--surface-disabled);
     margin: 0;
   }
 
@@ -242,8 +175,8 @@ const currentLocale = Astro.currentLocale || "ja";
   }
 
   .footer-logo {
-    width: 80px;
-    height: 47px;
+    width: 196px;
+    height: 84px;
   }
 
   .copyright {
@@ -260,12 +193,6 @@ const currentLocale = Astro.currentLocale || "ja";
   .copyright a {
     color: var(--text-primary);
     text-decoration: underline;
-  }
-
-  .footer-gradient {
-    width: 100%;
-    height: 8px;
-    background: var(--gradient);
   }
 
   @media (max-width: 768px) {
@@ -287,6 +214,11 @@ const currentLocale = Astro.currentLocale || "ja";
 
     .logo-container {
       width: 100%;
+    }
+
+    .footer-logo {
+      width: 150px;
+      height: 64px;
     }
 
     .link-column {
