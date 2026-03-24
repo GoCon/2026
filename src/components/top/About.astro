@@ -1,16 +1,20 @@
 ---
 import Chip from "../ui/Chip.astro";
 import SectionTitle from "../ui/SectionTitle.astro";
-
-
 ---
 
 <section id="about">
   <div id="about-top">
     <SectionTitle>
-      <span class="section-title"><span style="color: var(--text-accent);">Go Conference<wbr/></span>とは</span>
+      <span class="section-title"
+        ><span style="color: var(--text-accent);">Go Conference<wbr /></span
+        >とは</span
+      >
     </SectionTitle>
-    <span class="text-body-large">Go Conference はプログラミング言語 ”Go” ユーザーのためのカンファレンスです。</span>
+    <span class="text-body-large"
+      >Go Conference はプログラミング言語 ”Go”
+      ユーザーのためのカンファレンスです。</span
+    >
   </div>
 
   <div id="about-details">
@@ -18,13 +22,19 @@ import SectionTitle from "../ui/SectionTitle.astro";
       <div class="chip-container">
         <Chip text="開催日時" />
       </div>
-      <span class="text-body-large-strong">2026年9月11日（金） 　<br class="sp-only"/><wbr/>10：00 - 19:00 （開場　9：00）</span>
+      <span class="text-body-large-strong"
+        >2026年9月11日（金） 　<br class="sp-only" /><wbr />10：00 - 19:00
+        （開場　9：00）</span
+      >
     </div>
     <div class="row">
       <div class="chip-container">
         <Chip text="会場" />
       </div>
-      <span class="text-body-large-strong">東京都中野区中野4丁目10番2号　<br class="sp-only"/><wbr/>中野セントラルパークサウス1,B1F</span>
+      <span class="text-body-large-strong"
+        >東京都中野区中野4丁目10番2号　<br class="sp-only" /><wbr
+        />中野セントラルパークサウス1,B1F</span
+      >
     </div>
     <div class="row">
       <div class="chip-container">
@@ -36,6 +46,10 @@ import SectionTitle from "../ui/SectionTitle.astro";
 </section>
 
 <style>
+  .sp-only {
+    display: none;
+  }
+
   section#about {
     max-width: 1200px;
     margin: 0 auto;
@@ -72,6 +86,10 @@ import SectionTitle from "../ui/SectionTitle.astro";
   }
 
   @media screen and (max-width: 768px) {
+    .sp-only {
+      display: block;
+    }
+
     section#about {
       padding: var(--space-m) var(--space-s);
       gap: var(--space-s);
