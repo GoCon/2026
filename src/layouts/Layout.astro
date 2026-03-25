@@ -1,8 +1,16 @@
 ---
 import GlobalStyles from "../components/GlobalStyles.astro";
+import { constants } from "../constants";
+import { withBaseURL } from "../utils/url";
 import Footer from "../components/Footer.astro";
 
 const currentLocale = Astro.currentLocale;
+
+interface Props {
+  title?: string;
+}
+
+const { title = constants.pageTitle } = Astro.props as Props;
 ---
 
 <!doctype html>
@@ -10,8 +18,7 @@ const currentLocale = Astro.currentLocale;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="" />
-    <link rel="icon" href="" />
+    <link rel="icon" href={withBaseURL("favicon.jpg")} />
     <meta name="generator" content={Astro.generator} />
     <title>Go Conference 2026</title>
     <GlobalStyles />
@@ -20,6 +27,26 @@ const currentLocale = Astro.currentLocale;
     <link
       href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans+JP:wght@100..900&display=swap"
       rel="stylesheet"
+    />
+
+    <!-- OGP の記載 -->
+    <meta property="og:site_name" content={constants.pageTitle} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={constants.pageDescription} />
+    <meta
+      property="og:image"
+      content={new URL(withBaseURL("og_image_lg.jpg"), Astro.url)}
+    />
+
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={constants.pageDescription} />
+    <meta
+      property="twitter:image"
+      content={new URL(withBaseURL("og_image_md.jpg"), Astro.url)}
     />
   </head>
   <body>
