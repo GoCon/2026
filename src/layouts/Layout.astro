@@ -1,8 +1,15 @@
 ---
 import GlobalStyles from "../components/GlobalStyles.astro";
 import Footer from "../components/Footer.astro";
+import FooterVisual from "../assets/footer_visual.png";
+
+interface Props {
+  title?: string;
+  showFooterVisual?: boolean;
+}
 
 const currentLocale = Astro.currentLocale;
+const title = Astro.props.title ?? "Go Conference 2026";
 ---
 
 <!doctype html>
@@ -13,7 +20,7 @@ const currentLocale = Astro.currentLocale;
     <link rel="icon" type="image/svg+xml" href="" />
     <link rel="icon" href="" />
     <meta name="generator" content={Astro.generator} />
-    <title>Go Conference 2026</title>
+    <title>{title}</title>
     <GlobalStyles />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,9 +33,8 @@ const currentLocale = Astro.currentLocale;
     <div>
       <slot />
     </div>
-    <div class="footer-area">
-      <Footer />
-    </div>
+    <img src={FooterVisual.src} alt="" class="footer-visual" />
+    <Footer />
   </body>
 </html>
 
@@ -38,5 +44,20 @@ const currentLocale = Astro.currentLocale;
     margin: 0;
     width: 100%;
     height: 100%;
+  }
+
+  .footer-visual {
+    display: block;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (max-width: 1100px) {
+    .footer-visual {
+      height: auto;
+      min-height: 81px;
+    }
   }
 </style>
