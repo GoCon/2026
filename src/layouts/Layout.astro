@@ -33,7 +33,11 @@ const title = Astro.props.title ?? "Go Conference 2026";
     <div>
       <slot />
     </div>
-    <img src={FooterVisual.src} alt="" class="footer-visual" />
+    {
+      Astro.props.showFooterVisual && (
+        <img src={FooterVisual.src} alt="" class="footer-visual" />
+      )
+    }
     <Footer />
   </body>
 </html>
