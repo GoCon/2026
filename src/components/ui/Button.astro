@@ -1,5 +1,5 @@
 ---
-export type ButtonVariant = "primary" | "secondary";
+export type ButtonVariant = "primary" | "secondary" | "tertiary";
 export type ButtonSize = "small" | "large";
 
 type Props = {
@@ -95,6 +95,15 @@ const {
     --btn-normal-bg: var(--surface-secondary-dark);
     --btn-hover-text: var(--text-primary);
     --btn-hover-border: var(--surface-secondary-dark);
+  }
+
+  .c-button[data-variant="tertiary"] {
+    --btn-normal-bg: var(--surface-primary);
+    --btn-normal-text: var(--text-primary);
+    --btn-normal-border: var(--primitive-navy);
+    --btn-hover-text: var(--text-primary);
+    --btn-hover-bg: var(--surface-secondary);
+    --btn-hover-border: var(--primitive-navy);
   }
 
   .c-button[data-size="small"] {
