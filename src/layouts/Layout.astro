@@ -2,9 +2,10 @@
 import GlobalStyles from "../components/GlobalStyles.astro";
 import { constants } from "../constants";
 
-import ogImageLg from "../assets/og_image_lg.jpg";
-import ogImageMd from "../assets/og_image_md.jpg";
-import favicon from "../assets/favicon.jpg";
+import ogImageLg from "../../public/og_image_lg.jpg";
+import ogImageMd from "../../public/og_image_md.jpg";
+import favicon from "../../public/favicon.jpg";
+import { withBaseURL } from "../utils/url";
 
 const currentLocale = Astro.currentLocale;
 
@@ -20,7 +21,7 @@ const { title = constants.pageTitle } = Astro.props as Props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" href={favicon.src} />
+    <link rel="icon" href={withBaseURL("favicon.jpg")} />
     <meta name="generator" content={Astro.generator} />
     <title>Go Conference 2026</title>
     <GlobalStyles />
@@ -37,7 +38,10 @@ const { title = constants.pageTitle } = Astro.props as Props;
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={constants.pageDescription} />
-    <meta property="og:image" content={new URL(ogImageLg.src, Astro.url)} />
+    <meta
+      property="og:image"
+      content={new URL(withBaseURL("og_image_lg.jpg"), Astro.url)}
+    />
 
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:url" content={Astro.url} />
@@ -45,7 +49,7 @@ const { title = constants.pageTitle } = Astro.props as Props;
     <meta property="twitter:description" content={constants.pageDescription} />
     <meta
       property="twitter:image"
-      content={new URL(ogImageMd.src, Astro.url)}
+      content={new URL(withBaseURL("og_image_md.jpg"), Astro.url)}
     />
   </head>
   <body>
