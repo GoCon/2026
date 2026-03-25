@@ -1,0 +1,239 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import FooterLogo from "../assets/footer_logo.svg";
+import XLogo from "../assets/icons/x.svg";
+import TextLink from "./ui/TextLink.astro";
+
+const currentLocale = Astro.currentLocale || "ja";
+const tokushouText =
+  currentLocale === "ja"
+    ? "特定商取引法に基づく表記"
+    : "Act on Specified Commercial Transactions";
+---
+
+<footer>
+  <div class="footer-navigation">
+    <div class="footer-body">
+      <div class="link-list">
+        <div class="link-column site-link-group">
+          <div class="link-group">
+            <TextLink href={getRelativeLocaleUrl(currentLocale)} text="Home" />
+          </div>
+        </div>
+        <div class="link-column">
+          <h3 class="column-title">About</h3>
+          <div class="link-group">
+            <TextLink href="https://go.dev/conduct" text="Code of Conduct" />
+            <TextLink href="mailto:info@gocon.jp" text="INFO@GOCON.JP" />
+            <TextLink
+              href="https://drive.google.com/file/d/1Xon1uyLT-810sxnkLMngmL67z68K3XJG/view"
+              text={tokushouText}
+            />
+          </div>
+        </div>
+        <div class="link-column">
+          <h3 class="column-title">Past Conferences</h3>
+          <div class="link-group">
+            <TextLink href="https://gocon.jp/2025" text="2025" />
+            <TextLink href="https://gocon.jp/2024" text="2024" />
+            <TextLink href="https://gocon.jp/2023" text="2023" />
+            <TextLink href="https://gocon.jp/2022spring" text="2022 Spring" />
+            <TextLink href="https://gocon.jp/2021autumn" text="2021 Autumn" />
+            <TextLink href="https://gocon.jp/2021spring" text="2021 Spring" />
+          </div>
+        </div>
+        <div class="link-column social">
+          <a href="https://x.com/goconjp" class="social-link">
+            <XLogo class="social-icon" />
+            <span>#GOCON</span>
+          </a>
+        </div>
+      </div>
+      <hr />
+      <div class="footer-info">
+        <div class="logo-container">
+          <FooterLogo class="footer-logo" />
+          <span>Go Conference 2026</span>
+        </div>
+        <p class="copyright">
+          The Go gopher was designed by <a
+            href="https://reneefrench.blogspot.com/">Renée French</a
+          >. Illustrations by
+          <a href="https://x.com/avocadoneko">avocadoneko</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-gradient"></div>
+</footer>
+
+<style>
+  footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .footer-navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--primitive-light-blue);
+    padding: 40px 0;
+  }
+
+  .footer-body {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    gap: 24px;
+    padding: 0 24px;
+    box-sizing: border-box;
+  }
+
+  .link-list {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    width: 100%;
+    padding: 0 24px;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+  }
+
+  .link-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .column-title {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 175%;
+    color: var(--primitive-blue);
+    margin: 0;
+  }
+
+  .link-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 175%;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .social-link:hover {
+    text-decoration: underline;
+  }
+
+  .social-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  hr {
+    width: 100%;
+    border: 1px solid var(--surface-disabled);
+    margin: 0;
+  }
+
+  .footer-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 24px;
+    box-sizing: border-box;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 175%;
+    color: var(--text-primary);
+  }
+
+  .footer-logo {
+    width: 196px;
+    height: 84px;
+  }
+
+  .copyright {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 175%;
+    color: var(--text-primary);
+    margin: 0;
+    text-align: right;
+    max-width: 100%;
+    word-wrap: break-word;
+  }
+
+  .copyright a {
+    color: var(--text-primary);
+    text-decoration: underline;
+  }
+
+  .footer-gradient {
+    width: 100%;
+    height: 8px;
+    background: var(--gradient);
+  }
+
+  @media (max-width: 768px) {
+    .link-list {
+      padding: 0;
+    }
+
+    .site-link-group {
+      display: none;
+    }
+
+    .footer-info {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 0;
+      width: 100%;
+    }
+
+    .copyright {
+      text-align: left;
+      width: 100%;
+    }
+
+    .logo-container {
+      width: 100%;
+    }
+
+    .footer-logo {
+      width: 150px;
+      height: 64px;
+    }
+
+    .link-column {
+      min-width: 100%;
+    }
+  }
+</style>
