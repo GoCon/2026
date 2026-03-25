@@ -1,11 +1,8 @@
 ---
 import GlobalStyles from "../components/GlobalStyles.astro";
 import { constants } from "../constants";
-
-import ogImageLg from "../../public/og_image_lg.jpg";
-import ogImageMd from "../../public/og_image_md.jpg";
-import favicon from "../../public/favicon.jpg";
 import { withBaseURL } from "../utils/url";
+import Footer from "../components/Footer.astro";
 
 const currentLocale = Astro.currentLocale;
 
@@ -53,7 +50,12 @@ const { title = constants.pageTitle } = Astro.props as Props;
     />
   </head>
   <body>
-    <slot />
+    <div>
+      <slot />
+    </div>
+    <div class="footer-area">
+      <Footer />
+    </div>
   </body>
 </html>
 
