@@ -24,11 +24,11 @@ const { href, isBlankLink = false, text } = Astro.props as Props;
     text-decoration: none;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: var(--space-xxxs);
     color: var(--text-primary);
     cursor: pointer;
-    width: fit-content;
+    width: 100%;
   }
 
   a:hover {
@@ -40,6 +40,7 @@ const { href, isBlankLink = false, text } = Astro.props as Props;
     height: 20px;
     fill: var(--text-primary);
     margin-top: 2px;
+    flex-shrink: 0;
   }
 
   a:hover .link-icon {

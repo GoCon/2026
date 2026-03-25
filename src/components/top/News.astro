@@ -1,0 +1,81 @@
+---
+import { news } from "./news";
+import TextLink from "../ui/TextLink.astro";
+---
+
+<section id="news">
+  <div class="news-list-container">
+    <ul class="news-list">
+      {
+        news.map((news) => (
+          <li class="news-item">
+            <span class="news-date text-body-large-strong">{news.date}</span>
+            {news.url ? (
+              <TextLink
+                href={news.url}
+                text={news.title}
+                isBlankLink={news.isBlankLink}
+              />
+            ) : (
+              <span class="news-title text-body-large-strong">
+                {news.title}
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  section#news {
+    background-color: var(--surface-secondary);
+  }
+
+  .news-date {
+    color: var(--text-secondary);
+    width: 90px;
+  }
+
+  .news-list-container {
+    max-width: 1031px;
+    padding: var(--space-s) var(--space-m);
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .news-list {
+    list-style: none;
+    margin: 0;
+    max-height: 111px;
+    overflow-y: scroll;
+    padding: 0;
+  }
+
+  .news-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+    padding: var(--space-xxs) 0;
+    width: fit-content;
+  }
+
+  .news-title {
+    color: var(--text-primary);
+  }
+
+  @media screen and (max-width: 768px) {
+    .news-list-container {
+      padding: var(--space-xxs) var(--space-s);
+    }
+
+    .news-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xxxs);
+      padding: var(--space-xxs) 0;
+      width: 100%;
+    }
+  }
+</style>
