@@ -5,6 +5,7 @@ import CloseIcon from "../assets/icons/close.svg";
 import MenuIcon from "../assets/icons/menu.svg";
 import OpenInNewIcon from "../assets/icons/open_in_new.svg";
 import Logo from "../assets/mainVisual/mv_logo_sp.svg";
+import TextLink from "./ui/TextLink.astro";
 // import { constants } from "../constants";
 // import Button from "./Button.astro";
 
@@ -245,7 +246,9 @@ const currentLocale = Astro.currentLocale || "ja";
   </label>
   <div class="navigation">
     <ul class="navigation-menu">
-      <li><a href={getRelativeLocaleUrl(currentLocale)}>Home</a></li>
+      <li>
+        <TextLink href={getRelativeLocaleUrl(currentLocale)} , text="Home" />
+      </li>
       <!-- <li>
         <a href={getRelativeLocaleUrl(currentLocale, "timetable")}>
           Timetable
@@ -308,4 +311,4 @@ const currentLocale = Astro.currentLocale || "ja";
       </li>
     </ul>
   </div>
-</nav>
+</header>
