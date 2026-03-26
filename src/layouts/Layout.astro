@@ -3,6 +3,7 @@ import GlobalStyles from "../components/GlobalStyles.astro";
 import { constants } from "../constants";
 import { withBaseURL } from "../utils/url";
 import Footer from "../components/Footer.astro";
+import FooterVisual from "../assets/footer_visual.png";
 
 const currentLocale = Astro.currentLocale;
 
@@ -20,7 +21,7 @@ const { title = constants.pageTitle } = Astro.props as Props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href={withBaseURL("favicon.jpg")} />
     <meta name="generator" content={Astro.generator} />
-    <title>Go Conference 2026</title>
+    <title>{title}</title>
     <GlobalStyles />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,9 +54,8 @@ const { title = constants.pageTitle } = Astro.props as Props;
     <div>
       <slot />
     </div>
-    <div class="footer-area">
-      <Footer />
-    </div>
+    <img src={FooterVisual.src} alt="" class="footer-visual" />
+    <Footer />
   </body>
 </html>
 
@@ -65,5 +65,14 @@ const { title = constants.pageTitle } = Astro.props as Props;
     margin: 0;
     width: 100%;
     height: 100%;
+  }
+
+  .footer-visual {
+    display: block;
+    width: 100%;
+    max-height: 500px;
+    min-height: 81px;
+    object-fit: cover;
+    object-position: 50% 28%;
   }
 </style>
