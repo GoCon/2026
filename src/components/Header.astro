@@ -277,15 +277,11 @@ const currentLocale = Astro.currentLocale || "ja";
       <span>Help</span>
       <OpenInNewIcon class="external-icon" />
     </a> -->
-    <a
+    <TextLink
       href="https://docs.google.com/document/d/1jZqZfcH7NqCMyPXt_ZhvhlFXj4fKF-TNfXG_GIHBsfo/edit?tab=t.0#heading=h.95wf1aolrg0m"
-      class="external-link"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <span>Sponsor FAQ</span>
-      <OpenInNewIcon class="external-icon" />
-    </a>
+      text="Sponsor FAQ"
+      isBlankLink
+    />
     {
       /*
     <Button
