@@ -1,13 +1,9 @@
 ---
-import Image from "astro/components/Image.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import CloseIcon from "../assets/icons/close.svg";
 import MenuIcon from "../assets/icons/menu.svg";
-import OpenInNewIcon from "../assets/icons/open_in_new.svg";
 import Logo from "../assets/mainVisual/mv_logo_sp.svg";
 import TextLink from "./ui/TextLink.astro";
-// import { constants } from "../constants";
-// import Button from "./Button.astro";
 
 const currentLocale = Astro.currentLocale || "ja";
 ---
@@ -193,41 +189,6 @@ const currentLocale = Astro.currentLocale || "ja";
         &:hover {
           opacity: 0.7;
         }
-      }
-    }
-  }
-
-  .external-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    color: var(--text-primary);
-    font-size: 16px;
-    font-weight: 700;
-    transition: opacity 0.3s ease;
-
-    &:hover {
-      opacity: 0.7;
-    }
-
-    @media screen and (max-width: 1249px) {
-      & {
-        padding-left: 16px;
-        font-size: 24px;
-      }
-    }
-  }
-
-  .external-icon {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-
-    @media screen and (max-width: 1249px) {
-      & {
-        width: 24px;
-        height: 24px;
       }
     }
   }
