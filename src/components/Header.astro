@@ -80,10 +80,10 @@ const currentLocale = Astro.currentLocale || "ja";
       }
     }
 
-    @media screen and (max-width: 1249px) {
+    @media screen and (max-width: 768px) {
       & {
         position: fixed;
-        top: 66px;
+        top: 56px;
         left: 0;
         right: 0;
         bottom: 0;
@@ -124,7 +124,7 @@ const currentLocale = Astro.currentLocale || "ja";
     border-radius: 100%;
     cursor: pointer;
 
-    @media screen and (max-width: 1249px) {
+    @media screen and (max-width: 768px) {
       & {
         display: inline-flex;
       }
@@ -137,6 +137,17 @@ const currentLocale = Astro.currentLocale || "ja";
     & .close-icon {
       display: none;
       fill: var(--text-on-fill);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .navigation-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .navigation-menu-item {
+      width: fit-content;
     }
   }
 
@@ -159,7 +170,7 @@ const currentLocale = Astro.currentLocale || "ja";
     padding: 0;
     list-style: none;
 
-    @media screen and (max-width: 1249px) {
+    @media screen and (max-width: 768px) {
       & {
         padding: 0 8px;
       }
@@ -206,8 +217,15 @@ const currentLocale = Astro.currentLocale || "ja";
   </label>
   <div class="navigation">
     <ul class="navigation-menu">
-      <li>
+      <li class="navigation-menu-item">
         <TextLink href={getRelativeLocaleUrl(currentLocale)} text="Home" />
+      </li>
+      <li class="navigation-menu-item">
+        <TextLink
+          href="https://docs.google.com/document/d/1jZqZfcH7NqCMyPXt_ZhvhlFXj4fKF-TNfXG_GIHBsfo/edit?tab=t.0#heading=h.95wf1aolrg0m"
+          text="Sponsor FAQ"
+          isBlankLink
+        />
       </li>
       <!-- <li>
         <a href={getRelativeLocaleUrl(currentLocale, "timetable")}>
@@ -237,11 +255,6 @@ const currentLocale = Astro.currentLocale || "ja";
       <span>Help</span>
       <OpenInNewIcon class="external-icon" />
     </a> -->
-    <TextLink
-      href="https://docs.google.com/document/d/1jZqZfcH7NqCMyPXt_ZhvhlFXj4fKF-TNfXG_GIHBsfo/edit?tab=t.0#heading=h.95wf1aolrg0m"
-      text="Sponsor FAQ"
-      isBlankLink
-    />
     {
       /*
     <Button
