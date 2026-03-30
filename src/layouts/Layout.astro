@@ -4,6 +4,7 @@ import { constants } from "../constants";
 import { withBaseURL } from "../utils/url";
 import Footer from "../components/Footer.astro";
 import FooterVisual from "../assets/footer_visual.png";
+import Header from "../components/Header.astro";
 
 const currentLocale = Astro.currentLocale;
 
@@ -51,7 +52,8 @@ const { title = constants.pageTitle } = Astro.props as Props;
     />
   </head>
   <body>
-    <div>
+    <Header />
+    <div class="main-content">
       <slot />
     </div>
     <img src={FooterVisual.src} alt="" class="footer-visual" />
@@ -74,5 +76,15 @@ const { title = constants.pageTitle } = Astro.props as Props;
     min-height: 81px;
     object-fit: cover;
     object-position: 50% 28%;
+  }
+
+  .main-content {
+    padding-top: 81px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .main-content {
+      padding-top: 56px;
+    }
   }
 </style>
