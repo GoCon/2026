@@ -1,0 +1,152 @@
+---
+import MainVisualImage from "./MainVisualImage.astro";
+
+import logoImageColumn from "../../assets/mainVisual/mv_logo_pc.svg";
+import logoImageRow from "../../assets/mainVisual/mv_logo_sp.svg";
+import Button from "../ui/Button.astro";
+---
+
+<section id="main-visual">
+  <div class="sp-top-container sp-only">
+    <img src={logoImageRow.src} alt="" class="logo-row" />
+  </div>
+
+  <MainVisualImage />
+
+  <div id="sub-container">
+    <div class="logo-column-container">
+      <img src={logoImageColumn.src} alt="" class="logo-column" />
+    </div>
+    <div class="bottom-box">
+      <div class="bottom-box-content">
+        <div class="font-barlow">
+          <span class="text-date">9.11</span>
+          <span class="text-weekday">FRI</span>
+        </div>
+        <span class="text-h4"
+          >中野セントラル<br class="pc-only" />パークカンファレンス</span
+        >
+      </div>
+      <!-- FIXME: 募集開始後に有効にする -->
+      <!-- <Button size="large" href="#" class="mv-button">イベントに申し込む</Button> -->
+    </div>
+  </div>
+</section>
+
+<style>
+  .pc-only {
+    display: block;
+  }
+  .sp-only {
+    display: none;
+  }
+
+  section#main-visual {
+    position: relative;
+    width: 100%;
+    height: 832px;
+    display: flex;
+  }
+
+  .sp-top-container {
+    display: none;
+  }
+
+  #sub-container {
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .logo-column-container {
+    width: 240px;
+    height: auto;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .logo-column {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .bottom-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    gap: 40px;
+  }
+
+  .bottom-box-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--primitive-navy);
+  }
+
+  .text-date {
+    font-size: 58.59px;
+    font-weight: 700;
+    line-height: 100%;
+    margin-right: 4.51px;
+  }
+
+  .text-weekday {
+    font-size: 40.56px;
+    font-weight: 700;
+    line-height: 100%;
+  }
+
+  .mv-button {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .pc-only {
+      display: none;
+    }
+    .sp-only {
+      display: block;
+    }
+
+    .logo-column {
+      display: none;
+    }
+
+    section#main-visual {
+      min-height: auto;
+      height: auto;
+      flex-direction: column;
+    }
+
+    .sp-top-container {
+      display: flex;
+      height: clamp(100px, 20px + 25vw, 120px);
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px;
+    }
+
+    .logo-row {
+      max-width: 350px;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      margin-top: 30px;
+      z-index: 20;
+    }
+
+    #sub-container {
+      padding: 24px;
+    }
+
+    .bottom-box {
+      gap: 20px;
+    }
+  }
+</style>

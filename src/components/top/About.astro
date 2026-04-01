@@ -1,0 +1,109 @@
+---
+import Chip from "../ui/Chip.astro";
+import SectionTitle from "../ui/SectionTitle.astro";
+---
+
+<section id="about">
+  <div id="about-top">
+    <SectionTitle>
+      <span class="section-title"
+        ><span style="color: var(--text-accent);">Go Conference<wbr /></span
+        >とは</span
+      >
+    </SectionTitle>
+    <span class="text-body-large"
+      >Go Conference はプログラミング言語 ”Go”
+      ユーザーのためのカンファレンスです。</span
+    >
+  </div>
+
+  <div id="about-details">
+    <div class="row">
+      <div class="chip-container">
+        <Chip text="開催日時" />
+      </div>
+      <!-- TODO 開催時間の追加 -->
+      <span class="text-body-large-strong"> 2026年9月11日（金）</span>
+    </div>
+    <div class="row">
+      <div class="chip-container">
+        <Chip text="会場" />
+      </div>
+      <span class="text-body-large-strong"
+        >東京都中野区中野4丁目10番2号　<br class="sp-only" /><wbr
+        />中野セントラルパークサウス1,B1F</span
+      >
+    </div>
+    <div class="row">
+      <div class="chip-container">
+        <Chip text="チケット" />
+      </div>
+      <span class="text-body-large-strong">後日公開</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sp-only {
+    display: none;
+  }
+
+  section#about {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-m);
+    padding-bottom: var(--space-l);
+    display: flex;
+    gap: var(--space-m);
+    flex-direction: column;
+  }
+
+  #about-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--space-s);
+  }
+
+  .row {
+    max-width: 784px;
+    display: flex;
+    padding: var(--space-xs) 0;
+    gap: var(--space-m);
+    align-items: center;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--surface-disabled);
+
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  .row .chip-container {
+    width: 160px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .sp-only {
+      display: block;
+    }
+
+    section#about {
+      padding: var(--space-m) var(--space-s);
+      gap: var(--space-s);
+    }
+
+    .row {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--space-xs);
+      padding: var(--space-s) 0;
+    }
+
+    .section-title {
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+  }
+</style>

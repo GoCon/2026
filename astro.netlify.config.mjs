@@ -1,12 +1,13 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 
-// https://astro.build/config
 export default defineConfig({
-  site: "https://gocon.github.io",
-  base: "/2026",
+  site: process.env.DEPLOY_PRIME_URL,
   i18n: {
     defaultLocale: "ja",
-    locales: ["en", "ja"],
+    locales: ["ja", "en"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
   },
 });
