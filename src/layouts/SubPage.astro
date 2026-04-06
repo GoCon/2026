@@ -6,6 +6,7 @@ import Footer from "../components/Footer.astro";
 import GlobalStyles from "../components/GlobalStyles.astro";
 import Header from "../components/Header.astro";
 import { constants } from "../constants";
+import { withBaseURL } from "../utils/url";
 
 /** 最大幅の指定がないレイアウト（トップページや凝ったページ作成時に利用してください） */
 
@@ -170,7 +171,7 @@ const pageTitle = (() => {
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
-
+    <link rel="icon" href={withBaseURL("favicon.jpg")} />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
 
@@ -179,11 +180,19 @@ const pageTitle = (() => {
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={constants.pageDescription} />
+    <meta
+      property="og:image"
+      content={new URL(withBaseURL("og_image_lg.jpg"), Astro.url)}
+    />
 
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={pageTitle} />
     <meta property="twitter:description" content={constants.pageDescription} />
+    <meta
+      property="twitter:image"
+      content={new URL(withBaseURL("og_image_md.jpg"), Astro.url)}
+    />
 
     <GlobalStyles />
   </head>
