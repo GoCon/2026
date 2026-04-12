@@ -2,19 +2,19 @@
 import { Image } from "astro:assets";
 import Gopher from "../assets/page-header-gopher.png";
 import Layout from "./Layout.astro";
+import { constants } from "../constants";
 import PageTitle from "../components/ui/PageTitle.astro";
 
 interface Props {
-  title?: string;
-  pageTitleJa?: string;
-  pageTitleEn?: string;
+  pageTitleJa: string;
+  pageTitleEn: string;
 }
 
-const { title, pageTitleJa, pageTitleEn } = Astro.props;
+const { pageTitleJa, pageTitleEn } = Astro.props;
 const currentLocale = Astro.currentLocale || "ja";
 
-const pageTitle = pageTitleEn;
 const pageSubTitle = currentLocale === "ja" ? pageTitleJa : "";
+const metaTitle = currentLocale === "ja" ? pageTitleJa : pageTitleEn;
 ---
 
 <style>
@@ -95,11 +95,11 @@ const pageSubTitle = currentLocale === "ja" ? pageTitleJa : "";
   }
 </style>
 
-<Layout title={title}>
+<Layout title={`${metaTitle} | ${constants.pageTitle}`}>
   <article class="article">
     <div class="page-header">
       <div class="page-header-inner">
-        <PageTitle title={pageTitle ?? ""} subTitle={pageSubTitle ?? ""} />
+        <PageTitle title={pageTitleEn} subTitle={pageSubTitle} />
         <Image
           src={Gopher}
           alt="Gopher"
