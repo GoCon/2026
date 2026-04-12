@@ -1,0 +1,119 @@
+---
+import { Image } from "astro:assets";
+import Gopher from "../assets/page-header-gopher.png";
+import Layout from "./Layout.astro";
+import PageTitle from "../components/ui/PageTitle.astro";
+
+interface Props {
+  title?: string;
+  pageTitleJa?: string;
+  pageTitleEn?: string;
+}
+
+const { title, pageTitleJa, pageTitleEn } = Astro.props;
+const currentLocale = Astro.currentLocale || "ja";
+
+const pageTitle = pageTitleEn;
+const pageSubTitle = currentLocale === "ja" ? pageTitleJa : "";
+---
+
+<style>
+  .article {
+    flex: 1;
+  }
+
+  .page-header {
+    background: var(--gradient);
+  }
+
+  .page-header-inner {
+    position: relative;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 40px;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 768px) {
+      & {
+        padding: 24px 24px;
+      }
+    }
+  }
+
+  .gopher {
+    position: absolute;
+    bottom: -110px;
+    right: 0;
+    z-index: 1;
+
+    @media screen and (max-width: 768px) {
+      & {
+        bottom: -56px;
+        right: 8px;
+        width: 140px;
+        height: auto;
+      }
+    }
+  }
+
+  main {
+    position: relative;
+    background: var(--surface-primary);
+    border-radius: 80px 80px 0 0;
+
+    @media screen and (max-width: 768px) {
+      & {
+        border-radius: 20px 20px 0 0;
+      }
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: var(--gradient);
+      z-index: -1;
+    }
+  }
+
+  .main-inner {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 80px 40px;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 768px) {
+      & {
+        padding: 40px 20px;
+      }
+    }
+  }
+</style>
+
+<Layout title={title}>
+  <article class="article">
+    <div class="page-header">
+      <div class="page-header-inner">
+        <PageTitle title={pageTitle ?? ""} subTitle={pageSubTitle ?? ""} />
+        <Image
+          src={Gopher}
+          alt="Gopher"
+          class="gopher"
+          width={275}
+          height={275}
+          priority
+        />
+      </div>
+    </div>
+    <main>
+      <div class="main-inner">
+        <slot />
+      </div>
+    </main>
+  </article>
+</Layout>
