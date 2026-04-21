@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import SubPage from "../../layouts/SubPage.astro";
 import BackLink from "../../components/ui/BackLink.astro";
+import SectionTitle from "../../components/ui/SectionTitle.astro";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles");
@@ -17,25 +18,26 @@ const { Content } = await render(article);
 const currentLocale = Astro.currentLocale || "ja";
 ---
 
-<SubPage pageTitleJa={article.data.title} pageTitleEn="News">
-  <div class="article-header">
-    <BackLink
-      href={getRelativeLocaleUrl(currentLocale)}
-      text="ホームに戻る"
-    />
-    <span class="article-date text-body-large">{article.data.date}</span>
+<SubPage pageTitleJa="ニュース" pageTitleEn="News">
+  <div>
+    <BackLink href={getRelativeLocaleUrl(currentLocale)} text="ホームに戻る" />
+    <SectionTitle>
+      <span class="section-title">{article.data.title}</span>
+    </SectionTitle>
   </div>
+  <span class="article-date text-body-large">{article.data.date}</span>
   <div class="article-content">
     <Content />
   </div>
 </SubPage>
 
 <style>
-  .article-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--space-m);
+  .section-title {
+    display: inline-block; /* または block */
+  }
+
+  .section-title::first-letter {
+    color: var(--text-accent);
   }
 
   .article-date {
@@ -87,12 +89,6 @@ const currentLocale = Astro.currentLocale || "ja";
   }
 
   @media screen and (max-width: 768px) {
-    .article-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-xxs);
-    }
-
     .article-content :global(h2) {
       font-size: 20px;
     }
