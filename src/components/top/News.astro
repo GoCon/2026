@@ -15,6 +15,7 @@ import TextLink from "../ui/TextLink.astro";
                 href={news.url}
                 text={news.title}
                 isBlankLink={news.isBlankLink}
+                withArrowIcon={!news.isBlankLink}
               />
             ) : (
               <span class="news-title text-body-large-strong">
