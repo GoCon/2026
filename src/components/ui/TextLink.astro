@@ -1,13 +1,20 @@
 ---
 import OpenInNewIcon from "../../assets/icons/open_in_new.svg";
+import DoubleArrowIcon from "../../assets/icons/double_arrow.svg";
 
 type Props = {
   href: string;
   isBlankLink?: boolean;
+  withArrowIcon?: boolean;
   text: string;
 };
 
-const { href, isBlankLink = false, text } = Astro.props as Props;
+const {
+  href,
+  isBlankLink = false,
+  withArrowIcon = false,
+  text,
+} = Astro.props as Props;
 ---
 
 <a
@@ -17,6 +24,7 @@ const { href, isBlankLink = false, text } = Astro.props as Props;
 >
   <span class="text-body-large-strong">{text}</span>
   {isBlankLink && <OpenInNewIcon class="link-icon" fill="red" />}
+  {withArrowIcon && <DoubleArrowIcon class="link-icon double-arrow" />}
 </a>
 
 <style>
@@ -41,6 +49,10 @@ const { href, isBlankLink = false, text } = Astro.props as Props;
     fill: var(--text-primary);
     margin-top: 2px;
     flex-shrink: 0;
+  }
+
+  .link-icon.double-arrow {
+    rotate: 180deg;
   }
 
   a:hover .link-icon {
