@@ -1,0 +1,75 @@
+---
+import SectionTitle from "../ui/SectionTitle.astro";
+import SponsorList from "./sponsor/SponsorList.astro";
+import GopherList from "./sponsor/GopherList.astro";
+import {
+  goldSponsors,
+  silverSponsors,
+  drinkSponsors,
+  lunchSponsors,
+  bronzeSponsors,
+  gopherSponsors,
+  toolSponsors,
+} from "./sponsors";
+
+if (
+  goldSponsors.length === 0 &&
+  silverSponsors.length === 0 &&
+  drinkSponsors.length === 0 &&
+  lunchSponsors.length === 0 &&
+  bronzeSponsors.length === 0 &&
+  gopherSponsors.length === 0 &&
+  toolSponsors.length === 0
+) {
+  return null;
+}
+---
+
+<section id="sponsors">
+  <SectionTitle>
+    <span class="section-title">
+      <span style="color: var(--text-accent);">ス</span>ポンサー
+    </span>
+  </SectionTitle>
+
+  <SponsorList size="learge" sponsors={goldSponsors}>
+    <span style="color: var(--text-accent);">Go</span>ルド
+  </SponsorList>
+  <SponsorList size="medium" sponsors={silverSponsors}>シルバー</SponsorList>
+  <SponsorList size="medium" sponsors={drinkSponsors}>ドリンク</SponsorList>
+  <SponsorList size="medium" sponsors={lunchSponsors}>ランチ</SponsorList>
+  <SponsorList size="small" sponsors={bronzeSponsors}>ブロンズ</SponsorList>
+  <GopherList sponsors={gopherSponsors}>Gopher</GopherList>
+  <SponsorList size="learge" sponsors={toolSponsors}
+    >ツールスポンサー</SponsorList
+  >
+</section>
+
+<style>
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-l) var(--space-m);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    align-items: center;
+  }
+
+  .section-title {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .sponsor-section {
+    text-align: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    section {
+      padding: var(--space-m) var(--space-s);
+      gap: var(--space-s);
+    }
+  }
+</style>
