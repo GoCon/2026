@@ -1,0 +1,104 @@
+---
+import { Image } from "astro:assets";
+import type { Sponsor } from "../sponsors";
+
+interface Props {
+  size: "learge" | "medium" | "small";
+  sponsors: Sponsor[];
+}
+
+const { size, sponsors } = Astro.props;
+
+const sizeMap = {
+  learge: { width: 532, height: 280 },
+  medium: { width: 354, height: 164 },
+  small: { width: 208, height: 100 },
+};
+
+const { width, height } = sizeMap[size];
+
+if (sponsors.length === 0) {
+  return null;
+}
+---
+
+<div class="sponsor-section">
+  <h4 class="text-h4">
+    <slot />
+  </h4>
+  <ul data-size={size}>
+    {
+      sponsors.map((sponsor) => (
+        <li>
+          <Image
+            src={sponsor.imageSrc}
+            alt={sponsor.name}
+            width={width}
+            height={height}
+            loading="lazy"
+            priority
+          />
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .sponsor-section {
+    text-align: center;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    gap: 20px;
+  }
+
+  ul[data-size="learge"] {
+    gap: 40px;
+  }
+
+  ul[data-size="learge"] img {
+    cursor: pointer;
+  }
+
+  li {
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    ul {
+      gap: 24px;
+    }
+
+    ul[data-size="learge"] img {
+      width: 342px;
+      height: 160px;
+    }
+
+    ul[data-size="medium"] img {
+      width: 262px;
+      height: 64px;
+    }
+
+    ul[data-size="small"] {
+      column-gap: 16px;
+      row-gap: 8px;
+    }
+
+    ul[data-size="small"] li {
+      width: 163px;
+    }
+
+    ul[data-size="small"] img {
+      width: 163px;
+      height: 64px;
+    }
+  }
+</style>
