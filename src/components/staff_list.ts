@@ -3,17 +3,13 @@ export type Staff = {
   name: string
   avatar: string
   sns: Sns
-  communities: Community[]
+  communities: string[]
   comment: string
 }
 
 export interface Sns {
   url: string
   type: string
-}
-
-export interface Community {
-  name: string
 }
 
 export const staffs: Staff[] = [
@@ -26,7 +22,7 @@ export const staffs: Staff[] = [
       type: "x"
     },
     communities: [
-      {name: "Go Conference"}
+      "Go Conference"
     ],
     comment: "",
   },
@@ -39,7 +35,7 @@ export const staffs: Staff[] = [
       type: "x"
     },
     communities: [
-      {name: "Go Conference"}
+      "Go Conference"
     ],
     comment: ""
   },
@@ -52,9 +48,9 @@ export const staffs: Staff[] = [
       type: "x"
     },
     communities: [
-      {name: "TinyGo Keeb"},
-      {name: "低レベル勉強会"},
-      {name: "秘密結社オープンフォース"}
+      "TinyGo Keeb",
+      "低レベル勉強会",
+      "秘密結社オープンフォース"
     ],
     comment: ""
   }
