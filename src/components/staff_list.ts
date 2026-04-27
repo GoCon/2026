@@ -112,7 +112,7 @@ export const staffs: Staff[] = [
   {
     id: 13,
     name: "パンダム",
-    avatar: "https://x.com/rymiyamoto129/photo",
+    avatar: "../assets/staff_img/13.jpg",
     sns: { url: "https://x.com/rymiyamoto129", type: "x" },
     communities: [],
     comment: "バイナリ実行！",
@@ -128,7 +128,7 @@ export const staffs: Staff[] = [
   {
     id: 15,
     name: "avocadoneko",
-    avatar: "https://x.com/avocadoneko/photo",
+    avatar: "../assets/staff_img/15.jpg",
     sns: { url: "https://x.com/avocadoneko", type: "x" },
     communities: ["株式会社ビットキー"],
     comment: "コミュニティメンバーがみんな優しいところ！",
@@ -295,10 +295,10 @@ export const staffs: Staff[] = [
   },
   {
     id: 36,
-    name: "Senou",
+    name: "Senoue",
     avatar: "../assets/staff_img/36.jpg",
     sns: { url: "senoue", type: "" },
-    communities: ["Snndai.go"],
+    communities: ["Sendai.go"],
     comment: "活発",
   },
   {
