@@ -9,6 +9,11 @@ export type News = {
 
 export const news: News[] = [
   {
+    title: "ブランドガイドラインを公開しました！",
+    date: "2026.04.30",
+    url: withBaseURL("news/brand-guidelines"),
+  },
+  {
     title:
       "Go Conference 2026 のテーマと、ランチ/ドリンク スポンサー募集のお知らせ",
     date: "2026.04.22",
