@@ -42,14 +42,15 @@ if (sponsors.length === 0) {
   }
 
   ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
     list-style: none;
     text-align: center;
     padding: 0;
     gap: 40px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   li {
@@ -68,8 +69,21 @@ if (sponsors.length === 0) {
     margin: 0 auto;
   }
 
+  @media screen and (max-width: 1150px) {
+    ul {
+      grid-template-columns: repeat(4, auto);
+    }
+  }
+
+  @media screen and (max-width: 920px) {
+    ul {
+      grid-template-columns: repeat(3, auto);
+    }
+  }
+
   @media screen and (max-width: 768px) {
     ul {
+      grid-template-columns: repeat(2, auto);
       gap: 8px;
     }
   }
