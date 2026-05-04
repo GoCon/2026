@@ -8,13 +8,16 @@ import PageTitle from "../components/ui/PageTitle.astro";
 interface Props {
   pageTitleJa: string;
   pageTitleEn: string;
+  documentTitle?: string;
 }
 
-const { pageTitleJa, pageTitleEn } = Astro.props;
+const { pageTitleJa, pageTitleEn, documentTitle } = Astro.props;
 const currentLocale = Astro.currentLocale || "ja";
 
 const pageSubTitle = currentLocale === "ja" ? pageTitleJa : "";
 const metaTitle = currentLocale === "ja" ? pageTitleJa : pageTitleEn;
+const layoutTitle =
+  documentTitle ?? `${metaTitle} | ${constants.pageTitle}`;
 ---
 
 <style>
@@ -95,7 +98,7 @@ const metaTitle = currentLocale === "ja" ? pageTitleJa : pageTitleEn;
   }
 </style>
 
-<Layout title={`${metaTitle} | ${constants.pageTitle}`}>
+<Layout title={layoutTitle}>
   <article class="article">
     <div class="page-header">
       <div class="page-header-inner">
