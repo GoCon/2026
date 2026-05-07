@@ -32,12 +32,28 @@ if (
     </span>
   </SectionTitle>
 
-  <SponsorList size="learge" sponsors={goldSponsors}>
+  <SponsorList
+    size="learge"
+    sponsors={goldSponsors}
+    dialogSectionTitle="Goルドスポンサー"
+  >
     <span style="color: var(--text-accent);">Go</span>ルド
   </SponsorList>
-  <SponsorList size="medium" sponsors={silverSponsors}>シルバー</SponsorList>
-  <SponsorList size="medium" sponsors={drinkSponsors}>ドリンク</SponsorList>
-  <SponsorList size="medium" sponsors={lunchSponsors}>ランチ</SponsorList>
+  <SponsorList
+    size="medium"
+    sponsors={silverSponsors}
+    dialogSectionTitle="シルバースポンサー">シルバー</SponsorList
+  >
+  <SponsorList
+    size="medium"
+    sponsors={drinkSponsors}
+    dialogSectionTitle="ドリンクスポンサー">ドリンク</SponsorList
+  >
+  <SponsorList
+    size="medium"
+    sponsors={lunchSponsors}
+    dialogSectionTitle="ランチスポンサー">ランチ</SponsorList
+  >
   <SponsorList size="small" sponsors={bronzeSponsors}>ブロンズ</SponsorList>
   <GopherList sponsors={gopherSponsors}>Gopher</GopherList>
   <SponsorList size="learge" sponsors={toolSponsors}

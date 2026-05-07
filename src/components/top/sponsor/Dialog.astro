@@ -1,0 +1,155 @@
+---
+import { Image } from "astro:assets";
+import type { Sponsor } from "../sponsors";
+import Tag from "../../ui/Tag.astro";
+import TextLink from "../../ui/TextLink.astro";
+
+import CloseIcon from "../../../assets/icons/close.svg";
+
+interface Props {
+  openId: string;
+  sponsorSectionTitle: string;
+  sponsor: Sponsor;
+}
+
+const { openId, sponsorSectionTitle, sponsor } = Astro.props;
+---
+
+<style>
+  .sponsor-dialog {
+    padding: 0;
+    border-radius: 32px;
+    border: none;
+    min-height: 480px;
+  }
+
+  .sponsor-dialog-close {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--surface-secondary-dark);
+    color: var(--text-on-fill);
+    border-radius: 50%;
+    font-weight: 700;
+    position: absolute;
+    right: 36px;
+    top: 36px;
+    cursor: pointer;
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  .sponsor-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+  }
+
+  .sponsor-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xxs);
+    padding: var(--space-m);
+  }
+
+  .sponsor-dialog-body {
+    text-align: center;
+    padding: var(--space-m);
+    background-color: var(--surface-secondary);
+  }
+
+  @media (max-width: 1024px) {
+    .sponsor-dialog {
+      width: 100%;
+    }
+
+    .sponsor-dialog-content {
+      width: 100%;
+    }
+
+    .sponsor-dialog-header {
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .sponsor-dialog-close {
+      right: 24px;
+      top: 24px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .sponsor-dialog {
+      width: 100%;
+    }
+
+    .sponsor-dialog-content {
+      width: 100%;
+    }
+
+    .sponsor-dialog-header {
+      width: 100%;
+      padding: 0 10px;
+    }
+
+    .sponsor-dialog-close {
+      right: 24px;
+      top: 24px;
+    }
+
+    .sponsor-dialog-body {
+      max-width: 100%;
+    }
+  }
+
+  .close-icon {
+    display: inline;
+    fill: var(--text-on-fill);
+    width: 32px;
+    height: 32px;
+  }
+</style>
+
+<dialog id={openId} class="sponsor-dialog">
+  <div class="sponsor-dialog-content">
+    <div class="sponsor-dialog-header">
+      <Tag text={sponsorSectionTitle} />
+      <div
+        class="sponsor-dialog-close"
+        onclick={`document.getElementById('${openId}').close()`}
+      >
+        <CloseIcon class="close-icon" />
+      </div>
+      <Image
+        src={sponsor.imageSrc}
+        alt={sponsor.name}
+        width={520}
+        height={120}
+        loading="lazy"
+      />
+      <h4 class="text-h4">{sponsor.name}</h4>
+      {
+        sponsor.dialog?.link && (
+          <div>
+            <TextLink href={sponsor.dialog.link} text={sponsor.dialog.link} />
+          </div>
+        )
+      }
+    </div>
+    {
+      sponsor.dialog?.description !== "" && (
+        <div class="sponsor-dialog-body text-body-medium">
+          <span>{sponsor.dialog?.description}</span>
+        </div>
+      )
+    }
+  </div>
+</dialog>
