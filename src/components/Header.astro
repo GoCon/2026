@@ -261,15 +261,9 @@ const currentLocale = Astro.currentLocale || "ja";
       <OpenInNewIcon class="external-icon" />
     </a> -->
     <div class="header-button">
-      {
-        (
-          <Button href="https://sessionize.com/go-conference-2026/" isBlankLink>
-            {currentLocale === "ja"
-              ? "イベントに申し込む"
-              : "Apply for the event"}
-          </Button>
-        )
-      }
+      <Button href="https://sessionize.com/go-conference-2026/" isBlankLink>
+        {currentLocale === "ja" ? "イベントに申し込む" : "Apply for the event"}
+      </Button>
     </div>
     <!-- <ul class="language-switcher">
       <li class="language-link">
