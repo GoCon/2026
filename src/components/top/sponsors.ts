@@ -3,6 +3,11 @@ import type { ImageMetadata } from "astro";
 export type Sponsor = {
   name: string;
   imageSrc: ImageMetadata;
+  dialog?: {
+    openId: string;
+    link: string;
+    description: string;
+  };
 };
 
 export const goldSponsors: Sponsor[] = [
