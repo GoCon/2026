@@ -115,7 +115,11 @@ const { openId, sponsorSectionTitle, sponsor } = Astro.props;
       {
         sponsor.dialog?.link && (
           <div>
-            <TextLink href={sponsor.dialog.link} text={sponsor.dialog.link} />
+            <TextLink
+              href={sponsor.dialog.link}
+              text={sponsor.dialog.link}
+              isAccentColor
+            />
           </div>
         )
       }
