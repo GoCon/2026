@@ -10,7 +10,7 @@ export type News = {
 export const news: News[] = [
   {
     title: "ブランドガイドラインを公開しました！",
-    date: "2026.04.30",
+    date: "2026.05.7",
     url: withBaseURL("news/brand-guidelines"),
   },
   {
