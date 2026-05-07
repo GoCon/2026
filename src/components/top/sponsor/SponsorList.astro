@@ -1,13 +1,15 @@
 ---
 import { Image } from "astro:assets";
 import type { Sponsor } from "../sponsors";
+import Dialog from "./Dialog.astro";
 
 interface Props {
   size: "learge" | "medium" | "small";
   sponsors: Sponsor[];
+  dialogSectionTitle?: string;
 }
 
-const { size, sponsors } = Astro.props;
+const { size, sponsors, dialogSectionTitle } = Astro.props;
 
 const sizeMap = {
   learge: { width: 532, height: 280 },
@@ -37,7 +39,22 @@ if (sponsors.length === 0) {
             height={height}
             loading="lazy"
             priority
+            style={sponsor.dialog ? "cursor:pointer" : null}
+            onclick={
+              sponsor.dialog
+                ? `document.getElementById('${sponsor.dialog.openId}')?.showModal()`
+                : null
+            }
           />
+          {sponsor.dialog ? (
+            <>
+              <Dialog
+                openId={sponsor.dialog.openId}
+                sponsorSectionTitle={dialogSectionTitle ?? ""}
+                sponsor={sponsor}
+              />
+            </>
+          ) : null}
         </li>
       ))
     }
@@ -71,10 +88,6 @@ if (sponsors.length === 0) {
 
   ul[data-size="small"] {
     grid-template-columns: repeat(5, auto);
-  }
-
-  ul[data-size="learge"] img {
-    cursor: pointer;
   }
 
   li {
