@@ -4,6 +4,7 @@ import CloseIcon from "../assets/icons/close.svg";
 import MenuIcon from "../assets/icons/menu.svg";
 import Logo from "../assets/mainVisual/mv_logo_sp.svg";
 import TextLink from "./ui/TextLink.astro";
+import Button from "./ui/Button.astro";
 
 const currentLocale = Astro.currentLocale || "ja";
 ---
@@ -43,6 +44,10 @@ const currentLocale = Astro.currentLocale || "ja";
     width: 100%;
     height: auto;
     object-fit: contain;
+  }
+
+  .header-button {
+    width: 192px;
   }
 
   @media screen and (max-width: 768px) {
@@ -255,16 +260,17 @@ const currentLocale = Astro.currentLocale || "ja";
       <span>Help</span>
       <OpenInNewIcon class="external-icon" />
     </a> -->
-    {
-      /*
-    <Button
-      href="https://ti.to/gophers-japan/go-conference-2025"
-      target="_blank"
-    >
-      {currentLocale === "ja" ? "イベントに申し込む" : "Apply for the event"}
-    </Button>
-    */
-    }
+    <div class="header-button">
+      {
+        (
+          <Button href="https://sessionize.com/go-conference-2026/" isBlankLink>
+            {currentLocale === "ja"
+              ? "イベントに申し込む"
+              : "Apply for the event"}
+          </Button>
+        )
+      }
+    </div>
     <!-- <ul class="language-switcher">
       <li class="language-link">
         <a
