@@ -7,6 +7,7 @@ type Props = {
   isBlankLink?: boolean;
   withArrowIcon?: boolean;
   text: string;
+  isAccentColor?: boolean;
 };
 
 const {
@@ -14,6 +15,7 @@ const {
   isBlankLink = false,
   withArrowIcon = false,
   text,
+  isAccentColor = false,
 } = Astro.props as Props;
 ---
 
@@ -21,6 +23,7 @@ const {
   href={href}
   target={isBlankLink ? "_blank" : undefined}
   rel={isBlankLink ? "noopener noreferrer" : undefined}
+  data-accent={isAccentColor || undefined}
 >
   <span class="text-body-large-strong">{text}</span>
   {isBlankLink && <OpenInNewIcon class="link-icon" fill="red" />}
@@ -37,6 +40,10 @@ const {
     color: var(--text-primary);
     cursor: pointer;
     width: 100%;
+  }
+
+  a[data-accent] {
+    color: var(--text-accent);
   }
 
   a:hover {
