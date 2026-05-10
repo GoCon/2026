@@ -1,0 +1,188 @@
+---
+import { staffs } from "./staff_list";
+import XLogo from "../assets/icons/x.svg";
+import GitHubLogo from "../assets/icons/github.svg";
+---
+
+<section class="staffs-section">
+  <div class="staffs-grid">
+    {
+      staffs.map((staff) => (
+        <div class="staff-card">
+          <div class="staff-header">
+            <div
+              class={`staff-avatar ${staff.avatar ? "staff-avatar--with-image" : "staff-avatar--placeholder"}`}
+            >
+              {staff.avatar && (
+                <img src={staff.avatar} alt={staff.name} />
+              )}
+            </div>
+
+            {staff.sns.url && (
+              <div class="social-links">
+                <a
+                  href={staff.sns.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-link"
+                  aria-label={`${staff.sns.type} Link`}
+                >
+                  {staff.sns.type === "x" && <XLogo />}
+                  {staff.sns.type === "github" && <GitHubLogo />}
+                </a>
+              </div>
+            )}
+          </div>
+
+          <div class="staff-content">
+            <h3 class="staff-name">{staff.name}</h3>
+
+            {staff.communities.length > 0 && (
+              <div class="communities">
+                {staff.communities.map((community, index) => (
+                  <span class="community-name">
+                    {community}
+                    {index < staff.communities.length - 1 && ", "}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {staff.comment && (
+              <p class="staff-comment">{staff.comment}</p>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .staffs-section {
+    padding: 0;
+  }
+
+  .staffs-grid {
+    display: grid;
+    gap: 24px;
+    margin-top: 32px;
+    justify-content: center;
+    grid-template-columns: repeat(3, 360px);
+
+    @media screen and (max-width: 1200px) {
+      grid-template-columns: repeat(2, 360px);
+    }
+
+    @media screen and (max-width: 800px) {
+      grid-template-columns: 360px;
+    }
+  }
+
+  .staff-card {
+    background: var(--primitive-light-blue);
+    border-radius: 16px;
+    padding: 24px;
+    width: 360px;
+    min-height: 200px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .staff-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .staff-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #666;
+    flex-shrink: 0;
+  }
+
+  .staff-avatar--with-image {
+    background: #fff;
+  }
+
+  .staff-avatar--placeholder {
+    background: #c4c4c4;
+  }
+
+  .staff-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .staff-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .staff-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .social-link svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--text-primary);
+  }
+
+  .communities {
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .community-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-accent);
+  }
+
+  .staff-comment {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>

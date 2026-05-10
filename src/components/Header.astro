@@ -227,6 +227,9 @@ const currentLocale = Astro.currentLocale || "ja";
           isBlankLink
         />
       </li>
+      <li>
+        <a href={getRelativeLocaleUrl(currentLocale, "staffs")}> Staff </a>
+      </li>
       <!-- <li>
         <a href={getRelativeLocaleUrl(currentLocale, "timetable")}>
           Timetable
