@@ -35,7 +35,11 @@ const currentLocale = Astro.currentLocale || "ja";
         isBlankLink
         class="mv-button"
       >
-        {currentLocale === "ja" ? "イベントに申し込む" : "Apply for the event"}
+        {
+          currentLocale === "ja"
+            ? "プロポーザルに応募"
+            : "Apply for the proposal"
+        }
       </Button>
     </div>
   </div>
