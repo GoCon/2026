@@ -9,7 +9,7 @@ export type Staff = {
 
 export interface Sns {
   url: string
-  type: string
+  type: "x" | "github"
 }
 
 export const staffs: Staff[] = [
