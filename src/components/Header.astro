@@ -220,15 +220,15 @@ const currentLocale = Astro.currentLocale || "ja";
       <li class="navigation-menu-item">
         <TextLink href={getRelativeLocaleUrl(currentLocale)} text="Home" />
       </li>
+      <li>
+        <a href={getRelativeLocaleUrl(currentLocale, "staffs")}> Staffs </a>
+      </li>
       <li class="navigation-menu-item">
         <TextLink
           href="https://docs.google.com/document/d/1jZqZfcH7NqCMyPXt_ZhvhlFXj4fKF-TNfXG_GIHBsfo/edit?tab=t.0#heading=h.95wf1aolrg0m"
           text="Sponsor FAQ"
           isBlankLink
         />
-      </li>
-      <li>
-        <a href={getRelativeLocaleUrl(currentLocale, "staffs")}> Staff </a>
       </li>
       <!-- <li>
         <a href={getRelativeLocaleUrl(currentLocale, "timetable")}>
