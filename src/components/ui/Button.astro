@@ -64,7 +64,8 @@ const {
     --btn-disable-border: transparent;
 
     /* small / large の各値（size によって上書きされる） */
-    --btn-padding-y: var(--space-xxxs);
+    /* 2pxのボーダー分を引く */
+    --btn-padding-y: calc(var(--space-xxxs) - 2px);
     /* .text-body-large-strong */
     --btn-font-size: 16px;
     --btn-line-height: 1.75;
