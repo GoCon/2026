@@ -274,7 +274,7 @@ export const staffs: Staff[] = [
     name: "satoken",
     avatar: "https://avatars.githubusercontent.com/u/15720506?v=4",
     sns: { url: "https://x.com/ken5owata", type: "x" },
-    communities: ["TinyGo Keeb", "秘密結社オープンフォース", "低レベル勉強会"],
+    communities: ["TinyGo Keeb", "秘密結社オープンフォース"],
     comment: "",
   },
   {
