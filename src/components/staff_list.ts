@@ -40,7 +40,7 @@ export const staffs: Staff[] = [
   {
     id: 4,
     name: "luccafort",
-    avatar: "https://ucac261d918adc359a3ce0becc7e.previews.dropboxusercontent.com/p/thumb/ADDj8zkqkuGalK1dZRJN1vY08XsVCWjJLQny8FyhCi9b8KbThLJz1Gc2r245-zO9hDITPug-_563AoCDy2pMwfsKuX2trGQIFNOUnpa97mMWEoynnp-4dnhkv-a5XHUwnrdybila_edLd464h2ZKbbv2dP68rTEJoCW1HPWjXrXZrBG_N4YbLXbccXQcx_Hhk9X_2asN5dTsmpUHLnvd2X0vf1V9g8ZIZaq9syacd1eTZAoAhAhRrQCSUJ3Fv8ifM-FgjaQNSVr9McXL9yDxbqeZjNR91JbG_JnZY7w0WwXHZXOYjNE2kKxbAzBQ8_8gY9QiaGH5Dx2AdE-iSNm4zzZh-7f6HNAma8mlGWqQc_NplbMK7V4PmOpR6R51ex86BAs/p.png?is_prewarmed=true",
+    avatar: "https://www.dropbox.com/scl/fi/xfutvvbngfs0rq73df0jz/2023-logo-600x600.png?rlkey=a816mmiqka524c20nevsyxpd5&st=ki1izrxb&raw=1",
     sns: { url: "https://x.com/luccafort", type: "x" },
     communities: ["Kyoto.go"],
     comment: "老若男女、多様性があり、それを大事にしている点。",
