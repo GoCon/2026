@@ -10,28 +10,28 @@ export type News = {
 export const news: News[] = [
   {
     title: "Go Conference 2026 プロポーザル募集開始のお知らせ",
-    date: "2026.05.15",
+    date: "2026.5.15",
     url: withBaseURL("news/proposal-recruitment"),
   },
   {
     title: "ブランドガイドラインを公開しました！",
-    date: "2026.05.7",
+    date: "2026.5.7",
     url: withBaseURL("news/brand-guidelines"),
   },
   {
     title:
       "Go Conference 2026 のテーマと、ランチ/ドリンク スポンサー募集のお知らせ",
-    date: "2026.04.22",
+    date: "2026.4.22",
     url: withBaseURL("news/lunch-drink-sponsor"),
   },
   {
     title: "スポンサーの募集を開始しました！",
-    date: "2026.03.25",
+    date: "2026.3.25",
     url: withBaseURL("news/sponsor-recruitment"),
   },
   {
     title: "Webサイトを公開しました！",
-    date: "2026.03.04",
+    date: "2026.3.4",
     url: withBaseURL("news/website-launch"),
   },
 ];
