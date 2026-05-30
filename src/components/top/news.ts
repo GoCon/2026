@@ -11,32 +11,32 @@ export const news: News[] = [
   {
     titleJa: "Go Conference 2026 プロポーザル募集開始のお知らせ",
     titleEn: "Go Conference 2026 Call for Proposals Now Open",
-    date: "2026.05.15",
+    date: "2026.5.15",
     newsSlug: "proposal-recruitment",
   },
   {
     titleJa: "ブランドガイドラインを公開しました！",
     titleEn: "Brand Guidelines Released!",
-    date: "2026.05.7",
+    date: "2026.5.7",
     newsSlug: "brand-guidelines",
   },
   {
     titleJa:
       "Go Conference 2026 のテーマと、ランチ/ドリンク スポンサー募集のお知らせ",
     titleEn: "Go Conference 2026 Theme and Call for Lunch/Drink Sponsors",
-    date: "2026.04.22",
+    date: "2026.4.22",
     newsSlug: "lunch-drink-sponsor",
   },
   {
     titleJa: "スポンサーの募集を開始しました！",
     titleEn: "Sponsor Recruitment Now Open!",
-    date: "2026.03.25",
+    date: "2026.3.25",
     newsSlug: "sponsor-recruitment",
   },
   {
     titleJa: "Webサイトを公開しました！",
     titleEn: "Website Launched!",
-    date: "2026.03.04",
+    date: "2026.3.4",
     newsSlug: "website-launch",
   },
 ];
