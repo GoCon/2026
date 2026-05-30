@@ -15,7 +15,8 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,astro}'"
   },
   "dependencies": {
-    "astro": "^5.17.1"
+    "astro": "^5.17.1",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@typescript-eslint/parser": "^8.54.0",
