@@ -44,6 +44,7 @@ const currentLocale = Astro.currentLocale || "ja";
   .news-date {
     color: var(--text-secondary);
     width: 90px;
+    flex-shrink: 0;
   }
 
   .news-list-container {
@@ -56,7 +57,7 @@ const currentLocale = Astro.currentLocale || "ja";
   .news-list {
     list-style: none;
     margin: 0;
-    max-height: 111px;
+    max-height: 168px;
     overflow-y: scroll;
     padding: 0;
   }

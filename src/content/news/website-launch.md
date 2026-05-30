@@ -1,6 +1,6 @@
 ---
 title: "Web サイトを公開しました！"
-date: "2026.03.04"
+date: "2026.3.4"
 description: "Go Conference 2026 の Web サイトを公開しました。"
 ---
 
