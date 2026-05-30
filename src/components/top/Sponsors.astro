@@ -12,6 +12,8 @@ import {
   toolSponsors,
 } from "./sponsors";
 
+const currentLocale = Astro.currentLocale || "ja";
+
 if (
   goldSponsors.length === 0 &&
   silverSponsors.length === 0 &&
@@ -27,38 +29,72 @@ if (
 
 <section id="sponsors">
   <SectionTitle>
-    <span class="section-title">
-      <span style="color: var(--text-accent);">ス</span>ポンサー
-    </span>
+    {
+      currentLocale === "en" ? (
+        <span class="section-title">
+          <span style="color: var(--text-accent);">S</span>ponsors
+        </span>
+      ) : (
+        <span class="section-title">
+          <span style="color: var(--text-accent);">ス</span>ポンサー
+        </span>
+      )
+    }
   </SectionTitle>
 
   <SponsorList
     size="learge"
     sponsors={goldSponsors}
-    dialogSectionTitle="Goルドスポンサー"
+    dialogSectionTitle={currentLocale === "ja"
+      ? "Goルドスポンサー"
+      : "Gold Sponsor"}
   >
-    <span style="color: var(--text-accent);">Go</span>ルド
+    {
+      currentLocale === "ja" ? (
+        <>
+          <span style="color: var(--text-accent);">Go</span>ルド
+        </>
+      ) : (
+        <>
+          <span style="color: var(--text-accent);">Go</span>ld
+        </>
+      )
+    }
   </SponsorList>
   <SponsorList
     size="medium"
     sponsors={silverSponsors}
-    dialogSectionTitle="シルバースポンサー">シルバー</SponsorList
+    dialogSectionTitle={currentLocale === "ja"
+      ? "シルバースポンサー"
+      : "Silver Sponsor"}
   >
+    {currentLocale === "ja" ? "シルバー" : "Silver"}
+  </SponsorList>
   <SponsorList
     size="medium"
     sponsors={drinkSponsors}
-    dialogSectionTitle="ドリンクスポンサー">ドリンク</SponsorList
+    dialogSectionTitle={currentLocale === "ja"
+      ? "ドリンクスポンサー"
+      : "Drink Sponsor"}
   >
+    {currentLocale === "ja" ? "ドリンク" : "Drink"}
+  </SponsorList>
   <SponsorList
     size="medium"
     sponsors={lunchSponsors}
-    dialogSectionTitle="ランチスポンサー">ランチ</SponsorList
+    dialogSectionTitle={currentLocale === "ja"
+      ? "ランチスポンサー"
+      : "Lunch Sponsor"}
   >
-  <SponsorList size="small" sponsors={bronzeSponsors}>ブロンズ</SponsorList>
+    {currentLocale === "ja" ? "ランチ" : "Lunch"}
+  </SponsorList>
+  <SponsorList size="small" sponsors={bronzeSponsors}>
+    {currentLocale === "ja" ? "ブロンズ" : "Bronze"}
+  </SponsorList>
   <GopherList sponsors={gopherSponsors}>Gopher</GopherList>
-  <SponsorList size="learge" sponsors={toolSponsors}
-    >ツールスポンサー</SponsorList
-  >
+  <SponsorList size="learge" sponsors={toolSponsors}>
+    {currentLocale === "ja" ? "ツールスポンサー" : "Tool Sponsor"}
+  </SponsorList>
 </section>
 
 <style>
