@@ -1,6 +1,9 @@
 # build output
 dist/
 
+# News OGP images (generated at build / dev server start)
+public/og/news/*.png
+
 # generated types
 .astro/
 

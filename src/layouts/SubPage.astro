@@ -9,9 +9,19 @@ interface Props {
   pageTitleJa: string;
   pageTitleEn: string;
   documentTitle?: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
 }
 
-const { pageTitleJa, pageTitleEn, documentTitle } = Astro.props;
+const {
+  pageTitleJa,
+  pageTitleEn,
+  documentTitle,
+  description,
+  ogImage,
+  ogType,
+} = Astro.props;
 const currentLocale = Astro.currentLocale || "ja";
 
 const pageSubTitle = currentLocale === "ja" ? pageTitleJa : "";
@@ -98,7 +108,12 @@ const layoutTitle =
   }
 </style>
 
-<Layout title={layoutTitle}>
+<Layout
+  title={layoutTitle}
+  description={description}
+  ogImage={ogImage}
+  ogType={ogType}
+>
   <article class="article">
     <div class="page-header">
       <div class="page-header-inner">
