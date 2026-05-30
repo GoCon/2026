@@ -13,6 +13,7 @@ interface Props {
   description?: string;
   ogImage?: string;
   ogType?: "website" | "article";
+  twitterCard?: "summary" | "summary_large_image";
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   description: descriptionProp,
   ogImage,
   ogType = "website",
+  twitterCard = "summary",
 } = Astro.props as Props;
 
 let description = descriptionProp ?? constants.pageDescription;
@@ -61,7 +63,7 @@ const twitterImageUrl = new URL(twitterImagePath, Astro.site ?? Astro.url);
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageUrl} />
 
-    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:card" content={twitterCard} />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />

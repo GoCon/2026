@@ -25,6 +25,7 @@ const backLinkText = currentLocale === "ja" ? "ホームに戻る" : "Back to Ho
   description={article.data.description}
   ogImage={getNewsOgImagePublicPath(article.id)}
   ogType="article"
+  twitterCard="summary_large_image"
 >
   <div>
     <BackLink href={getRelativeLocaleUrl(currentLocale)} text={backLinkText} />
