@@ -3,10 +3,12 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import CloseIcon from "../assets/icons/close.svg";
 import MenuIcon from "../assets/icons/menu.svg";
 import Logo from "../assets/mainVisual/mv_logo_sp.svg";
+import { getLocaleUrlForPage } from "../utils/i18n";
 import TextLink from "./ui/TextLink.astro";
 import Button from "./ui/Button.astro";
 
 const currentLocale = Astro.currentLocale || "ja";
+const pathname = Astro.url.pathname;
 ---
 
 <style>
@@ -221,7 +223,7 @@ const currentLocale = Astro.currentLocale || "ja";
           currentLocale === "ja" ? (
             <span class="active text-body-large-strong">JP</span>
           ) : (
-            <a href={getRelativeLocaleUrl("ja")}>JP</a>
+            <a href={getLocaleUrlForPage("ja", pathname)}>JP</a>
           )
         }
         <div>/</div>
@@ -229,7 +231,7 @@ const currentLocale = Astro.currentLocale || "ja";
           currentLocale === "en" ? (
             <span class="active text-body-large-strong">EN</span>
           ) : (
-            <a href={getRelativeLocaleUrl("en")}>EN</a>
+            <a href={getLocaleUrlForPage("en", pathname)}>EN</a>
           )
         }
       </li>
