@@ -1,37 +1,42 @@
-import { withBaseURL } from "../../utils/url";
-
 export type News = {
-  title: string;
+  titleJa: string;
+  titleEn: string;
   date: string;
+  newsSlug?: string;
   url?: string;
   isBlankLink?: boolean;
 };
 
 export const news: News[] = [
   {
-    title: "Go Conference 2026 プロポーザル募集開始のお知らせ",
+    titleJa: "Go Conference 2026 プロポーザル募集開始のお知らせ",
+    titleEn: "Go Conference 2026 Call for Proposals Now Open",
     date: "2026.05.15",
-    url: withBaseURL("news/proposal-recruitment"),
+    newsSlug: "proposal-recruitment",
   },
   {
-    title: "ブランドガイドラインを公開しました！",
+    titleJa: "ブランドガイドラインを公開しました！",
+    titleEn: "Brand Guidelines Released!",
     date: "2026.05.7",
-    url: withBaseURL("news/brand-guidelines"),
+    newsSlug: "brand-guidelines",
   },
   {
-    title:
+    titleJa:
       "Go Conference 2026 のテーマと、ランチ/ドリンク スポンサー募集のお知らせ",
+    titleEn: "Go Conference 2026 Theme and Call for Lunch/Drink Sponsors",
     date: "2026.04.22",
-    url: withBaseURL("news/lunch-drink-sponsor"),
+    newsSlug: "lunch-drink-sponsor",
   },
   {
-    title: "スポンサーの募集を開始しました！",
+    titleJa: "スポンサーの募集を開始しました！",
+    titleEn: "Sponsor Recruitment Now Open!",
     date: "2026.03.25",
-    url: withBaseURL("news/sponsor-recruitment"),
+    newsSlug: "sponsor-recruitment",
   },
   {
-    title: "Webサイトを公開しました！",
+    titleJa: "Webサイトを公開しました！",
+    titleEn: "Website Launched!",
     date: "2026.03.04",
-    url: withBaseURL("news/website-launch"),
+    newsSlug: "website-launch",
   },
 ];

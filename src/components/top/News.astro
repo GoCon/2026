@@ -1,29 +1,36 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { news } from "./news";
 import TextLink from "../ui/TextLink.astro";
+
+const currentLocale = Astro.currentLocale || "ja";
 ---
 
 <section id="news">
   <div class="news-list-container">
     <ul class="news-list">
       {
-        news.map((news) => (
-          <li class="news-item">
-            <span class="news-date text-body-large-strong">{news.date}</span>
-            {news.url ? (
-              <TextLink
-                href={news.url}
-                text={news.title}
-                isBlankLink={news.isBlankLink}
-                withArrowIcon={!news.isBlankLink}
-              />
-            ) : (
-              <span class="news-title text-body-large-strong">
-                {news.title}
-              </span>
-            )}
-          </li>
-        ))
+        news.map((item) => {
+          const title = currentLocale === "ja" ? item.titleJa : item.titleEn;
+          const href = item.newsSlug
+            ? getRelativeLocaleUrl(currentLocale, `news/${item.newsSlug}`)
+            : item.url;
+          return (
+            <li class="news-item">
+              <span class="news-date text-body-large-strong">{item.date}</span>
+              {href ? (
+                <TextLink
+                  href={href}
+                  text={title}
+                  isBlankLink={item.isBlankLink}
+                  withArrowIcon={!item.isBlankLink}
+                />
+              ) : (
+                <span class="news-title text-body-large-strong">{title}</span>
+              )}
+            </li>
+          );
+        })
       }
     </ul>
   </div>
