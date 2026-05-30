@@ -25,9 +25,20 @@ const currentLocale = Astro.currentLocale || "ja";
           <span class="text-date">9.11</span>
           <span class="text-weekday">FRI</span>
         </div>
-        <span class="text-h4"
-          >中野セントラル<br class="pc-only" />パークカンファレンス</span
-        >
+        {
+          currentLocale === "en" ? (
+            <span class="text-h4">
+              Nakano Central <br class="pc-only" />
+              Park Conference
+            </span>
+          ) : (
+            <span class="text-h4">
+              中野セントラル
+              <br class="pc-only" />
+              パークカンファレンス
+            </span>
+          )
+        }
       </div>
       <Button
         size="large"
