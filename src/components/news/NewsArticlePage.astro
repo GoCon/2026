@@ -3,6 +3,7 @@ import { render, type CollectionEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { constants } from "../../constants";
 import SubPage from "../../layouts/SubPage.astro";
+import { getNewsOgImagePublicPath } from "../../utils/generateNewsOgImage";
 import BackLink from "../ui/BackLink.astro";
 import SectionTitle from "../ui/SectionTitle.astro";
 
@@ -21,6 +22,10 @@ const backLinkText = currentLocale === "ja" ? "ホームに戻る" : "Back to Ho
   pageTitleJa="ニュース"
   pageTitleEn="News"
   documentTitle={`${article.data.title} - ${sectionTitle} | ${constants.pageTitle}`}
+  description={article.data.description}
+  ogImage={getNewsOgImagePublicPath(article.id)}
+  ogType="article"
+  twitterCard="summary_large_image"
 >
   <div>
     <BackLink href={getRelativeLocaleUrl(currentLocale)} text={backLinkText} />
