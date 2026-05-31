@@ -1,6 +1,6 @@
 ---
 title: "Go Conference 2026 のテーマと、ランチ/ドリンク スポンサー募集のお知らせ"
-date: "2026.04.22"
+date: "2026.4.22"
 description: "Go Conference 2026 のテーマ「Go Far, Go Together」と、新たに設けたランチ/ドリンク スポンサー枠についてご紹介します。"
 ---
 

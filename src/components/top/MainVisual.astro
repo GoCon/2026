@@ -4,6 +4,8 @@ import MainVisualImage from "./MainVisualImage.astro";
 import logoImageColumn from "../../assets/mainVisual/mv_logo_pc.svg";
 import logoImageRow from "../../assets/mainVisual/mv_logo_sp.svg";
 import Button from "../ui/Button.astro";
+
+const currentLocale = Astro.currentLocale || "ja";
 ---
 
 <section id="main-visual">
@@ -23,12 +25,33 @@ import Button from "../ui/Button.astro";
           <span class="text-date">9.11</span>
           <span class="text-weekday">FRI</span>
         </div>
-        <span class="text-h4"
-          >中野セントラル<br class="pc-only" />パークカンファレンス</span
-        >
+        {
+          currentLocale === "en" ? (
+            <span class="text-h4">
+              Nakano Central <br class="pc-only" />
+              Park Conference
+            </span>
+          ) : (
+            <span class="text-h4">
+              中野セントラル
+              <br class="pc-only" />
+              パークカンファレンス
+            </span>
+          )
+        }
       </div>
-      <!-- FIXME: 募集開始後に有効にする -->
-      <!-- <Button size="large" href="#" class="mv-button">イベントに申し込む</Button> -->
+      <Button
+        size="large"
+        href="https://sessionize.com/go-conference-2026/"
+        isBlankLink
+        class="mv-button"
+      >
+        {
+          currentLocale === "ja"
+            ? "プロポーザルに応募"
+            : "Apply for the proposal"
+        }
+      </Button>
     </div>
   </div>
 </section>

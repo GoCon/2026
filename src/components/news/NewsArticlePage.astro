@@ -1,0 +1,103 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { constants } from "../../constants";
+import SubPage from "../../layouts/SubPage.astro";
+import BackLink from "../ui/BackLink.astro";
+import SectionTitle from "../ui/SectionTitle.astro";
+
+interface Props {
+  article: CollectionEntry<"articles">;
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const currentLocale = Astro.currentLocale || "ja";
+const sectionTitle = currentLocale === "ja" ? "ニュース" : "News";
+const backLinkText = currentLocale === "ja" ? "ホームに戻る" : "Back to Home";
+---
+
+<SubPage
+  pageTitleJa="ニュース"
+  pageTitleEn="News"
+  documentTitle={`${article.data.title} - ${sectionTitle} | ${constants.pageTitle}`}
+>
+  <div>
+    <BackLink href={getRelativeLocaleUrl(currentLocale)} text={backLinkText} />
+    <SectionTitle>
+      <span class="section-title">{article.data.title}</span>
+    </SectionTitle>
+  </div>
+  <span class="article-date text-body-large">{article.data.date}</span>
+  <div class="article-content">
+    <Content />
+  </div>
+</SubPage>
+
+<style>
+  .section-title {
+    display: inline-block;
+  }
+
+  .section-title::first-letter {
+    color: var(--text-accent);
+  }
+
+  .article-date {
+    color: var(--text-secondary);
+  }
+
+  .article-content {
+    line-height: 1.75;
+  }
+
+  .article-content :global(h2) {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: var(--space-m);
+    margin-bottom: var(--space-xs);
+    color: var(--text-primary);
+  }
+
+  .article-content :global(h3) {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: var(--space-s);
+    margin-bottom: var(--space-xxs);
+    color: var(--text-primary);
+  }
+
+  .article-content :global(p) {
+    margin: var(--space-xs) 0;
+    color: var(--text-primary);
+  }
+
+  .article-content :global(a) {
+    color: var(--text-accent);
+    text-decoration: none;
+  }
+
+  .article-content :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  .article-content :global(ul),
+  .article-content :global(ol) {
+    padding-left: var(--space-s);
+    margin: var(--space-xs) 0;
+  }
+
+  .article-content :global(li) {
+    margin-bottom: var(--space-xxs);
+  }
+
+  @media screen and (max-width: 768px) {
+    .article-content :global(h2) {
+      font-size: 20px;
+    }
+
+    .article-content :global(h3) {
+      font-size: 18px;
+    }
+  }
+</style>

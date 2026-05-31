@@ -13,6 +13,12 @@ interface Props {
 }
 
 const { title = constants.pageTitle } = Astro.props as Props;
+
+let description = constants.pageDescription;
+
+if (currentLocale === "en") {
+  description = constants.PageDescriptionEn;
+}
 ---
 
 <!doctype html>
@@ -22,7 +28,7 @@ const { title = constants.pageTitle } = Astro.props as Props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href={withBaseURL("favicon.jpg")} />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={constants.pageDescription} />
+    <meta name="description" content={description} />
     <title>{title}</title>
     <GlobalStyles />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,11 +39,11 @@ const { title = constants.pageTitle } = Astro.props as Props;
     />
 
     <!-- OGP の記載 -->
-    <meta property="og:site_name" content={constants.pageTitle} />
+    <meta property="og:site_name" content={title} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={constants.pageDescription} />
+    <meta property="og:description" content={description} />
     <meta
       property="og:image"
       content={new URL(withBaseURL("og_image_lg.jpg"), Astro.url)}
@@ -46,7 +52,7 @@ const { title = constants.pageTitle } = Astro.props as Props;
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={constants.pageDescription} />
+    <meta property="twitter:description" content={description} />
     <meta
       property="twitter:image"
       content={new URL(withBaseURL("og_image_md.jpg"), Astro.url)}

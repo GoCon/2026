@@ -1,15 +1,54 @@
 ---
 import Button from "../ui/Button.astro";
 import SectionTitle from "../ui/SectionTitle.astro";
+
+const currentLocale = Astro.currentLocale || "ja";
 ---
 
 <section id="sponsor-recruitment">
   <SectionTitle>
-    <span class="section-title"
-      ><span style="color: var(--text-accent);">ス</span>ポンサー募集中</span
-    >
+    {
+      currentLocale === "en" ? (
+        <span class="section-title">
+          <span style="color: var(--text-accent);">S</span>ponsor Recruitment
+        </span>
+      ) : (
+        <span class="section-title">
+          <span style="color: var(--text-accent);">ス</span>ポンサー募集中
+        </span>
+      )
+    }
   </SectionTitle>
-  <span>Go Conferenceへのスポンサー応募は以下リンクからできます</span>
+
+  <div class="sponsor-notice-container">
+    <span>
+      {
+        currentLocale === "ja"
+          ? "Go Conferenceへのスポンサー応募は以下リンクからできます。"
+          : "You can apply to sponsor Go Conference from the link below."
+      }
+    </span>
+    <div class="sponsor-notice">
+      {
+        currentLocale === "ja" ? (
+          <>
+            <p>
+              Goルド・シルバー・ランチ・ドリンクスポンサーの募集は終了しました。
+            </p>
+            <p>ブロンズ・Gopherスポンサーは引き続き募集中です。</p>
+          </>
+        ) : (
+          <>
+            <p>
+              Recruitment for Gold, Silver, Lunch, and Drink sponsors has
+              closed.
+            </p>
+            <p>Bronze and Gopher sponsors are still being accepted.</p>
+          </>
+        )
+      }
+    </div>
+  </div>
   <div class="button-container">
     <Button
       variant="secondary"
@@ -17,11 +56,21 @@ import SectionTitle from "../ui/SectionTitle.astro";
       size="large"
       isBlankLink
     >
-      スポンサー募集フォーム
+      {
+        currentLocale === "ja"
+          ? "スポンサー募集フォーム"
+          : "Sponsor Application Form"
+      }
     </Button>
   </div>
   <div class="button-wrapper">
-    <span>スポンサーに関するFAQは以下からご確認ください。</span>
+    <span>
+      {
+        currentLocale === "ja"
+          ? "スポンサーに関するFAQは以下からご確認ください。"
+          : "Please see the link below for sponsor FAQs."
+      }
+    </span>
     <div class="button-container">
       <Button
         variant="tertiary"
@@ -29,7 +78,7 @@ import SectionTitle from "../ui/SectionTitle.astro";
         size="large"
         isBlankLink
       >
-        スポンサー FAQ
+        {currentLocale === "ja" ? "スポンサー FAQ" : "Sponsor FAQ"}
       </Button>
     </div>
   </div>
@@ -50,6 +99,23 @@ import SectionTitle from "../ui/SectionTitle.astro";
     word-break: keep-all;
     overflow-wrap: anywhere;
     text-align: center;
+  }
+
+  .sponsor-notice-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+    align-items: center;
+    text-align: center;
+  }
+
+  .sponsor-notice {
+    color: var(--text-accent2);
+    text-align: center;
+  }
+
+  .sponsor-notice p {
+    margin: 0;
   }
 
   .button-container {
