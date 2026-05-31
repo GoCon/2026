@@ -42,8 +42,32 @@ if (
     }
   </SectionTitle>
 
+  <div class="content">
+    <SponsorList
+      sponsorType="silver"
+      sponsors={silverSponsors}
+      dialogSectionTitle="シルバースポンサー">シルバー</SponsorList
+    >
+    <SponsorList
+      sponsorType="drink/lunch"
+      sponsors={drinkSponsors}
+      dialogSectionTitle="ドリンクスポンサー">ドリンク</SponsorList
+    >
+    <SponsorList
+      sponsorType="drink/lunch"
+      sponsors={lunchSponsors}
+      dialogSectionTitle="ランチスポンサー">ランチ</SponsorList
+    >
+    <SponsorList sponsorType="bronze" sponsors={bronzeSponsors}
+      >ブロンズ</SponsorList
+    >
+    <GopherList sponsors={gopherSponsors}>Gopher</GopherList>
+    <SponsorList sponsorType="tool" sponsors={toolSponsors}
+      >ツールスポンサー</SponsorList
+    >
+  </div>
   <SponsorList
-    size="learge"
+    sponsorType="gold"
     sponsors={goldSponsors}
     dialogSectionTitle={currentLocale === "ja"
       ? "Goルドスポンサー"
@@ -62,7 +86,7 @@ if (
     }
   </SponsorList>
   <SponsorList
-    size="medium"
+    sponsorType="silver"
     sponsors={silverSponsors}
     dialogSectionTitle={currentLocale === "ja"
       ? "シルバースポンサー"
@@ -71,7 +95,7 @@ if (
     {currentLocale === "ja" ? "シルバー" : "Silver"}
   </SponsorList>
   <SponsorList
-    size="medium"
+    sponsorType="drink/lunch"
     sponsors={drinkSponsors}
     dialogSectionTitle={currentLocale === "ja"
       ? "ドリンクスポンサー"
@@ -80,7 +104,7 @@ if (
     {currentLocale === "ja" ? "ドリンク" : "Drink"}
   </SponsorList>
   <SponsorList
-    size="medium"
+    sponsorType="drink/lunch"
     sponsors={lunchSponsors}
     dialogSectionTitle={currentLocale === "ja"
       ? "ランチスポンサー"
@@ -88,11 +112,11 @@ if (
   >
     {currentLocale === "ja" ? "ランチ" : "Lunch"}
   </SponsorList>
-  <SponsorList size="small" sponsors={bronzeSponsors}>
+  <SponsorList sponsorType="bronze" sponsors={bronzeSponsors}>
     {currentLocale === "ja" ? "ブロンズ" : "Bronze"}
   </SponsorList>
   <GopherList sponsors={gopherSponsors}>Gopher</GopherList>
-  <SponsorList size="learge" sponsors={toolSponsors}>
+  <SponsorList sponsorType="tool" sponsors={toolSponsors}>
     {currentLocale === "ja" ? "ツールスポンサー" : "Tool Sponsor"}
   </SponsorList>
 </section>
@@ -104,8 +128,16 @@ if (
     padding: var(--space-l) var(--space-m);
     display: flex;
     flex-direction: column;
-    gap: var(--space-s);
+    gap: var(--space-m);
     align-items: center;
+    box-sizing: border-box;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+    width: 100%;
   }
 
   .section-title {
@@ -116,12 +148,16 @@ if (
 
   .sponsor-section {
     text-align: center;
+    width: 100%;
   }
 
   @media screen and (max-width: 768px) {
     section {
       padding: var(--space-m) var(--space-s);
-      gap: var(--space-s);
+    }
+
+    .content {
+      max-width: 450px;
     }
   }
 </style>

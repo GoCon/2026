@@ -4,20 +4,46 @@ import type { Sponsor } from "../sponsors";
 import Dialog from "./Dialog.astro";
 
 interface Props {
-  size: "learge" | "medium" | "small";
+  sponsorType: "gold" | "silver" | "bronze" | "drink/lunch" | "tool";
   sponsors: Sponsor[];
   dialogSectionTitle?: string;
 }
 
-const { size, sponsors, dialogSectionTitle } = Astro.props;
+const { sponsorType, sponsors, dialogSectionTitle } = Astro.props;
 
-const sizeMap = {
-  learge: { width: 532, height: 280 },
+const imageSizeMap = {
+  gold: "large",
+  silver: "medium",
+  bronze: "small",
+  "drink/lunch": "medium",
+  tool: "large",
+};
+
+const imageSize = imageSizeMap[sponsorType];
+
+const sizeMap: Record<string, { width: number; height: number }> = {
+  large: { width: 532, height: 280 },
   medium: { width: 354, height: 164 },
   small: { width: 208, height: 100 },
 };
 
-const { width, height } = sizeMap[size];
+const spSizeMap: Record<string, { width: number; height: number }> = {
+  large: { width: 342, height: 160 },
+  medium: { width: 262, height: 64 },
+  small: { width: 163, height: 64 },
+};
+
+const columnCountMap: Record<string, number> = {
+  gold: 2,
+  silver: 3,
+  bronze: 5,
+  "drink/lunch": 2,
+  tool: 1,
+};
+
+const { width, height } = sizeMap[imageSize];
+const { width: spWidth, height: spHeight } = spSizeMap[imageSize];
+const columnCount = columnCountMap[sponsorType];
 
 if (sponsors.length === 0) {
   return null;
@@ -28,26 +54,23 @@ if (sponsors.length === 0) {
   <h4 class="text-h4">
     <slot />
   </h4>
-  <ul data-size={size}>
+  <ul data-size={imageSize} data-type={sponsorType}>
     {
       sponsors.map((sponsor) => (
-        <li>
+        <li data-dialog={sponsor.dialog ? "true" : "false"}>
           <Image
             src={sponsor.imageSrc}
             alt={sponsor.name}
             title={sponsor.name}
-            width={width}
-            height={height}
             loading="lazy"
             priority
-            style={sponsor.dialog ? "cursor:pointer" : null}
             onclick={
               sponsor.dialog
                 ? `document.getElementById('${sponsor.dialog.openId}')?.showModal()`
                 : null
             }
           />
-          {sponsor.dialog ? (
+          {sponsor.dialog && (
             <>
               <Dialog
                 openId={sponsor.dialog.openId}
@@ -55,16 +78,17 @@ if (sponsors.length === 0) {
                 sponsor={sponsor}
               />
             </>
-          ) : null}
+          )}
         </li>
       ))
     }
   </ul>
 </div>
 
-<style>
+<style define:vars={{ width, height, columnCount, spWidth, spHeight }}>
   .sponsor-section {
     text-align: center;
+    width: 100%;
   }
 
   ul {
@@ -74,69 +98,56 @@ if (sponsors.length === 0) {
     padding: 0;
     gap: 20px;
     margin: 0 auto;
-    width: fit-content;
-    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  ul[data-size="learge"] {
-    grid-template-columns: repeat(2, auto);
+  ul {
+    grid-template-columns: repeat(var(--columnCount), auto);
+  }
+
+  ul[data-size="large"] {
     gap: 40px;
   }
 
-  ul[data-size="medium"] {
-    grid-template-columns: repeat(3, auto);
+  ul[data-type="drink/lunch"] {
+    padding: 0 118px;
   }
 
-  ul[data-size="small"] {
-    grid-template-columns: repeat(5, auto);
+  ul[data-type="tool"] {
+    padding: 0 182px;
   }
 
   li {
     max-width: 100%;
   }
 
-  @media screen and (max-width: 1150px) {
-    ul[data-size="learge"] {
-      grid-template-columns: repeat(1, auto);
-    }
-
-    ul[data-size="medium"] {
-      grid-template-columns: repeat(2, auto);
-    }
-
-    ul[data-size="small"] {
-      grid-template-columns: repeat(4, auto);
-    }
+  li[data-dialog="true"] {
+    cursor: pointer;
+    transition: opacity 0.15s ease;
   }
 
-  @media screen and (max-width: 920px) {
-    ul[data-size="small"] {
-      grid-template-columns: repeat(3, auto);
-    }
+  li[data-dialog="true"]:hover {
+    opacity: 0.7;
+  }
+
+  li > img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--width) / var(--height);
+    max-width: calc(1px * var(--width));
+    object-fit: contain;
   }
 
   @media screen and (max-width: 768px) {
     ul {
       gap: 24px;
-    }
-
-    ul[data-size="learge"] {
-      grid-template-columns: repeat(1, auto);
-      gap: 24px;
-    }
-
-    ul[data-size="learge"] img {
-      width: 342px;
-      height: 160px;
-    }
-
-    ul[data-size="medium"] {
       grid-template-columns: repeat(1, auto);
     }
 
-    ul[data-size="medium"] img {
-      width: 262px;
-      height: 64px;
+    li > img {
+      aspect-ratio: var(--spWidth) / var(--spHeight);
+      max-width: calc(1px * var(--spWidth));
     }
 
     ul[data-size="small"] {
@@ -145,13 +156,13 @@ if (sponsors.length === 0) {
       row-gap: 8px;
     }
 
-    ul[data-size="small"] li {
-      width: 163px;
+    ul[data-type="silver"],
+    ul[data-type="drink/lunch"] {
+      padding: 0 40px;
     }
 
-    ul[data-size="small"] img {
-      width: 163px;
-      height: 64px;
+    ul[data-type="tool"] {
+      padding: 0;
     }
   }
 </style>
