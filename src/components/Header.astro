@@ -3,9 +3,12 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import CloseIcon from "../assets/icons/close.svg";
 import MenuIcon from "../assets/icons/menu.svg";
 import Logo from "../assets/mainVisual/mv_logo_sp.svg";
+import { getLocaleUrlForPage } from "../utils/i18n";
 import TextLink from "./ui/TextLink.astro";
+import Button from "./ui/Button.astro";
 
 const currentLocale = Astro.currentLocale || "ja";
+const pathname = Astro.url.pathname;
 ---
 
 <style>
@@ -45,6 +48,28 @@ const currentLocale = Astro.currentLocale || "ja";
     object-fit: contain;
   }
 
+  .header-button {
+    width: 192px;
+  }
+
+  .language-switcher {
+    display: flex;
+    gap: var(--space-xxxs);
+  }
+
+  .language-switcher .active {
+    text-decoration: underline;
+  }
+
+  .language-switcher a {
+    text-decoration: none;
+    color: var(--text-primary);
+  }
+
+  .language-switcher a:hover {
+    color: var(--text-accent);
+  }
+
   @media screen and (max-width: 768px) {
     .header {
       padding: 4px 24px;
@@ -67,17 +92,6 @@ const currentLocale = Astro.currentLocale || "ja";
       list-style: none;
       margin: 0;
       padding: 0;
-      & a {
-        text-decoration: none;
-        color: var(--text-primary);
-        font-size: 16px;
-        font-weight: 700;
-        transition: opacity 0.3s ease;
-
-        &:hover {
-          opacity: 0.7;
-        }
-      }
     }
 
     @media screen and (max-width: 768px) {
@@ -101,10 +115,6 @@ const currentLocale = Astro.currentLocale || "ja";
           flex-direction: column;
           padding: 0 16px;
           gap: 32px;
-
-          & a {
-            font-size: 24px;
-          }
         }
       }
     }
@@ -160,46 +170,7 @@ const currentLocale = Astro.currentLocale || "ja";
     }
     & ~ .navigation {
       display: flex;
-    }
-  }
-
-  .language-switcher {
-    display: flex;
-    gap: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    @media screen and (max-width: 768px) {
-      & {
-        padding: 0 8px;
-      }
-    }
-
-    & .language-link {
-      display: inline-block;
-
-      & + &::before {
-        content: "/";
-        color: var(--text-primary);
-      }
-
-      & a {
-        padding: 8px;
-        text-decoration: none;
-        color: var(--text-secondary);
-        font-size: 16px;
-        font-weight: 700;
-        transition: opacity 0.3s ease;
-
-        &[href] {
-          color: var(--text-primary);
-        }
-
-        &:hover {
-          opacity: 0.7;
-        }
-      }
+      gap: 80px;
     }
   }
 </style>
@@ -248,6 +219,25 @@ const currentLocale = Astro.currentLocale || "ja";
           Floor Map
         </a>
       </li> -->
+
+      <!-- 言語切り替えボタン -->
+      <li class="language-switcher">
+        {
+          currentLocale === "ja" ? (
+            <span class="active text-body-large-strong">JP</span>
+          ) : (
+            <a href={getLocaleUrlForPage("ja", pathname)}>JP</a>
+          )
+        }
+        <div>/</div>
+        {
+          currentLocale === "en" ? (
+            <span class="active text-body-large-strong">EN</span>
+          ) : (
+            <a href={getLocaleUrlForPage("en", pathname)}>EN</a>
+          )
+        }
+      </li>
     </ul>
     <!-- <a
       href="https://docs.google.com/document/d/e/2PACX-1vTND_zm397IJTp4cbZwR3tpOhnsTtLIkDwcqDfMTg1K0jjWrHJ7i70ukkwukW2nL0nioqdCbOUG8E6I/pub"
@@ -258,29 +248,16 @@ const currentLocale = Astro.currentLocale || "ja";
       <span>Help</span>
       <OpenInNewIcon class="external-icon" />
     </a> -->
-    {
-      /*
-    <Button
-      href="https://ti.to/gophers-japan/go-conference-2025"
-      target="_blank"
-    >
-      {currentLocale === "ja" ? "イベントに申し込む" : "Apply for the event"}
-    </Button>
-    */
-    }
-    <!-- <ul class="language-switcher">
-      <li class="language-link">
-        <a
-          href={currentLocale !== "ja" ? getRelativeLocaleUrl("ja") : undefined}
-          >JP
-        </a>
-      </li>
-      <li class="language-link">
-        <a
-          href={currentLocale !== "en" ? getRelativeLocaleUrl("en") : undefined}
-          >EN
-        </a>
-      </li>
-    </ul> -->
+
+    <!-- メインボタン -->
+    <div class="header-button">
+      <Button href="https://sessionize.com/go-conference-2026/" isBlankLink>
+        {
+          currentLocale === "ja"
+            ? "プロポーザルに応募"
+            : "Apply for the proposal"
+        }
+      </Button>
+    </div>
   </div>
 </header>
