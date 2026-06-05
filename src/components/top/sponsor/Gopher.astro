@@ -22,12 +22,10 @@ if (sponsors.length === 0) {
           <Image
             src={sponsor.imageSrc}
             alt={sponsor.name}
-            width={96}
-            height={96}
             loading="lazy"
             priority
           />
-          <div>{sponsor.name}</div>
+          <div class="name">{sponsor.name}</div>
         </li>
       ))
     }
@@ -44,15 +42,14 @@ if (sponsors.length === 0) {
     grid-template-columns: repeat(5, auto);
     list-style: none;
     text-align: center;
-    padding: 0;
+    padding: 8px;
     gap: 40px;
-    width: fit-content;
     max-width: 100%;
     margin: 0 auto;
   }
 
   li {
-    padding: 24px;
+    padding: 24px 0 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,33 +57,36 @@ if (sponsors.length === 0) {
     gap: 8px;
   }
 
+  li .name {
+    max-width: 188px;
+    width: 100%;
+  }
+
   img {
     object-fit: contain;
     border-radius: 50%;
     display: block;
     margin: 0 auto;
+    aspect-ratio: 1/1;
+    max-width: 96px;
+    width: 100%;
+    height: auto;
   }
 
   img:hover {
     opacity: 0.7;
   }
 
-  @media screen and (max-width: 1150px) {
-    ul {
-      grid-template-columns: repeat(4, auto);
-    }
-  }
-
-  @media screen and (max-width: 920px) {
-    ul {
-      grid-template-columns: repeat(3, auto);
-    }
-  }
-
   @media screen and (max-width: 768px) {
     ul {
       grid-template-columns: repeat(2, auto);
       gap: 8px;
+      padding: 0;
+    }
+
+    li .name {
+      max-width: 167px;
+      width: 100%;
     }
   }
 </style>
