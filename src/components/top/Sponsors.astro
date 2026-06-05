@@ -47,13 +47,15 @@ if (
       )
     }
   </SectionTitle>
-  <Gold sponsors={goldSponsors} />
-  <Silver sponsors={silverSponsors} />
-  <Drink sponsors={drinkSponsors} />
-  <Lunch sponsors={lunchSponsors} />
-  <Bronze sponsors={bronzeSponsors} />
-  <Gopher sponsors={gopherSponsors} />
-  <Tool sponsors={toolSponsors} />
+  <div class="content">
+    <Gold sponsors={goldSponsors} />
+    <Silver sponsors={silverSponsors} />
+    <Drink sponsors={drinkSponsors} />
+    <Lunch sponsors={lunchSponsors} />
+    <Bronze sponsors={bronzeSponsors} />
+    <Gopher sponsors={gopherSponsors} />
+    <Tool sponsors={toolSponsors} />
+  </div>
 </section>
 
 <style>
@@ -63,8 +65,16 @@ if (
     padding: var(--space-l) var(--space-m);
     display: flex;
     flex-direction: column;
-    gap: var(--space-s);
+    gap: var(--space-m);
     align-items: center;
+    box-sizing: border-box;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+    width: 100%;
   }
 
   .section-title {
@@ -75,12 +85,17 @@ if (
 
   .sponsor-section {
     text-align: center;
+    width: 100%;
   }
 
   @media screen and (max-width: 768px) {
     section {
       padding: var(--space-m) var(--space-s);
       gap: var(--space-s);
+    }
+
+    .content {
+      max-width: 450px;
     }
   }
 </style>
