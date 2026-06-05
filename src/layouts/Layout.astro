@@ -10,15 +10,32 @@ const currentLocale = Astro.currentLocale;
 
 interface Props {
   title?: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  twitterCard?: "summary" | "summary_large_image";
 }
 
-const { title = constants.pageTitle } = Astro.props as Props;
+const {
+  title = constants.pageTitle,
+  description: descriptionProp,
+  ogImage,
+  ogType = "website",
+  twitterCard = "summary",
+} = Astro.props as Props;
 
-let description = constants.pageDescription;
+let description = descriptionProp ?? constants.pageDescription;
 
-if (currentLocale === "en") {
+if (!descriptionProp && currentLocale === "en") {
   description = constants.PageDescriptionEn;
 }
+
+const defaultOgImage = withBaseURL("og_image_lg.jpg");
+const defaultTwitterImage = withBaseURL("og_image_md.jpg");
+const ogImagePath = ogImage ? withBaseURL(ogImage) : defaultOgImage;
+const twitterImagePath = ogImage ? withBaseURL(ogImage) : defaultTwitterImage;
+const ogImageUrl = new URL(ogImagePath, Astro.site ?? Astro.url);
+const twitterImageUrl = new URL(twitterImagePath, Astro.site ?? Astro.url);
 ---
 
 <!doctype html>
@@ -39,24 +56,18 @@ if (currentLocale === "en") {
     />
 
     <!-- OGP の記載 -->
-    <meta property="og:site_name" content={title} />
-    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={constants.pageTitle} />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta
-      property="og:image"
-      content={new URL(withBaseURL("og_image_lg.jpg"), Astro.url)}
-    />
+    <meta property="og:image" content={ogImageUrl} />
 
-    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:card" content={twitterCard} />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta
-      property="twitter:image"
-      content={new URL(withBaseURL("og_image_md.jpg"), Astro.url)}
-    />
+    <meta property="twitter:image" content={twitterImageUrl} />
   </head>
   <body>
     <Header />

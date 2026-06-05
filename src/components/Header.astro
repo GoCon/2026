@@ -191,6 +191,9 @@ const pathname = Astro.url.pathname;
       <li class="navigation-menu-item">
         <TextLink href={getRelativeLocaleUrl(currentLocale)} text="Home" />
       </li>
+      <li>
+        <TextLink href={getRelativeLocaleUrl(currentLocale, "staffs")} text="Staffs" />
+      </li>
       <li class="navigation-menu-item">
         <TextLink
           href="https://docs.google.com/document/d/1jZqZfcH7NqCMyPXt_ZhvhlFXj4fKF-TNfXG_GIHBsfo/edit?tab=t.0#heading=h.95wf1aolrg0m"
