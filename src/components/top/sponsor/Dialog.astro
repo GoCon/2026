@@ -89,9 +89,11 @@ const { sponsorSectionTitle, sponsor } = Astro.props;
     }
 
     .sponsor-logo {
-      width: 326px;
-      height: 120px;
       aspect-ratio: 326/120;
+      box-sizing: border-box;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
     }
 
     .sponsor-dialog-close {

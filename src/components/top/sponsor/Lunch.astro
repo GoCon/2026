@@ -32,7 +32,6 @@ const currentLocale = Astro.currentLocale || "ja";
             height={164}
             loading="lazy"
             priority
-            style={sponsor.dialog ? "cursor:pointer" : null}
             onclick={`document.getElementById('${sponsor.dialog.openId}')?.showModal()`}
           />
           <Dialog
@@ -66,6 +65,15 @@ const currentLocale = Astro.currentLocale || "ja";
 
   li {
     max-width: 100%;
+  }
+
+  img {
+    cursor: pointer;
+    object-fit: contain;
+  }
+
+  img:hover {
+    opacity: 0.7;
   }
 
   @media screen and (max-width: 1150px) {

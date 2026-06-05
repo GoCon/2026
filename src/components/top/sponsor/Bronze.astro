@@ -59,6 +59,14 @@ const currentLocale = Astro.currentLocale || "ja";
     max-width: 100%;
   }
 
+  img {
+    object-fit: contain;
+  }
+
+  img:hover {
+    opacity: 0.7;
+  }
+
   @media screen and (max-width: 1150px) {
     ul {
       grid-template-columns: repeat(4, auto);
