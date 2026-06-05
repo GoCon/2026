@@ -65,6 +65,14 @@ const { sponsorSectionTitle, sponsor } = Astro.props;
     padding: var(--space-m);
   }
 
+  .sponsor-logo {
+    aspect-ratio: 520/120;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
   .sponsor-dialog-body {
     text-align: center;
     padding: var(--space-m);
@@ -83,6 +91,7 @@ const { sponsorSectionTitle, sponsor } = Astro.props;
     .sponsor-logo {
       width: 326px;
       height: 120px;
+      aspect-ratio: 326/120;
     }
 
     .sponsor-dialog-close {
@@ -105,8 +114,6 @@ const { sponsorSectionTitle, sponsor } = Astro.props;
       <Image
         src={sponsor.imageSrc}
         alt={sponsor.name}
-        width={520}
-        height={120}
         loading="lazy"
         class="sponsor-logo"
       />
