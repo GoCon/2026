@@ -1,18 +1,17 @@
 ---
 import { Image } from "astro:assets";
-import type { Sponsor } from "../sponsors";
+import type { SponsorWithDialog } from "../sponsors";
 import Tag from "../../ui/Tag.astro";
 import TextLink from "../../ui/TextLink.astro";
 
 import CloseIcon from "../../../assets/icons/close.svg";
 
 interface Props {
-  openId: string;
   sponsorSectionTitle: string;
-  sponsor: Sponsor;
+  sponsor: SponsorWithDialog;
 }
 
-const { openId, sponsorSectionTitle, sponsor } = Astro.props;
+const { sponsorSectionTitle, sponsor } = Astro.props;
 ---
 
 <style>
@@ -93,13 +92,13 @@ const { openId, sponsorSectionTitle, sponsor } = Astro.props;
   }
 </style>
 
-<dialog id={openId} class="sponsor-dialog">
+<dialog id={sponsor.dialog.openId} class="sponsor-dialog">
   <div class="sponsor-dialog-content">
     <div class="sponsor-dialog-header">
       <Tag text={sponsorSectionTitle} />
       <div
         class="sponsor-dialog-close"
-        onclick={`document.getElementById('${openId}').close()`}
+        onclick={`document.getElementById('${sponsor.dialog.openId}').close()`}
       >
         <CloseIcon class="close-icon" />
       </div>

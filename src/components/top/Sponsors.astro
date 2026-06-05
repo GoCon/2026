@@ -1,7 +1,13 @@
 ---
 import SectionTitle from "../ui/SectionTitle.astro";
-import SponsorList from "./sponsor/SponsorList.astro";
-import GopherList from "./sponsor/GopherList.astro";
+
+import Gold from "./sponsor/Gold.astro";
+import Silver from "./sponsor/Silver.astro";
+import Drink from "./sponsor/Drink.astro";
+import Lunch from "./sponsor/Lunch.astro";
+import Bronze from "./sponsor/Bronze.astro";
+import Gopher from "./sponsor/Gopher.astro";
+import Tool from "./sponsor/Tool.astro";
 import {
   goldSponsors,
   silverSponsors,
@@ -41,60 +47,13 @@ if (
       )
     }
   </SectionTitle>
-
-  <SponsorList
-    size="learge"
-    sponsors={goldSponsors}
-    dialogSectionTitle={currentLocale === "ja"
-      ? "Goルドスポンサー"
-      : "Gold Sponsor"}
-  >
-    {
-      currentLocale === "ja" ? (
-        <>
-          <span style="color: var(--text-accent);">Go</span>ルド
-        </>
-      ) : (
-        <>
-          <span style="color: var(--text-accent);">Go</span>ld
-        </>
-      )
-    }
-  </SponsorList>
-  <SponsorList
-    size="medium"
-    sponsors={silverSponsors}
-    dialogSectionTitle={currentLocale === "ja"
-      ? "シルバースポンサー"
-      : "Silver Sponsor"}
-  >
-    {currentLocale === "ja" ? "シルバー" : "Silver"}
-  </SponsorList>
-  <SponsorList
-    size="medium"
-    sponsors={drinkSponsors}
-    dialogSectionTitle={currentLocale === "ja"
-      ? "ドリンクスポンサー"
-      : "Drink Sponsor"}
-  >
-    {currentLocale === "ja" ? "ドリンク" : "Drink"}
-  </SponsorList>
-  <SponsorList
-    size="medium"
-    sponsors={lunchSponsors}
-    dialogSectionTitle={currentLocale === "ja"
-      ? "ランチスポンサー"
-      : "Lunch Sponsor"}
-  >
-    {currentLocale === "ja" ? "ランチ" : "Lunch"}
-  </SponsorList>
-  <SponsorList size="small" sponsors={bronzeSponsors}>
-    {currentLocale === "ja" ? "ブロンズ" : "Bronze"}
-  </SponsorList>
-  <GopherList sponsors={gopherSponsors}>Gopher</GopherList>
-  <SponsorList size="learge" sponsors={toolSponsors}>
-    {currentLocale === "ja" ? "ツールスポンサー" : "Tool Sponsor"}
-  </SponsorList>
+  <Gold sponsors={goldSponsors} />
+  <Silver sponsors={silverSponsors} />
+  <Drink sponsors={drinkSponsors} />
+  <Lunch sponsors={lunchSponsors} />
+  <Bronze sponsors={bronzeSponsors} />
+  <Gopher sponsors={gopherSponsors} />
+  <Tool sponsors={toolSponsors} />
 </section>
 
 <style>

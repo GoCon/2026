@@ -1,0 +1,88 @@
+---
+import { Image } from "astro:assets";
+import type { Sponsor } from "../sponsors";
+
+interface Props {
+  sponsors: Sponsor[];
+}
+
+const { sponsors } = Astro.props;
+
+if (sponsors.length === 0) {
+  return null;
+}
+---
+
+<div class="sponsor-section">
+  <h4 class="text-h4">Gopher</h4>
+  <ul>
+    {
+      sponsors.map((sponsor) => (
+        <li>
+          <Image
+            src={sponsor.imageSrc}
+            alt={sponsor.name}
+            width={96}
+            height={96}
+            loading="lazy"
+            priority
+          />
+          <div>{sponsor.name}</div>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .sponsor-section {
+    text-align: center;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    gap: 40px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  li {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  img {
+    object-fit: contain;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 1150px) {
+    ul {
+      grid-template-columns: repeat(4, auto);
+    }
+  }
+
+  @media screen and (max-width: 920px) {
+    ul {
+      grid-template-columns: repeat(3, auto);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    ul {
+      grid-template-columns: repeat(2, auto);
+      gap: 8px;
+    }
+  }
+</style>

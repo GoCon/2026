@@ -1,0 +1,97 @@
+---
+import { Image } from "astro:assets";
+import type { SponsorWithDialog } from "../sponsors";
+import Dialog from "./Dialog.astro";
+
+interface Props {
+  sponsors: SponsorWithDialog[];
+}
+
+const { sponsors } = Astro.props;
+
+if (sponsors.length === 0) {
+  return null;
+}
+
+const currentLocale = Astro.currentLocale || "ja";
+---
+
+<div class="sponsor-section">
+  <h4 class="text-h4">
+    {
+      currentLocale === "ja" ? (
+        <>
+          <span style="color: var(--text-accent);">Go</span>ルド
+        </>
+      ) : (
+        <>
+          <span style="color: var(--text-accent);">Go</span>ld
+        </>
+      )
+    }
+  </h4>
+  <ul>
+    {
+      sponsors.map((sponsor) => (
+        <li>
+          <Image
+            src={sponsor.imageSrc}
+            alt={sponsor.name}
+            title={sponsor.name}
+            width={532}
+            height={280}
+            loading="lazy"
+            priority
+            style={sponsor.dialog ? "cursor:pointer" : null}
+            onclick={`document.getElementById('${sponsor.dialog.openId}')?.showModal()`}
+          />
+          <Dialog
+            sponsorSectionTitle={
+              currentLocale === "ja" ? "Goルドスポンサー" : "Gold Sponsor"
+            }
+            sponsor={sponsor}
+          />
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .sponsor-section {
+    text-align: center;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    gap: 40px;
+    margin: 0 auto;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  li {
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 1150px) {
+    ul {
+      grid-template-columns: repeat(1, auto);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    ul {
+      gap: 24px;
+    }
+
+    ul img {
+      width: 342px;
+      height: 160px;
+    }
+  }
+</style>

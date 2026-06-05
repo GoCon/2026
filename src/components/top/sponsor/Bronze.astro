@@ -11,11 +11,13 @@ const { sponsors } = Astro.props;
 if (sponsors.length === 0) {
   return null;
 }
+
+const currentLocale = Astro.currentLocale || "ja";
 ---
 
 <div class="sponsor-section">
   <h4 class="text-h4">
-    <slot />
+    {currentLocale === "ja" ? "ブロンズ" : "Bronze"}
   </h4>
   <ul>
     {
@@ -24,12 +26,12 @@ if (sponsors.length === 0) {
           <Image
             src={sponsor.imageSrc}
             alt={sponsor.name}
-            width={96}
-            height={96}
+            title={sponsor.name}
+            width={208}
+            height={100}
             loading="lazy"
             priority
           />
-          <div>{sponsor.name}</div>
         </li>
       ))
     }
@@ -47,26 +49,14 @@ if (sponsors.length === 0) {
     list-style: none;
     text-align: center;
     padding: 0;
-    gap: 40px;
+    gap: 20px;
+    margin: 0 auto;
     width: fit-content;
     max-width: 100%;
-    margin: 0 auto;
   }
 
   li {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  img {
-    object-fit: contain;
-    border-radius: 50%;
-    display: block;
-    margin: 0 auto;
+    max-width: 100%;
   }
 
   @media screen and (max-width: 1150px) {
@@ -84,7 +74,17 @@ if (sponsors.length === 0) {
   @media screen and (max-width: 768px) {
     ul {
       grid-template-columns: repeat(2, auto);
-      gap: 8px;
+      column-gap: 16px;
+      row-gap: 8px;
+    }
+
+    ul li {
+      width: 163px;
+    }
+
+    ul img {
+      width: 163px;
+      height: 64px;
     }
   }
 </style>
