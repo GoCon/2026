@@ -27,8 +27,6 @@ const currentLocale = Astro.currentLocale || "ja";
             src={sponsor.imageSrc}
             alt={sponsor.name}
             title={sponsor.name}
-            width={532}
-            height={280}
             loading="lazy"
             priority
           />
@@ -45,42 +43,40 @@ const currentLocale = Astro.currentLocale || "ja";
 
   ul {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(1, auto);
     list-style: none;
     text-align: center;
-    padding: 0;
+    padding: 0 182px;
     gap: 40px;
     margin: 0 auto;
-    width: fit-content;
-    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   li {
     max-width: 100%;
   }
 
-  img {
+  li > img {
+    width: 560px;
+    height: auto;
+    aspect-ratio: 560 / 160;
+    max-width: 100%;
     object-fit: contain;
   }
 
-  img:hover {
+  li > img:hover {
     opacity: 0.7;
-  }
-
-  @media screen and (max-width: 1150px) {
-    ul {
-      grid-template-columns: repeat(1, auto);
-    }
   }
 
   @media screen and (max-width: 768px) {
     ul {
       gap: 24px;
+      padding: 0;
     }
 
-    ul img {
+    li > img {
       width: 342px;
-      height: 160px;
     }
   }
 </style>

@@ -38,8 +38,6 @@ const currentLocale = Astro.currentLocale || "ja";
             src={sponsor.imageSrc}
             alt={sponsor.name}
             title={sponsor.name}
-            width={532}
-            height={280}
             loading="lazy"
             priority
             onclick={`document.getElementById('${sponsor.dialog.openId}')?.showModal()`}
@@ -69,37 +67,38 @@ const currentLocale = Astro.currentLocale || "ja";
     padding: 0;
     gap: 40px;
     margin: 0 auto;
-    width: fit-content;
-    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   li {
     max-width: 100%;
   }
 
-  img {
+  li {
     cursor: pointer;
-    object-fit: contain;
   }
 
-  img:hover {
+  li:hover {
     opacity: 0.7;
   }
 
-  @media screen and (max-width: 1150px) {
-    ul {
-      grid-template-columns: repeat(1, auto);
-    }
+  li > img {
+    width: 532px;
+    height: auto;
+    aspect-ratio: 532 / 280;
+    max-width: 100%;
+    object-fit: contain;
   }
 
   @media screen and (max-width: 768px) {
     ul {
+      grid-template-columns: repeat(1, auto);
       gap: 24px;
     }
 
-    ul img {
+    li > img {
       width: 342px;
-      height: 160px;
     }
   }
 </style>
