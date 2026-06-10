@@ -11,7 +11,7 @@ export const news: News[] = [
   {
     titleJa: "チケット販売開始のお知らせ",
     titleEn: "Go Conference 2026 Tickets Now on Sale",
-    date: "2026.7.8",
+    date: "2026.6.19",
     newsSlug: "ticket-sales",
   },
   {
