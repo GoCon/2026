@@ -44,7 +44,6 @@ export const lunchSponsors: SponsorWithDialog[] = [
 
 export const drinkSponsors: SponsorWithDialog[] = [
   { name: "drink sponsor",  imageSrc: img1 ,dialog:{openId:"drink1", link:"http://localhost:4321", description: "dummy description. dummy description. dummy description. dummy description. dummy description. dummy description. dummy description. dummy description. dummy description."}},
-  { name: "drink sponsor",  imageSrc: img1 ,dialog:{openId:"drink2", link:"", description: "dummy description. dummy description. dummy description. dummy description. dummy description. dummy description. dummy description. dummy description. dummy description."}},
 ];
 
 export const bronzeSponsors: Sponsor[] = [
