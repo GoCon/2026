@@ -1,0 +1,79 @@
+---
+import Button from "../ui/Button.astro";
+import SectionTitle from "../ui/SectionTitle.astro";
+
+const currentLocale = Astro.currentLocale || "ja";
+---
+
+<section id="sponsor-recruitment">
+  <SectionTitle>
+    {
+      currentLocale === "en" ? (
+        <span class="section-title">
+          <span style="color: var(--text-accent);">F</span>AQ
+        </span>
+      ) : (
+        <span class="section-title">
+          <span style="color: var(--text-accent);">よ</span>くある質問
+        </span>
+      )
+    }
+  </SectionTitle>
+
+  <div class="button-wrapper">
+    <span>
+      {
+        currentLocale === "ja"
+          ? "スポンサーに関するFAQは以下からご確認ください。"
+          : "Please see the link below for sponsor FAQ."
+      }
+    </span>
+    <div class="button-container">
+      <Button
+        variant="tertiary"
+        href="https://docs.google.com/document/d/1jZqZfcH7NqCMyPXt_ZhvhlFXj4fKF-TNfXG_GIHBsfo/edit"
+        size="large"
+        isBlankLink
+      >
+        {currentLocale === "ja" ? "スポンサー FAQ" : "Sponsor FAQ"}
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-l) var(--space-m);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    align-items: center;
+  }
+
+  .section-title {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .button-container {
+    max-width: 300px;
+    width: 100%;
+  }
+
+  .button-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+    align-items: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    section {
+      padding: var(--space-m) var(--space-s);
+      gap: var(--space-s);
+    }
+  }
+</style>
