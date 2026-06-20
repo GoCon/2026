@@ -6,7 +6,7 @@ import CompanyIcon from "../assets/icons/company.svg"
 ---
 
 <section class="staffs-section">
-  <div class="staffs-grid">
+  <div class="staffs-grid" data-staff-grid>
     {
       staffs.map((staff) => (
         <div class="staff-card">
@@ -60,6 +60,32 @@ import CompanyIcon from "../assets/icons/company.svg"
   </div>
 </section>
 
+<script>
+  function shuffleStaffCards() {
+    const grid = document.querySelector("[data-staff-grid]");
+    if (!grid) return;
+
+    const cards = Array.from(grid.children);
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+
+    cards.forEach((card) => grid.appendChild(card));
+    grid.classList.add("staffs-grid--ready");
+  }
+
+  shuffleStaffCards();
+</script>
+
+<noscript>
+  <style>
+    [data-staff-grid] {
+      visibility: visible !important;
+    }
+  </style>
+</noscript>
+
 <style>
   .staffs-section {
     padding: 0;
@@ -71,6 +97,11 @@ import CompanyIcon from "../assets/icons/company.svg"
     margin-top: 32px;
     justify-content: center;
     grid-template-columns: repeat(3, 360px);
+    visibility: hidden;
+
+    &.staffs-grid--ready {
+      visibility: visible;
+    }
 
     @media screen and (max-width: 1200px) {
       grid-template-columns: repeat(2, 360px);
