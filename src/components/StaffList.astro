@@ -2,7 +2,7 @@
 import { staffs } from "./staff_list";
 import XLogo from "../assets/icons/x.svg";
 import GitHubLogo from "../assets/icons/github.svg";
-import CompanyIcon from "../assets/icons/company.svg"
+import CompanyIcon from "../assets/icons/company.svg";
 ---
 
 <section class="staffs-section">
@@ -14,12 +14,10 @@ import CompanyIcon from "../assets/icons/company.svg"
             <div
               class={`staff-avatar ${staff.avatar ? "staff-avatar--with-image" : "staff-avatar--placeholder"}`}
             >
-              {staff.avatar && (
-                <img src={staff.avatar} alt={staff.name} />
-              )}
+              {staff.avatar && <img src={staff.avatar} alt={staff.name} />}
             </div>
 
-            {staff.sns.url && (
+            {staff.sns && staff.sns.url && (
               <div class="social-links">
                 <a
                   href={staff.sns.url}
@@ -50,9 +48,7 @@ import CompanyIcon from "../assets/icons/company.svg"
               </div>
             )}
 
-            {staff.comment && (
-              <p class="staff-comment">{staff.comment}</p>
-            )}
+            {staff.comment && <p class="staff-comment">{staff.comment}</p>}
           </div>
         </div>
       ))

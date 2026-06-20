@@ -1,22 +1,23 @@
 export type Staff = {
-  id: number
-  name: string
-  avatar: string
-  sns: Sns
-  communities: string[]
-  comment: string
-}
+  id: number;
+  name: string;
+  avatar: string;
+  sns?: Sns;
+  communities: string[];
+  comment: string;
+};
 
 export interface Sns {
-  url: string
-  type: "x" | "github"
+  url: string;
+  type: "x" | "github";
 }
 
 export const staffs: Staff[] = [
   {
     id: 1,
     name: "Gunzi",
-    avatar: "https://pbs.twimg.com/profile_images/1321379166332178433/Pqx9MiNH.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1321379166332178433/Pqx9MiNH.jpg",
     sns: { url: "https://x.com/com_gunzi", type: "x" },
     communities: [],
     comment: "Gopherくんかわいい",
@@ -32,7 +33,8 @@ export const staffs: Staff[] = [
   {
     id: 3,
     name: "nozomuikuta",
-    avatar: "https://pbs.twimg.com/profile_images/1326569867101626369/pSyzqRGh_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1326569867101626369/pSyzqRGh_400x400.jpg",
     sns: { url: "https://x.com/nozomuikuta", type: "x" },
     communities: ["newmo, Inc."],
     comment: "ビギナーフレンドリーなところ",
@@ -40,7 +42,8 @@ export const staffs: Staff[] = [
   {
     id: 4,
     name: "luccafort",
-    avatar: "https://www.dropbox.com/scl/fi/xfutvvbngfs0rq73df0jz/2023-logo-600x600.png?rlkey=a816mmiqka524c20nevsyxpd5&st=ki1izrxb&raw=1",
+    avatar:
+      "https://www.dropbox.com/scl/fi/xfutvvbngfs0rq73df0jz/2023-logo-600x600.png?rlkey=a816mmiqka524c20nevsyxpd5&st=ki1izrxb&raw=1",
     sns: { url: "https://x.com/luccafort", type: "x" },
     communities: ["Kyoto.go"],
     comment: "老若男女、多様性があり、それを大事にしている点。",
@@ -48,7 +51,8 @@ export const staffs: Staff[] = [
   {
     id: 5,
     name: "chihiro",
-    avatar: "https://pbs.twimg.com/profile_images/1766876951510384641/mYACvJiR_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1766876951510384641/mYACvJiR_400x400.jpg",
     sns: { url: "https://x.com/chiroruxxxx", type: "x" },
     communities: ["GoConnect"],
     comment: "年齢関係なくフラットに話せるところ",
@@ -56,15 +60,18 @@ export const staffs: Staff[] = [
   {
     id: 6,
     name: "rayfiyo",
-    avatar: "https://raw.githubusercontent.com/rayfiyo/rayfiyo/refs/heads/main/IMG_0212.jpeg",
+    avatar:
+      "https://raw.githubusercontent.com/rayfiyo/rayfiyo/refs/heads/main/IMG_0212.jpeg",
     sns: { url: "x.com/rayfiyo", type: "x" },
     communities: [],
-    comment: "やる気に満ちていて、心温まる人が多くて、業種を問わない受け入れ姿勢が素敵",
+    comment:
+      "やる気に満ちていて、心温まる人が多くて、業種を問わない受け入れ姿勢が素敵",
   },
   {
     id: 7,
     name: "suu",
-    avatar: "https://pbs.twimg.com/profile_images/1460523078593974273/oGIc5NZC_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1460523078593974273/oGIc5NZC_400x400.jpg",
     sns: { url: "https://x.com/suueng", type: "x" },
     communities: ["Women Who Go Tokyo"],
     comment: "間口が広いところ！",
@@ -80,7 +87,8 @@ export const staffs: Staff[] = [
   {
     id: 9,
     name: "オーガ",
-    avatar: "https://pbs.twimg.com/profile_images/1925932704161284096/F2CCOpr7_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1925932704161284096/F2CCOpr7_400x400.jpg",
     sns: { url: "https://x.com/o_ga09", type: "x" },
     communities: [],
     comment: "Gopherくんが好きな人が多い。可愛いものが好きな人が多い。",
@@ -88,7 +96,8 @@ export const staffs: Staff[] = [
   {
     id: 10,
     name: "sago35",
-    avatar: "https://pbs.twimg.com/profile_images/1219630784/profile_400x400.png",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1219630784/profile_400x400.png",
     sns: { url: "https://x.com/sago35tk", type: "x" },
     communities: ["TinyGo Keeb"],
     comment: "Gopher 可愛い",
@@ -96,7 +105,8 @@ export const staffs: Staff[] = [
   {
     id: 11,
     name: "Rinrin",
-    avatar: "https://pbs.twimg.com/profile_images/1987812706838249472/y-9XRUaj_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1987812706838249472/y-9XRUaj_400x400.jpg",
     sns: { url: "https://x.com/rin2yh", type: "x" },
     communities: ["株式会社スリーシェイク"],
     comment: "技術力が高くても初心者を温かく迎え入れてくれる雰囲気",
@@ -104,7 +114,8 @@ export const staffs: Staff[] = [
   {
     id: 12,
     name: "kuro",
-    avatar: "https://pbs.twimg.com/profile_images/1489962542898495488/kft0Ycs1_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1489962542898495488/kft0Ycs1_400x400.jpg",
     sns: { url: "https://x.com/knkurokuro7", type: "x" },
     communities: [],
     comment: "オープンな雰囲気があるところ",
@@ -112,7 +123,8 @@ export const staffs: Staff[] = [
   {
     id: 13,
     name: "パンダム",
-    avatar: "https://pbs.twimg.com/profile_images/1768125639117484032/2EBU8FlI_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1768125639117484032/2EBU8FlI_400x400.jpg",
     sns: { url: "https://x.com/rymiyamoto129", type: "x" },
     communities: [],
     comment: "バイナリ実行！",
@@ -120,7 +132,8 @@ export const staffs: Staff[] = [
   {
     id: 14,
     name: "はせがび",
-    avatar: "https://s3.ap-northeast-1.amazonaws.com/wraptas-prod/maropook/266cb8e2-1f3f-80c0-9e08-d90844c4a56b/98c55d300cb14f5526627d475f0b2995.jpg",
+    avatar:
+      "https://s3.ap-northeast-1.amazonaws.com/wraptas-prod/maropook/266cb8e2-1f3f-80c0-9e08-d90844c4a56b/98c55d300cb14f5526627d475f0b2995.jpg",
     sns: { url: "https://x.com/maropook", type: "x" },
     communities: ["biwako.go"],
     comment: "初心者でも玄人でも楽しんでる",
@@ -128,7 +141,8 @@ export const staffs: Staff[] = [
   {
     id: 15,
     name: "avocadoneko",
-    avatar: "https://pbs.twimg.com/profile_images/1847971787231186944/OhuQorXd_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1847971787231186944/OhuQorXd_400x400.jpg",
     sns: { url: "https://x.com/avocadoneko", type: "x" },
     communities: ["株式会社ビットキー"],
     comment: "コミュニティメンバーがみんな優しいところ！",
@@ -144,7 +158,8 @@ export const staffs: Staff[] = [
   {
     id: 17,
     name: "ゆいた",
-    avatar: "https://pbs.twimg.com/profile_images/1553350031994126337/EwJvPg17_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1553350031994126337/EwJvPg17_400x400.jpg",
     sns: { url: "https://x.com/yuita_0360", type: "x" },
     communities: ["株式会社PREVENT"],
     comment: "参加しやすい雰囲気",
@@ -153,7 +168,6 @@ export const staffs: Staff[] = [
     id: 18,
     name: "YNamiki / wancom",
     avatar: "",
-    sns: { url: "", type: "" },
     communities: [],
     comment: "初心者にも優しいところ。",
   },
@@ -184,7 +198,8 @@ export const staffs: Staff[] = [
   {
     id: 22,
     name: "mikichin",
-    avatar: "https://pbs.twimg.com/profile_images/1420563286051876866/-q0VIQhE_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1420563286051876866/-q0VIQhE_400x400.jpg",
     sns: { url: "https://x.com/chida_miki", type: "x" },
     communities: ["株式会社メルカリ"],
     comment: "あたたかい雰囲気",
@@ -192,7 +207,8 @@ export const staffs: Staff[] = [
   {
     id: 23,
     name: "佐伯",
-    avatar: "https://pbs.twimg.com/profile_images/1793331878277402626/Jv1eJZXT_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1793331878277402626/Jv1eJZXT_400x400.jpg",
     sns: { url: "https://x.com/HisafumiSaeki", type: "x" },
     communities: [],
     comment: "",
@@ -216,7 +232,8 @@ export const staffs: Staff[] = [
   {
     id: 26,
     name: "tosshy",
-    avatar: "https://pbs.twimg.com/profile_images/1910649313086365697/uY1FYF5K_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1910649313086365697/uY1FYF5K_400x400.jpg",
     sns: { url: "https://x.com/mtoshi820", type: "x" },
     communities: [],
     comment: "初心者にもやさしいところ！",
@@ -224,7 +241,8 @@ export const staffs: Staff[] = [
   {
     id: 27,
     name: "tesso",
-    avatar: "https://pbs.twimg.com/profile_images/1247018635278741504/MvS-Ij72_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1247018635278741504/MvS-Ij72_400x400.jpg",
     sns: { url: "https://x.com/tesso57", type: "x" },
     communities: [],
     comment: "企業から個人までさまざまな粒度でイベントが開催されているところ",
@@ -232,7 +250,8 @@ export const staffs: Staff[] = [
   {
     id: 28,
     name: "いんてぃ",
-    avatar: "https://pbs.twimg.com/profile_images/1933767677723750400/l7_kV-EW_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1933767677723750400/l7_kV-EW_400x400.jpg",
     sns: { url: "https://x.com/intiramisu_", type: "x" },
     communities: ["株式会社野村総合研究所"],
     comment: "若い方々が多く活発なところ",
@@ -264,7 +283,8 @@ export const staffs: Staff[] = [
   {
     id: 32,
     name: "repunit11",
-    avatar: "https://pbs.twimg.com/profile_images/1977393762893733888/76EnHgz6_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1977393762893733888/76EnHgz6_400x400.jpg",
     sns: { url: "https://x.com/repunit11", type: "x" },
     communities: [],
     comment: "",
@@ -296,7 +316,7 @@ export const staffs: Staff[] = [
   {
     id: 36,
     name: "Senoue",
-    avatar: "https://pbs.twimg.com/profile_images/1951452891304345600/HWCkBlFE_400x400.jpg",
+    avatar: "https://avatars.githubusercontent.com/u/3499852?v=4",
     sns: { url: "https://x.com/senoue", type: "x" },
     communities: ["Sendai.go"],
     comment: "活発",
@@ -304,7 +324,8 @@ export const staffs: Staff[] = [
   {
     id: 37,
     name: "takemio",
-    avatar: "https://pbs.twimg.com/profile_images/1375170471595941888/_x5H5bYv_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1375170471595941888/_x5H5bYv_400x400.jpg",
     sns: { url: "https://twitter.com/takemioIO/", type: "x" },
     communities: [],
     comment: "敷居の低さ！",
@@ -314,13 +335,16 @@ export const staffs: Staff[] = [
     name: "sivchari",
     avatar: "https://avatars.githubusercontent.com/u/55221074?v=4",
     sns: { url: "https://x.com/sivchari", type: "x" },
-    communities: ["株式会社LayerX, Go Conferenceメインオーガナイザー, golang.tokyoメインオーガナイザー"],
+    communities: [
+      "株式会社LayerX, Go Conferenceメインオーガナイザー, golang.tokyoメインオーガナイザー",
+    ],
     comment: "人の温かさ、言語をいろいろな形で盛り上げる人の良さ",
   },
   {
     id: 39,
     name: "OJI",
-    avatar: "https://pbs.twimg.com/profile_images/1971174789516754945/Twq2_-gC_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1971174789516754945/Twq2_-gC_400x400.jpg",
     sns: { url: "https://x.com/OldBigBuddha", type: "x" },
     communities: [],
     comment: "",
@@ -328,7 +352,8 @@ export const staffs: Staff[] = [
   {
     id: 40,
     name: "きしだ",
-    avatar: "https://pbs.twimg.com/profile_images/1135150231874486272/RmXen0s7_400x400.png",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1135150231874486272/RmXen0s7_400x400.png",
     sns: { url: "https://x.com/mwudo", type: "x" },
     communities: ["株式会社IVRy"],
     comment: "",
@@ -336,7 +361,8 @@ export const staffs: Staff[] = [
   {
     id: 41,
     name: "turbofish",
-    avatar: "https://pbs.twimg.com/profile_images/1970101954119704576/kpE24UGC_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1970101954119704576/kpE24UGC_400x400.jpg",
     sns: { url: "https://x.com/turbofish_", type: "x" },
     communities: ["NOT A HOTEL"],
     comment: "多様な人が気兼ねなく楽しめる気軽さ＆寛容さ",
@@ -344,7 +370,8 @@ export const staffs: Staff[] = [
   {
     id: 42,
     name: "kyo",
-    avatar: "https://pbs.twimg.com/profile_images/1962696053528092672/7ecdBG2f_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1962696053528092672/7ecdBG2f_400x400.jpg",
     sns: { url: "https://x.com/Keyl0ve_", type: "x" },
     communities: ["https://x.com/Keyl0ve_"],
     comment: "Gopher がかわいいので、だいたいのことが許される",
@@ -360,7 +387,8 @@ export const staffs: Staff[] = [
   {
     id: 44,
     name: "くりち",
-    avatar: "https://pbs.twimg.com/profile_images/1613933979689963521/76Nuikyo_400x400.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1613933979689963521/76Nuikyo_400x400.jpg",
     sns: { url: "https://x.com/kurichi97", type: "x" },
     communities: ["DeckHub株式会社"],
     comment: "",
@@ -376,7 +404,8 @@ export const staffs: Staff[] = [
   {
     id: 46,
     name: "budougumi0617",
-    avatar: "https://pbs.twimg.com/profile_images/680299095727054848/JYTlnxMI_400x400.png",
+    avatar:
+      "https://pbs.twimg.com/profile_images/680299095727054848/JYTlnxMI_400x400.png",
     sns: { url: "https://x.com/budougumi0617", type: "x" },
     communities: ["株式会社LayerX"],
     comment: "",
@@ -392,7 +421,8 @@ export const staffs: Staff[] = [
   {
     id: 48,
     name: "Mikuto",
-    avatar: "https://pbs.twimg.com/profile_images/1905930808592044032/lhdu5zOk.jpg",
+    avatar:
+      "https://pbs.twimg.com/profile_images/1905930808592044032/lhdu5zOk.jpg",
     sns: { url: "https://x.com/Mikuto_0831", type: "x" },
     communities: ["東京工科大学"],
     comment: "",
@@ -400,8 +430,8 @@ export const staffs: Staff[] = [
   {
     id: 49,
     name: "syamasaw",
-    avatar: "https://pbs.twimg.com/profile_images/2047300684278820864/qcqwugnz_400x400.jpg",
-    sns: { url: "", type: "" },
+    avatar:
+      "https://pbs.twimg.com/profile_images/2047300684278820864/qcqwugnz_400x400.jpg",
     communities: [],
     comment: "",
   },
