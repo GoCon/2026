@@ -30,10 +30,14 @@ if (!descriptionProp && currentLocale === "en") {
   description = constants.PageDescriptionEn;
 }
 
-const defaultOgImage = withBaseURL("og_image_lg.jpg");
-const defaultTwitterImage = withBaseURL("og_image_md.jpg");
-const ogImagePath = ogImage ? withBaseURL(ogImage) : defaultOgImage;
-const twitterImagePath = ogImage ? withBaseURL(ogImage) : defaultTwitterImage;
+const defaultOgImageLg = withBaseURL("og_image_lg.jpg");
+const defaultOgImageMd = withBaseURL("og_image_md.jpg");
+const ogImagePath = ogImage ? withBaseURL(ogImage) : defaultOgImageLg;
+const twitterImagePath = ogImage
+  ? withBaseURL(ogImage)
+  : twitterCard === "summary_large_image"
+    ? defaultOgImageLg
+    : defaultOgImageMd;
 const ogImageUrl = new URL(ogImagePath, Astro.site ?? Astro.url);
 const twitterImageUrl = new URL(twitterImagePath, Astro.site ?? Astro.url);
 ---
