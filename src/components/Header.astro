@@ -192,7 +192,10 @@ const pathname = Astro.url.pathname;
         <TextLink href={getRelativeLocaleUrl(currentLocale)} text="Home" />
       </li>
       <li>
-        <TextLink href={getRelativeLocaleUrl(currentLocale, "staffs")} text="Staffs" />
+        <TextLink
+          href={getRelativeLocaleUrl(currentLocale, "staffs")}
+          text="Staffs"
+        />
       </li>
       <li class="navigation-menu-item">
         <TextLink
@@ -210,9 +213,6 @@ const pathname = Astro.url.pathname;
         <a href={getRelativeLocaleUrl(currentLocale, "jobboard")}>
           Job Board
         </a>
-      </li>
-      <li>
-        <a href={getRelativeLocaleUrl(currentLocale, "staffs")}> Staff </a>
       </li>
       <li>
         <a href={getRelativeLocaleUrl(currentLocale, "floormap")}>
@@ -239,25 +239,16 @@ const pathname = Astro.url.pathname;
         }
       </li>
     </ul>
-    <!-- <a
-      href="https://docs.google.com/document/d/e/2PACX-1vTND_zm397IJTp4cbZwR3tpOhnsTtLIkDwcqDfMTg1K0jjWrHJ7i70ukkwukW2nL0nioqdCbOUG8E6I/pub"
-      class="external-link"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <span>Help</span>
-      <OpenInNewIcon class="external-icon" />
-    </a> -->
 
     <!-- メインボタン -->
-    <div class="header-button">
-      <Button href="https://sessionize.com/go-conference-2026/" isBlankLink>
+    <!-- <div class="header-button">
+      <Button href="#" isBlankLink>
         {
           currentLocale === "ja"
             ? "プロポーザルに応募"
             : "Apply for the proposal"
         }
       </Button>
-    </div>
+    </div> -->
   </div>
 </header>
