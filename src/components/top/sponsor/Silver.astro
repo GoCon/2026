@@ -79,6 +79,7 @@ const currentLocale = Astro.currentLocale || "ja";
     aspect-ratio: 354 / 164;
     max-width: 100%;
     object-fit: contain;
+    display: block;
   }
 
   @media screen and (max-width: 768px) {
@@ -88,8 +89,14 @@ const currentLocale = Astro.currentLocale || "ja";
       padding: 0 40px;
     }
 
+    li {
+      display: flex;
+      justify-content: center;
+    }
+
     li > img {
       width: 262px;
+      aspect-ratio: 262 / 64;
     }
   }
 </style>

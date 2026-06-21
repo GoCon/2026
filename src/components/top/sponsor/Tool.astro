@@ -63,6 +63,7 @@ const currentLocale = Astro.currentLocale || "ja";
     aspect-ratio: 560 / 160;
     max-width: 100%;
     object-fit: contain;
+    display: block;
   }
 
   li > img:hover {
@@ -75,8 +76,14 @@ const currentLocale = Astro.currentLocale || "ja";
       padding: 0;
     }
 
+    li {
+      display: flex;
+      justify-content: center;
+    }
+
     li > img {
       width: 342px;
+      aspect-ratio: 342 / 160;
     }
   }
 </style>
