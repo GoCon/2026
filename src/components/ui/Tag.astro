@@ -1,0 +1,23 @@
+---
+type Props = {
+  text: string;
+};
+
+const { text } = Astro.props as Props;
+---
+
+<div class="tag text-body-large-strong">
+  {text}
+</div>
+
+<style>
+  .tag {
+    background-color: var(--surface-secondary);
+    color: var(--text-accent);
+    padding: var(--space-xxxs) var(--space-s);
+    border-radius: var(--radius-objects);
+    min-width: 160px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+</style>

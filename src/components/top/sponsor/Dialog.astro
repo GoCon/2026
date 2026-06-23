@@ -1,0 +1,143 @@
+---
+import { Image } from "astro:assets";
+import type { SponsorWithDialog } from "../sponsors";
+import Tag from "../../ui/Tag.astro";
+import TextLink from "../../ui/TextLink.astro";
+
+import CloseIcon from "../../../assets/icons/close.svg";
+
+interface Props {
+  sponsorSectionTitle: string;
+  sponsor: SponsorWithDialog;
+}
+
+const { sponsorSectionTitle, sponsor } = Astro.props;
+---
+
+<style>
+  .sponsor-dialog {
+    padding: 0;
+    border-radius: 32px;
+    border: none;
+  }
+
+  .sponsor-dialog-close {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--surface-secondary-dark);
+    color: var(--text-on-fill);
+    border-radius: 50%;
+    font-weight: 700;
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    cursor: pointer;
+  }
+
+  .close-icon {
+    display: inline;
+    fill: var(--text-on-fill);
+    width: 32px;
+    height: 32px;
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  .sponsor-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+  }
+
+  .sponsor-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xxs);
+    padding: var(--space-m);
+  }
+
+  .sponsor-logo {
+    aspect-ratio: 520/120;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .sponsor-dialog-body {
+    text-align: center;
+    padding: var(--space-m);
+    background-color: var(--surface-secondary);
+  }
+
+  @media screen and (max-width: 768px) {
+    .sponsor-dialog-header {
+      padding: var(--space-m) var(--space-xs);
+    }
+
+    .sponsor-dialog-content {
+      width: 358px;
+    }
+
+    .sponsor-logo {
+      aspect-ratio: 326/120;
+      box-sizing: border-box;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .sponsor-dialog-close {
+      right: 16px;
+      top: 16px;
+    }
+  }
+</style>
+
+<dialog id={sponsor.dialog.openId} class="sponsor-dialog">
+  <div class="sponsor-dialog-content">
+    <div class="sponsor-dialog-header">
+      <Tag text={sponsorSectionTitle} />
+      <div
+        class="sponsor-dialog-close"
+        onclick={`document.getElementById('${sponsor.dialog.openId}').close()`}
+      >
+        <CloseIcon class="close-icon" />
+      </div>
+      <Image
+        src={sponsor.imageSrc}
+        alt={sponsor.name}
+        loading="lazy"
+        class="sponsor-logo"
+      />
+      <h4 class="text-h4">{sponsor.name}</h4>
+      {
+        sponsor.dialog?.link && (
+          <div>
+            <TextLink
+              href={sponsor.dialog.link}
+              text={sponsor.dialog.link}
+              isAccentColor
+            />
+          </div>
+        )
+      }
+    </div>
+    {
+      sponsor.dialog?.description !== "" && (
+        <div class="sponsor-dialog-body text-body-medium">
+          <span>{sponsor.dialog?.description}</span>
+        </div>
+      )
+    }
+  </div>
+</dialog>

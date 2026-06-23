@@ -1,0 +1,86 @@
+---
+import { Image } from "astro:assets";
+import type { Sponsor } from "../sponsors";
+
+interface Props {
+  sponsors: Sponsor[];
+}
+
+const { sponsors } = Astro.props;
+
+if (sponsors.length === 0) {
+  return null;
+}
+
+const currentLocale = Astro.currentLocale || "ja";
+---
+
+<div class="sponsor-section">
+  <h4 class="text-h4">
+    {currentLocale === "ja" ? "ツールスポンサー" : "Tool Sponsor"}
+  </h4>
+  <ul>
+    {
+      sponsors.map((sponsor) => (
+        <li>
+          <Image
+            src={sponsor.imageSrc}
+            alt={sponsor.name}
+            title={sponsor.name}
+            loading="lazy"
+            priority
+          />
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .sponsor-section {
+    text-align: center;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    list-style: none;
+    text-align: center;
+    padding: 0 182px;
+    gap: 40px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  li {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  li > img {
+    width: 560px;
+    height: auto;
+    aspect-ratio: 560 / 160;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  li > img:hover {
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 768px) {
+    ul {
+      gap: 24px;
+      padding: 0;
+    }
+
+    li > img {
+      width: 342px;
+      aspect-ratio: 342 / 160;
+    }
+  }
+</style>
