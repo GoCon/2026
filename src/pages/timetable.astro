@@ -1,0 +1,11 @@
+---
+import SubPage from "../layouts/SubPage.astro";
+import TimetableComponent from "../components/timetable/index.astro";
+
+const tabParam = Astro.url.searchParams.get("tab");
+const initialTab = tabParam === "workshop" ? "workshop" : "session";
+---
+
+<SubPage pageTitleJa="タイムテーブル" pageTitleEn="Timetable">
+  <TimetableComponent initialTab={initialTab} />
+</SubPage>

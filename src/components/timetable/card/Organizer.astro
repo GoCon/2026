@@ -1,0 +1,29 @@
+---
+import type { ProgramOrganizer } from "../program";
+
+type Props = {
+  program: Extract<ProgramOrganizer, { type: "organizer" }>;
+};
+
+const { program } = Astro.props as Props;
+---
+
+<div class="card">
+  <div class="time-container text-body-medium-strong">
+    <span>{program.timeString}</span>
+  </div>
+  <div class="title-container text-body-large-strong">
+    <span>{program.title}</span>
+  </div>
+</div>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxxs);
+    padding: var(--space-xs) var(--space-s);
+    border: 2px solid var(--surface-disabled);
+    border-radius: var(--radius-objects);
+  }
+</style>

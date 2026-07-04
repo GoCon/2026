@@ -1,0 +1,31 @@
+---
+import type { Program } from "./program";
+import LongSessionCard from "./card/LongSession.astro";
+import OrganizerCard from "./card/Organizer.astro";
+import ShortTalkCard from "./card/ShortTalk.astro";
+import SponsorSessionCard from "./card/SponsorSession.astro";
+import WorkshopCard from "./card/Workshop.astro";
+import BlankCard from "./card/Blank.astro";
+
+type Props = {
+  program: Program;
+};
+
+const { program } = Astro.props as Props;
+---
+
+{
+  program.type === "organizer" ? (
+    <OrganizerCard program={program} />
+  ) : program.type === "longSession" ? (
+    <LongSessionCard program={program} />
+  ) : program.type === "shortTalk" ? (
+    <ShortTalkCard program={program} />
+  ) : program.type === "sponsorSession" ? (
+    <SponsorSessionCard program={program} />
+  ) : program.type === "workshop" ? (
+    <WorkshopCard program={program} />
+  ) : program.type === "blank" ? (
+    <BlankCard program={program} />
+  ) : null
+}

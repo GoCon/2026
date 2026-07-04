@@ -191,7 +191,13 @@ const pathname = Astro.url.pathname;
       <li class="navigation-menu-item">
         <TextLink href={getRelativeLocaleUrl(currentLocale)} text="Home" />
       </li>
-      <li>
+      <li class="navigation-menu-item">
+        <TextLink
+          href={getRelativeLocaleUrl(currentLocale, "timetable")}
+          text="Timetable"
+        />
+      </li>
+      <li class="navigation-menu-item">
         <TextLink
           href={getRelativeLocaleUrl(currentLocale, "staffs")}
           text="Staffs"
@@ -205,11 +211,6 @@ const pathname = Astro.url.pathname;
         />
       </li>
       <!-- <li>
-        <a href={getRelativeLocaleUrl(currentLocale, "timetable")}>
-          Timetable
-        </a>
-      </li>
-      <li>
         <a href={getRelativeLocaleUrl(currentLocale, "jobboard")}>
           Job Board
         </a>

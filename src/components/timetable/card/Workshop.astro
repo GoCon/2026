@@ -1,0 +1,101 @@
+---
+import type { ProgramWorkshop } from "../program";
+import DifficultyBadge from "./DifficultyBadge.astro";
+
+type Props = {
+  program: Extract<ProgramWorkshop, { type: "workshop" }>;
+};
+
+const { program } = Astro.props as Props;
+---
+
+<div class="card">
+  <div class="metadata-container text-body-medium-strong">
+    <div class="time-container">
+      <span>{program.timeString}</span>
+    </div>
+    <DifficultyBadge difficulty={program.difficulty} />
+  </div>
+  <a
+    class="title-container text-body-large-strong"
+    href={`/timetable/${program.id}`}
+    class="text-body-large-strong"
+  >
+    <div class="text-wrapper">
+      <span>{program.title}</span>
+    </div>
+  </a>
+  <div class="footer-container">
+    <div class="speaker-container">
+      <img class="icon" src={program.speaker.avatar} />
+      <span class="text-body-small-strong">{program.speaker.name}</span>
+    </div>
+    <span class="text-body-small">Workshop(40min)</span>
+  </div>
+</div>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxxs);
+    padding: var(--space-xs) var(--space-s);
+    border-radius: var(--radius-objects);
+    background-color: var(--surface-workshop-light);
+    min-height: 300px;
+    box-sizing: border-box;
+  }
+
+  .card .metadata-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .card .metadata-container .time-container {
+    flex: 1;
+  }
+
+  .card .title-container {
+    color: var(--text-primary);
+    transition: color 0.1s ease-in-out;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    height: 56px;
+  }
+
+  .card .title-container:hover {
+    color: var(--text-accent);
+  }
+
+  .card .title-container .text-wrapper {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: fit-content;
+  }
+
+  .card .title-container span {
+    margin: auto 0;
+    height: fit-content;
+  }
+
+  .card .footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card .footer-container .speaker-container {
+    display: flex;
+    gap: var(--space-xxxs);
+  }
+
+  .card .footer-container .speaker-container .icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+</style>

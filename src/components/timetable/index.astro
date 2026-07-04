@@ -1,0 +1,243 @@
+---
+import { sessionSchedule, workshopSchedule } from "./schedule";
+import Card from "./card.astro";
+import { getProgram } from "./program";
+
+export type TimetableTab = "session" | "workshop";
+
+interface Props {
+  initialTab?: TimetableTab;
+}
+
+const { initialTab = "session" } = Astro.props;
+
+const schedules = [
+  {
+    id: "session",
+    data: sessionSchedule,
+    roomClass: "room--session",
+    roomALabel: "Room A",
+    roomBLabel: "Room B",
+  },
+  {
+    id: "workshop",
+    data: workshopSchedule,
+    roomClass: "room--workshop",
+    roomALabel: "Workshop A",
+    roomBLabel: "Workshop B",
+  },
+] as const;
+---
+
+<section id="timetable">
+  <div class="select-button-container">
+    <div
+      class:list={["select-button", { "is-active": initialTab === "session" }]}
+      id="session"
+      role="button"
+      tabindex="0"
+      aria-selected={initialTab === "session"}
+    >
+      <span class="button-text text-h4">セッション</span>
+    </div>
+    <div
+      class:list={["select-button", { "is-active": initialTab === "workshop" }]}
+      id="workshop"
+      role="button"
+      tabindex="0"
+      aria-selected={initialTab === "workshop"}
+    >
+      <span class="button-text text-h4">ワークショップ</span>
+    </div>
+  </div>
+  {
+    schedules.map(({ id, data, roomClass, roomALabel, roomBLabel }) => (
+      <div
+        class:list={["content", { "is-visible": id === initialTab }]}
+        data-schedule-content={id}
+      >
+        <div class="header row">
+          <div class="blank"></div>
+          <div class={`header-content room text-h4 ${roomClass}`}><span>{roomALabel}</span></div>
+          <div class={`header-content room text-h4 ${roomClass}`}><span>{roomBLabel}</span></div>
+        </div>
+        {data.map((column) => (
+          <div class="row">
+            <div class="start-time-container">
+              <span class="text-h4">{column.startTime}</span>
+            </div>
+            <div class="card-container">
+              <Card program={getProgram(column.roomAProgramID)} />
+            </div>
+            <div class="card-container">
+              <Card program={getProgram(column.roomBProgramID)} />
+            </div>
+          </div>
+        ))}
+      </div>
+    ))
+  }
+</section>
+
+<script>
+  type TimetableTab = "session" | "workshop";
+
+  const TAB_QUERY_KEY = "tab";
+
+  function getTabFromUrl(): TimetableTab {
+    const tab = new URLSearchParams(window.location.search).get(TAB_QUERY_KEY);
+    return tab === "workshop" ? "workshop" : "session";
+  }
+
+  function setTabInUrl(type: TimetableTab) {
+    const url = new URL(window.location.href);
+    url.searchParams.set(TAB_QUERY_KEY, type);
+    history.replaceState(null, "", url);
+  }
+
+  function initTimetableToggle() {
+    const timetable = document.getElementById("timetable");
+    if (!timetable) return;
+
+    const sessionButton = timetable.querySelector("#session");
+    const workshopButton = timetable.querySelector("#workshop");
+    const sessionContent = timetable.querySelector('[data-schedule-content="session"]');
+    const workshopContent = timetable.querySelector('[data-schedule-content="workshop"]');
+
+    function showSchedule(type: TimetableTab, updateUrl = true) {
+      const isSession = type === "session";
+
+      sessionButton?.classList.toggle("is-active", isSession);
+      workshopButton?.classList.toggle("is-active", !isSession);
+      sessionButton?.setAttribute("aria-selected", String(isSession));
+      workshopButton?.setAttribute("aria-selected", String(!isSession));
+
+      sessionContent?.classList.toggle("is-visible", isSession);
+      workshopContent?.classList.toggle("is-visible", !isSession);
+
+      if (updateUrl) {
+        setTabInUrl(type);
+      }
+    }
+
+    sessionButton?.addEventListener("click", () => showSchedule("session"));
+    workshopButton?.addEventListener("click", () => showSchedule("workshop"));
+    window.addEventListener("popstate", () => showSchedule(getTabFromUrl(), false));
+
+    showSchedule(getTabFromUrl(), false);
+  }
+
+  initTimetableToggle();
+</script>
+
+<style>
+  #timetable {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+  }
+
+  .select-button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: var(--space-xxs);
+  }
+
+  .select-button {
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: calc(var(--space-s) - 3px) calc(var(--space-m) - 3px);
+    border-radius: var(--radius-button);
+    transition: all 0.2s ease-in-out;
+    background-color: transparent;
+  }
+
+  .select-button#session {
+    border: 3px solid var(--primitive-blue);
+  }
+
+  .select-button#session:hover,
+  .select-button#session.is-active {
+    color: var(--text-on-fill);
+    background-color: var(--primitive-blue);
+  }
+
+  .select-button#workshop {
+    border: 3px solid var(--surface-workshop);
+  }
+
+  .select-button#workshop:hover,
+  .select-button#workshop.is-active {
+    color: var(--text-on-fill);
+    background-color: var(--surface-workshop);
+  }
+
+  .content {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 133px;
+  }
+
+  .content.is-visible {
+    display: flex;
+  }
+
+  .content .row {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .content .row > :nth-child(1) {
+    width: 97px;
+    flex-shrink: 0;
+  }
+
+  .content .row > :nth-child(2),
+  .content .row > :nth-child(3) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .content .row .start-time-container {
+    align-self: stretch;
+  }
+
+  .content .row .start-time-container > span {
+    display: block;
+    position: sticky;
+    top: 81px;
+    z-index: 1;
+  }
+
+  .content .header .header-content.room {
+    width: 100%;
+    padding: var(--space-xs) var(--space-m);
+    color: var(--text-on-fill);
+    border-radius: var(--radius-objects);
+  }
+
+  .content .header .header-content.room--session {
+    background-color: var(--surface-session);
+  }
+
+  .content .header .header-content.room--workshop {
+    background-color: var(--surface-workshop);
+  }
+
+  .content .header .header-content.room span {
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+  }
+
+  @media screen and (max-width: 768px) {
+    .content .row .start-time-container > span {
+      top: 56px;
+    }
+  }
+</style>

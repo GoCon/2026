@@ -1,0 +1,52 @@
+---
+import StarIcon from "../../../assets/icons/star.svg";
+
+type Props = {
+  difficulty: "beginner" | "intermediate" | "advanced";
+};
+
+const { difficulty } = Astro.props as Props;
+
+const displayText = {
+  beginner: "初心者向け",
+  intermediate: "中級者向け",
+  advanced: "上級者向け",
+};
+---
+
+<div class="badge" data-difficulty={difficulty}>
+  <StarIcon class="star-icon" />
+  <span class="text-body-small-strong">{displayText[difficulty]}</span>
+</div>
+
+<style>
+  .badge {
+    display: flex;
+    gap: var(--space-xxs);
+    color: var(--text-on-fill);
+    border-radius: var(--radius-objects);
+    padding: 0 var(--space-xs) 0 var(--space-xxs);
+    width: fit-content;
+    align-items: center;
+  }
+
+  .badge[data-difficulty="beginner"] {
+    background-color: var(--surface-beginner);
+  }
+
+  .badge[data-difficulty="intermediate"] {
+    background-color: var(--surface-intermediate);
+  }
+
+  .badge[data-difficulty="advanced"] {
+    background-color: var(--surface-advanced);
+  }
+
+  .badge span {
+    margin-top: -2px;
+  }
+
+  .star-icon {
+    fill: var(--text-on-fill);
+  }
+</style>
