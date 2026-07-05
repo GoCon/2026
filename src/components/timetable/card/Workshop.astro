@@ -7,9 +7,17 @@ type Props = {
 };
 
 const { program } = Astro.props as Props;
+
+const workshopHeights = {
+  "20min": "300px",
+  "40min": "600px",
+} as const satisfies Record<typeof program.duration, string>;
 ---
 
-<div class="card">
+<div
+  class="card"
+  style={`--workshop-height: ${workshopHeights[program.duration]}`}
+>
   <div class="metadata-container text-body-medium-strong">
     <div class="time-container">
       <span>{program.timeString}</span>
@@ -30,7 +38,7 @@ const { program } = Astro.props as Props;
       <img class="icon" src={program.speaker.avatar} />
       <span class="text-body-small-strong">{program.speaker.name}</span>
     </div>
-    <span class="text-body-small">Workshop(40min)</span>
+    <span class="text-body-small">Workshop({program.duration})</span>
   </div>
 </div>
 
@@ -42,7 +50,7 @@ const { program } = Astro.props as Props;
     padding: var(--space-xs) var(--space-s);
     border-radius: var(--radius-objects);
     background-color: var(--surface-workshop-light);
-    min-height: 300px;
+    height: var(--workshop-height);
     box-sizing: border-box;
   }
 

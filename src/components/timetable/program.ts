@@ -10,6 +10,7 @@ export type Program =
 
 type ProgramBlank = {
   type: "blank";
+  spHeight?: string;
 };
 
 export const blankProgram: ProgramBlank = {
@@ -20,6 +21,8 @@ export type ProgramOrganizer = {
   type: "organizer";
   timeString: string;
   title: string;
+  height?: string;
+  spHeight?: string;
 };
 
 export type ProgramLongSession = {
@@ -36,6 +39,7 @@ export type ProgramSponsorSession = {
 
 export type ProgramWorkshop = {
   type: "workshop";
+  duration: "20min" | "40min";
 } & ProgramSessionCommon;
 
 export type ProgramSessionCommon = {
@@ -63,6 +67,8 @@ export const programs = {
     type: "organizer",
     timeString: "12:05 - 13:30",
     title: "お昼休憩",
+    height: "150px",
+    spHeight: "150px",
   },
   longExample: {
     id: "longExample",
@@ -119,6 +125,19 @@ export const programs = {
       name: "Speaker Name",
     },
     room: "roomA",
+    duration: "20min",
+  },
+  workshopExample40min: {
+    id: "workshopExample40min",
+    type: "workshop",
+    timeString: "15:00 - 15:30",
+    title: "Workshop Example",
+    difficulty: "beginner",
+    speaker: {
+      name: "Speaker Name",
+    },
+    room: "roomA",
+    duration: "40min",
   },
 } as const satisfies Record<string, Program>;
 

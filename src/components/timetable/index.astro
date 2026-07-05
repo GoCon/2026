@@ -4,27 +4,29 @@ import Card from "./card.astro";
 import { getProgram } from "./program";
 
 export type TimetableTab = "session" | "workshop";
+export type TimetableRoom = "roomA" | "roomB";
 
 interface Props {
   initialTab?: TimetableTab;
+  initialRoom?: TimetableRoom;
 }
 
-const { initialTab = "session" } = Astro.props;
+const { initialTab = "session", initialRoom = "roomA" } = Astro.props;
 
 const schedules = [
   {
     id: "session",
     data: sessionSchedule,
     roomClass: "room--session",
-    roomALabel: "Room A",
-    roomBLabel: "Room B",
+    roomALabel: "RoomA",
+    roomBLabel: "RoomB",
   },
   {
     id: "workshop",
     data: workshopSchedule,
     roomClass: "room--workshop",
-    roomALabel: "Workshop A",
-    roomBLabel: "Workshop B",
+    roomALabel: "WorkshopA",
+    roomBLabel: "WorkshopB",
   },
 ] as const;
 ---
@@ -38,7 +40,7 @@ const schedules = [
       tabindex="0"
       aria-selected={initialTab === "session"}
     >
-      <span class="button-text text-h4">セッション</span>
+      <span class="button-text">セッション</span>
     </div>
     <div
       class:list={["select-button", { "is-active": initialTab === "workshop" }]}
@@ -47,7 +49,7 @@ const schedules = [
       tabindex="0"
       aria-selected={initialTab === "workshop"}
     >
-      <span class="button-text text-h4">ワークショップ</span>
+      <span class="button-text">ワークショップ</span>
     </div>
   </div>
   {
@@ -55,21 +57,48 @@ const schedules = [
       <div
         class:list={["content", { "is-visible": id === initialTab }]}
         data-schedule-content={id}
+        data-mobile-room={initialRoom}
       >
         <div class="header row">
-          <div class="blank"></div>
-          <div class={`header-content room text-h4 ${roomClass}`}><span>{roomALabel}</span></div>
-          <div class={`header-content room text-h4 ${roomClass}`}><span>{roomBLabel}</span></div>
+          <div class="blank" />
+          <div
+            class:list={[
+              "header-content",
+              "room",
+              roomClass,
+              { "is-active": initialRoom === "roomA" },
+            ]}
+            data-room="roomA"
+            role="button"
+            tabindex="0"
+            aria-selected={initialRoom === "roomA"}
+          >
+            <span>{roomALabel}</span>
+          </div>
+          <div
+            class:list={[
+              "header-content",
+              "room",
+              roomClass,
+              { "is-active": initialRoom === "roomB" },
+            ]}
+            data-room="roomB"
+            role="button"
+            tabindex="0"
+            aria-selected={initialRoom === "roomB"}
+          >
+            <span>{roomBLabel}</span>
+          </div>
         </div>
         {data.map((column) => (
           <div class="row">
             <div class="start-time-container">
               <span class="text-h4">{column.startTime}</span>
             </div>
-            <div class="card-container">
+            <div class="card-container" data-room="roomA">
               <Card program={getProgram(column.roomAProgramID)} />
             </div>
-            <div class="card-container">
+            <div class="card-container" data-room="roomB">
               <Card program={getProgram(column.roomBProgramID)} />
             </div>
           </div>
@@ -81,18 +110,55 @@ const schedules = [
 
 <script>
   type TimetableTab = "session" | "workshop";
+  type TimetableRoom = "roomA" | "roomB";
 
   const TAB_QUERY_KEY = "tab";
+  const ROOM_QUERY_KEY = "room";
 
   function getTabFromUrl(): TimetableTab {
     const tab = new URLSearchParams(window.location.search).get(TAB_QUERY_KEY);
     return tab === "workshop" ? "workshop" : "session";
   }
 
-  function setTabInUrl(type: TimetableTab) {
+  function getRoomFromUrl(): TimetableRoom {
+    const room = new URLSearchParams(window.location.search).get(
+      ROOM_QUERY_KEY,
+    );
+    return room === "b" ? "roomB" : "roomA";
+  }
+
+  function setUrlParams(params: { tab?: TimetableTab; room?: TimetableRoom }) {
     const url = new URL(window.location.href);
-    url.searchParams.set(TAB_QUERY_KEY, type);
+
+    if (params.tab) {
+      url.searchParams.set(TAB_QUERY_KEY, params.tab);
+    }
+
+    if (params.room) {
+      url.searchParams.set(ROOM_QUERY_KEY, params.room === "roomB" ? "b" : "a");
+    }
+
     history.replaceState(null, "", url);
+  }
+
+  function setMobileRoom(
+    content: Element,
+    room: TimetableRoom,
+    shouldUpdateUrl = true,
+  ) {
+    content.setAttribute("data-mobile-room", room);
+
+    content
+      .querySelectorAll(".header-content.room[data-room]")
+      .forEach((header) => {
+        const isActive = header.getAttribute("data-room") === room;
+        header.classList.toggle("is-active", isActive);
+        header.setAttribute("aria-selected", String(isActive));
+      });
+
+    if (shouldUpdateUrl) {
+      setUrlParams({ room });
+    }
   }
 
   function initTimetableToggle() {
@@ -101,10 +167,17 @@ const schedules = [
 
     const sessionButton = timetable.querySelector("#session");
     const workshopButton = timetable.querySelector("#workshop");
-    const sessionContent = timetable.querySelector('[data-schedule-content="session"]');
-    const workshopContent = timetable.querySelector('[data-schedule-content="workshop"]');
+    const sessionContent = timetable.querySelector(
+      '[data-schedule-content="session"]',
+    );
+    const workshopContent = timetable.querySelector(
+      '[data-schedule-content="workshop"]',
+    );
+    const scheduleContents = timetable.querySelectorAll(
+      "[data-schedule-content]",
+    );
 
-    function showSchedule(type: TimetableTab, updateUrl = true) {
+    function showSchedule(type: TimetableTab, shouldUpdateUrl = true) {
       const isSession = type === "session";
 
       sessionButton?.classList.toggle("is-active", isSession);
@@ -115,16 +188,44 @@ const schedules = [
       sessionContent?.classList.toggle("is-visible", isSession);
       workshopContent?.classList.toggle("is-visible", !isSession);
 
-      if (updateUrl) {
-        setTabInUrl(type);
+      if (shouldUpdateUrl) {
+        setUrlParams({ tab: type });
       }
     }
 
+    function syncFromUrl(shouldUpdateUrl = false) {
+      showSchedule(getTabFromUrl(), shouldUpdateUrl);
+      scheduleContents.forEach((content) => {
+        setMobileRoom(content, getRoomFromUrl(), shouldUpdateUrl);
+      });
+    }
+
+    timetable.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const header = target.closest(".header-content.room[data-room]");
+      if (!header) return;
+
+      const content = header.closest("[data-schedule-content]");
+      if (
+        !(content instanceof HTMLElement) ||
+        !content.classList.contains("is-visible")
+      ) {
+        return;
+      }
+
+      const room = header.getAttribute("data-room");
+      if (room === "roomA" || room === "roomB") {
+        setMobileRoom(content, room);
+      }
+    });
+
     sessionButton?.addEventListener("click", () => showSchedule("session"));
     workshopButton?.addEventListener("click", () => showSchedule("workshop"));
-    window.addEventListener("popstate", () => showSchedule(getTabFromUrl(), false));
+    window.addEventListener("popstate", () => syncFromUrl(false));
 
-    showSchedule(getTabFromUrl(), false);
+    syncFromUrl(false);
   }
 
   initTimetableToggle();
@@ -135,6 +236,7 @@ const schedules = [
     display: flex;
     flex-direction: column;
     gap: var(--space-s);
+    --site-header-height: 81px;
   }
 
   .select-button-container {
@@ -175,6 +277,13 @@ const schedules = [
     background-color: var(--surface-workshop);
   }
 
+  .select-button .button-text {
+    /* text-h4 */
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
   .content {
     display: none;
     flex-direction: column;
@@ -207,10 +316,16 @@ const schedules = [
     align-self: stretch;
   }
 
+  .content .header.row {
+    top: var(--site-header-height);
+    z-index: 100;
+    background-color: var(--surface-primary);
+  }
+
   .content .row .start-time-container > span {
     display: block;
     position: sticky;
-    top: 81px;
+    top: calc(var(--site-header-height));
     z-index: 1;
   }
 
@@ -219,6 +334,11 @@ const schedules = [
     padding: var(--space-xs) var(--space-m);
     color: var(--text-on-fill);
     border-radius: var(--radius-objects);
+
+    /* text-h4 */
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
   }
 
   .content .header .header-content.room--session {
@@ -236,8 +356,73 @@ const schedules = [
   }
 
   @media screen and (max-width: 768px) {
-    .content .row .start-time-container > span {
-      top: 56px;
+    #timetable {
+      --site-header-height: 56px;
+    }
+
+    .select-button {
+      padding: calc(var(--space-xxs) - 2px) calc(var(--space-s) - 2px);
+      border-width: 2px;
+    }
+
+    .select-button .button-text {
+      /* 16px → 14px */
+      font-size: clamp(0.875rem, 0.786rem + 0.446vw, 1rem);
+      font-weight: bold;
+      line-height: 1.75;
+    }
+
+    .content .header.row .blank,
+    .content .row .start-time-container {
+      display: none;
+    }
+
+    .content .header.row {
+      position: sticky;
+      gap: 0;
+    }
+
+    .content .header.row > .header-content.room {
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+      border-radius: 0;
+      background-color: var(--surface-primary);
+      box-sizing: border-box;
+      color: var(--text-accent);
+      border-bottom: 2px solid var(--primitive-blue);
+      padding: var(--space-xs) clamp(20px, 5.714px + 4.464vw, 40px);
+
+      /* large-strong */
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.75;
+    }
+
+    .content .header .header-content.room:not(.is-active) {
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--primitive-light-gray);
+    }
+
+    .content .card-container[data-room] {
+      display: none;
+    }
+
+    .content[data-mobile-room="roomA"] .card-container[data-room="roomA"],
+    .content[data-mobile-room="roomB"] .card-container[data-room="roomB"] {
+      display: block;
+    }
+
+    .content .row > .card-container {
+      flex: 1;
+      width: 100%;
+    }
+
+    .content[data-mobile-room="roomA"]
+      .row:has(.card-container[data-room="roomA"] [data-blank-collapsed-sp]),
+    .content[data-mobile-room="roomB"]
+      .row:has(.card-container[data-room="roomB"] [data-blank-collapsed-sp]) {
+      display: none;
     }
   }
 </style>

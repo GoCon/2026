@@ -1,11 +1,34 @@
 ---
+interface Props {
+  spHeight?: string;
+}
 
+const { spHeight } = Astro.props;
+
+const isCollapsedOnSp =
+  spHeight === undefined || spHeight === "0" || spHeight === "0px";
 ---
 
-<div class="card"></div>
+<div
+  class="card"
+  data-blank-collapsed-sp={isCollapsedOnSp ? "" : undefined}
+  style={!isCollapsedOnSp && spHeight
+    ? `--blank-sp-height: ${spHeight}`
+    : undefined}
+></div>
 
 <style>
   .card {
     height: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .card[data-blank-collapsed-sp] {
+      display: none;
+    }
+
+    .card:not([data-blank-collapsed-sp]) {
+      height: var(--blank-sp-height);
+    }
   }
 </style>

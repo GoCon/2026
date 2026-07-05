@@ -25,7 +25,7 @@ export const sessionSchedule: Schedule[] = [
   {
     startTime: "12：10",
     roomAProgramID: "sponsorExample",
-    roomBProgramID: "blank",
+    roomBProgramID: "lunch",
   },
   {
     startTime: "12：30",
@@ -97,12 +97,12 @@ export const workshopSchedule: Schedule[] = [
   },
   {
     startTime: "13：30",
-    roomAProgramID: "workshopExample",
-    roomBProgramID: "workshopExample",
+    roomAProgramID: "workshopExample40min",
+    roomBProgramID: "workshopExample40min",
   },
   {
     startTime: "15：30",
-    roomAProgramID: "workshopExample",
-    roomBProgramID: "workshopExample",
+    roomAProgramID: "workshopExample40min",
+    roomBProgramID: "workshopExample40min",
   },
 ];

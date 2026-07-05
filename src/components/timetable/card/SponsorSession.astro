@@ -14,6 +14,9 @@ const { program } = Astro.props as Props;
     <div class="time-container">
       <span>{program.timeString}</span>
     </div>
+    <div class="sponsored-session-badge">
+      <span class="text-body-small">Sponsored Session</span>
+    </div>
     <DifficultyBadge difficulty={program.difficulty} />
   </div>
   <a
@@ -47,6 +50,7 @@ const { program } = Astro.props as Props;
   .card .metadata-container {
     display: flex;
     align-items: center;
+    gap: var(--space-xxxs);
   }
 
   .card .metadata-container .time-container {
@@ -95,5 +99,18 @@ const { program } = Astro.props as Props;
     height: 24px;
     border-radius: 50%;
     object-fit: cover;
+  }
+
+  .card .sponsored-session-badge {
+    background-color: var(--text-secondary);
+    padding: 0 var(--space-xs);
+    color: var(--text-on-fill);
+    border-radius: var(--radius-objects);
+    height: fit-content;
+    display: flex;
+  }
+
+  .card .sponsored-session-badge span {
+    margin-top: -2px;
   }
 </style>

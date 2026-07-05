@@ -26,6 +26,6 @@ const { program } = Astro.props as Props;
   ) : program.type === "workshop" ? (
     <WorkshopCard program={program} />
   ) : program.type === "blank" ? (
-    <BlankCard program={program} />
+    <BlankCard spHeight={program.spHeight} />
   ) : null
 }

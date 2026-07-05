@@ -2,13 +2,21 @@
 import type { ProgramOrganizer } from "../program";
 
 type Props = {
-  program: Extract<ProgramOrganizer, { type: "organizer" }>;
+  program: ProgramOrganizer;
 };
 
 const { program } = Astro.props as Props;
+const { height, spHeight } = program;
+
+const style = [
+  height ? `--organizer-height: ${height}` : null,
+  spHeight ? `--organizer-sp-height: ${spHeight}` : null,
+]
+  .filter(Boolean)
+  .join("; ");
 ---
 
-<div class="card">
+<div class="card" style={style || undefined}>
   <div class="time-container text-body-medium-strong">
     <span>{program.timeString}</span>
   </div>
@@ -25,5 +33,13 @@ const { program } = Astro.props as Props;
     padding: var(--space-xs) var(--space-s);
     border: 2px solid var(--surface-disabled);
     border-radius: var(--radius-objects);
+    height: var(--organizer-height, auto);
+    box-sizing: border-box;
+  }
+
+  @media screen and (max-width: 768px) {
+    .card {
+      height: var(--organizer-sp-height, auto);
+    }
   }
 </style>

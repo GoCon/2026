@@ -3,9 +3,11 @@ import SubPage from "../layouts/SubPage.astro";
 import TimetableComponent from "../components/timetable/index.astro";
 
 const tabParam = Astro.url.searchParams.get("tab");
+const roomParam = Astro.url.searchParams.get("room");
 const initialTab = tabParam === "workshop" ? "workshop" : "session";
+const initialRoom = roomParam === "b" ? "roomB" : "roomA";
 ---
 
 <SubPage pageTitleJa="タイムテーブル" pageTitleEn="Timetable">
-  <TimetableComponent initialTab={initialTab} />
+  <TimetableComponent initialTab={initialTab} initialRoom={initialRoom} />
 </SubPage>
