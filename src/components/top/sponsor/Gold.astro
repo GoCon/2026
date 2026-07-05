@@ -1,10 +1,9 @@
 ---
 import { Image } from "astro:assets";
-import type { SponsorWithDialog } from "../sponsors";
-import Dialog from "./Dialog.astro";
+import type { SponsorWithUrl } from "../sponsors";
 
 interface Props {
-  sponsors: SponsorWithDialog[];
+  sponsors: SponsorWithUrl[];
 }
 
 const { sponsors } = Astro.props;
@@ -34,20 +33,15 @@ const currentLocale = Astro.currentLocale || "ja";
     {
       sponsors.map((sponsor) => (
         <li>
-          <Image
-            src={sponsor.imageSrc}
-            alt={sponsor.name}
-            title={sponsor.name}
-            loading="lazy"
-            priority
-            onclick={`document.getElementById('${sponsor.dialog.openId}')?.showModal()`}
-          />
-          <Dialog
-            sponsorSectionTitle={
-              currentLocale === "ja" ? "Goルドスポンサー" : "Gold Sponsor"
-            }
-            sponsor={sponsor}
-          />
+          <a href={sponsor.link} target="_blank" rel="noopener noreferrer">
+            <Image
+              src={sponsor.imageSrc}
+              alt={sponsor.name}
+              title={sponsor.name}
+              loading="lazy"
+              priority
+            />
+          </a>
         </li>
       ))
     }
@@ -75,15 +69,15 @@ const currentLocale = Astro.currentLocale || "ja";
     max-width: 100%;
   }
 
-  li {
-    cursor: pointer;
+  a {
+    display: block;
   }
 
-  li:hover {
+  a:hover {
     opacity: 0.7;
   }
 
-  li > img {
+  a > img {
     width: 532px;
     height: auto;
     aspect-ratio: 532 / 280;
@@ -103,7 +97,7 @@ const currentLocale = Astro.currentLocale || "ja";
       justify-content: center;
     }
 
-    li > img {
+    a > img {
       width: 342px;
       aspect-ratio: 342 / 160;
     }
