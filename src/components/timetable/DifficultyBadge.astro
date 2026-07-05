@@ -1,11 +1,17 @@
 ---
-import StarIcon from "../../../assets/icons/star.svg";
+import StarIcon from "../../assets/icons/star.svg";
+
+export type DifficultyBadgeVariant = "card" | "detail";
 
 type Props = {
   difficulty: "beginner" | "intermediate" | "advanced";
+  variant?: DifficultyBadgeVariant;
 };
 
-const { difficulty } = Astro.props as Props;
+const { difficulty, variant = "card" } = Astro.props as Props;
+
+const textClass =
+  variant === "detail" ? "text-body-large-strong" : "text-body-small-strong";
 
 const currentLocale = Astro.currentLocale || "ja";
 
@@ -23,9 +29,9 @@ const displayText =
       };
 ---
 
-<div class="badge" data-difficulty={difficulty}>
+<div class="badge" data-difficulty={difficulty} data-variant={variant}>
   <StarIcon class="star-icon" />
-  <span class="text-body-small-strong">{displayText[difficulty]}</span>
+  <span class={textClass}>{displayText[difficulty]}</span>
 </div>
 
 <style>
@@ -34,7 +40,6 @@ const displayText =
     gap: var(--space-xxs);
     color: var(--text-on-fill);
     border-radius: var(--radius-objects);
-    padding: 0 var(--space-xs) 0 var(--space-xxs);
     width: fit-content;
     align-items: center;
   }
@@ -57,5 +62,27 @@ const displayText =
 
   .star-icon {
     fill: var(--text-on-fill);
+  }
+
+  .badge[data-variant="card"] {
+    padding: 0 var(--space-xs) 0 var(--space-xxs);
+  }
+
+  .badge[data-variant="detail"] {
+    padding: var(--space-xxxs) var(--space-s) var(--space-xxxs) var(--space-xs);
+  }
+
+  .badge[data-variant="card"] .star-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .badge[data-variant="detail"] .star-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .badge[data-variant="detail"] span {
+    margin-top: 0;
   }
 </style>

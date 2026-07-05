@@ -79,7 +79,11 @@ export const programs = {
     room: "roomA",
     speaker: {
       name: "Speaker Name",
+      company: "Speaker Company",
+      description: "Speaker Description",
+      xUrl: "https://x.com/speaker",
     },
+    description: "Long Session Description",
   },
   longLongExample: {
     id: "longLongExample",
@@ -92,6 +96,7 @@ export const programs = {
     speaker: {
       name: "Speaker Name",
     },
+    description: "Long Session Description",
   },
   shortExample: {
     id: "shortExample",
@@ -103,6 +108,7 @@ export const programs = {
     speaker: {
       name: "Speaker Name",
     },
+    description: "Short Talk Description",
   },
   sponsorExample: {
     id: "sponsorExample",
@@ -114,6 +120,7 @@ export const programs = {
       name: "Speaker Name",
     },
     room: "roomA",
+    description: "Sponsor Session Description",
   },
   workshopExample: {
     id: "workshopExample",
@@ -126,6 +133,7 @@ export const programs = {
     },
     room: "roomA",
     duration: "20min",
+    description: "Workshop Description",
   },
   workshopExample40min: {
     id: "workshopExample40min",
@@ -138,6 +146,7 @@ export const programs = {
     },
     room: "roomA",
     duration: "40min",
+    description: "Workshop Description",
   },
 } as const satisfies Record<string, Program>;
 
