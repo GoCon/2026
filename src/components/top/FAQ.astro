@@ -1,11 +1,14 @@
 ---
 import Button from "../ui/Button.astro";
 import SectionTitle from "../ui/SectionTitle.astro";
+import PlusIcon from "../../assets/icons/plus.svg";
+import MinusIcon from "../../assets/icons/minus.svg";
+import { faq } from "./faq";
 
 const currentLocale = Astro.currentLocale || "ja";
 ---
 
-<section id="sponsor-recruitment">
+<section id="faq">
   <SectionTitle>
     {
       currentLocale === "en" ? (
@@ -19,6 +22,38 @@ const currentLocale = Astro.currentLocale || "ja";
       )
     }
   </SectionTitle>
+
+  <div class="faq-list">
+    {
+      faq.map((item) => {
+        const answer = currentLocale === "en" ? item.answerEn : item.answerJa;
+        return (
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>Q.</span>
+              <span>
+                {currentLocale === "en" ? item.questionEn : item.questionJa}
+              </span>
+              <span class="faq-icon-wrapper" aria-hidden="true">
+                <PlusIcon class="faq-icon faq-icon-plus" />
+                <MinusIcon class="faq-icon faq-icon-minus" />
+              </span>
+            </summary>
+            <div class="faq-answer-wrapper">
+              <span class="faq-answer-prefix">A.</span>
+              <p
+                class="faq-answer"
+                set:html={answer.replace(
+                  /\[([^\]]+)\]\(([^)]+)\)/g,
+                  '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>',
+                )}
+              />
+            </div>
+          </details>
+        );
+      })
+    }
+  </div>
 
   <div class="button-wrapper">
     <span>
@@ -70,10 +105,125 @@ const currentLocale = Astro.currentLocale || "ja";
     align-items: center;
   }
 
+  .faq-list {
+    width: 100%;
+    max-width: 1120px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .faq-item {
+    border-radius: var(--radius-objects);
+    overflow: hidden;
+    background-color: var(--primitive-light-blue);
+  }
+
+  .faq-question {
+    padding: var(--space-xs) var(--space-s);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xxs);
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  details[open] .faq-question {
+    padding-bottom: 12px;
+  }
+
+  .faq-icon-wrapper {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .faq-icon {
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .faq-icon-minus {
+    display: none;
+  }
+
+  details[open] .faq-icon-plus {
+    display: none;
+  }
+
+  details[open] .faq-icon-minus {
+    display: block;
+  }
+
+  .faq-answer-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xxs);
+    padding: var(--space-xxxs) var(--space-s) var(--space-xs);
+    margin-top: var(--space-xxs);
+  }
+
+  .faq-answer-prefix {
+    color: var(--text-accent);
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+    flex-shrink: 0;
+  }
+
+  .faq-answer {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.75;
+    align-self: center;
+  }
+
+  .faq-answer :global(a) {
+    color: var(--text-accent);
+    text-decoration: underline;
+  }
+
   @media screen and (max-width: 768px) {
     section {
       padding: var(--space-m) var(--space-s);
       gap: var(--space-s);
+    }
+
+    .faq-question {
+      padding: var(--space-s);
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.75;
+    }
+
+    .faq-icon-wrapper {
+      width: 24px;
+      height: 24px;
+    }
+
+    .faq-icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    .faq-answer-prefix {
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .faq-answer {
+      font-size: 14px;
+      line-height: 1.75;
     }
   }
 </style>
