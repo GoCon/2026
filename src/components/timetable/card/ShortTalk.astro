@@ -23,7 +23,9 @@ const currentLocale = Astro.currentLocale || "ja";
     href={getRelativeLocaleUrl(currentLocale, `timetable/${program.id}`)}
     class="text-body-large-strong"
   >
-    <span>{program.title}</span>
+    <div class="text-wrapper">
+      <span>{program.title}</span>
+    </div>
   </a>
   <div class="footer-container">
     <div class="speaker-container">

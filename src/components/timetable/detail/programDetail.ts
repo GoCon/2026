@@ -1,27 +1,7 @@
-import { programs, type Program } from "../program";
+import { getProgramSessions, type ProgramSession } from "../program";
 
-export type ProgramSession = Extract<
-  Program,
-  { type: "longSession" | "shortTalk" | "sponsorSession" | "workshop" }
->;
-
-export function getProgramSessions(): ProgramSession[] {
-  const sessions: ProgramSession[] = [];
-
-  for (const program of Object.values(programs)) {
-    if (
-      program.type !== "longSession" &&
-      program.type !== "shortTalk" &&
-      program.type !== "sponsorSession" &&
-      program.type !== "workshop"
-    ) {
-      continue;
-    }
-    sessions.push(program);
-  }
-
-  return sessions;
-}
+export { getProgramSessions };
+export type { ProgramSession };
 
 type ProgramDetailStaticPath = {
   params: { programID: string };

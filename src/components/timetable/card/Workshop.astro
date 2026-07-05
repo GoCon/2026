@@ -11,8 +11,8 @@ const { program } = Astro.props as Props;
 const currentLocale = Astro.currentLocale || "ja";
 
 const workshopHeights = {
-  "20min": "300px",
-  "40min": "600px",
+  "40min": "300px",
+  "90min": "600px",
 } as const satisfies Record<typeof program.duration, string>;
 ---
 

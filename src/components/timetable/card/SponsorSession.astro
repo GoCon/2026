@@ -9,13 +9,16 @@ type Props = {
 
 const { program } = Astro.props as Props;
 const currentLocale = Astro.currentLocale || "ja";
+const isPlaceholder = program.isPlaceholder === true;
 const sessionTypeLabel =
   currentLocale === "ja"
     ? "ランチ・ドリンクセッション(15min)"
     : "Lunch & Drink Session(15min)";
+const placeholderTitle =
+  currentLocale === "ja" ? "詳細未定" : "Coming Soon";
 ---
 
-<div class="card">
+<div class="card" class:list={[{ "card--placeholder": isPlaceholder }]}>
   <div class="metadata-container text-body-medium-strong">
     <div class="time-container">
       <span>{program.timeString}</span>
@@ -23,20 +26,31 @@ const sessionTypeLabel =
     <div class="sponsored-session-badge">
       <span class="text-body-small">Sponsored Session</span>
     </div>
-    <DifficultyBadge difficulty={program.difficulty} />
+    {!isPlaceholder && <DifficultyBadge difficulty={program.difficulty} />}
   </div>
-  <a
-    class="title-container text-body-large-strong"
-    href={getRelativeLocaleUrl(currentLocale, `timetable/${program.id}`)}
-    class="text-body-large-strong"
-  >
-    <span>{program.title}</span>
-  </a>
+  {
+    isPlaceholder ? (
+      <div class="title-container title-container--placeholder text-body-large-strong">
+        <span>{placeholderTitle}</span>
+      </div>
+    ) : (
+      <a
+        class="title-container text-body-large-strong"
+        href={getRelativeLocaleUrl(currentLocale, `timetable/${program.id}`)}
+      >
+        <span>{program.title}</span>
+      </a>
+    )
+  }
   <div class="footer-container">
-    <div class="speaker-container">
-      <img class="icon" src={program.speaker.avatar} />
-      <span class="text-body-small-strong">{program.speaker.name}</span>
-    </div>
+    {
+      !isPlaceholder && (
+        <div class="speaker-container">
+          <img class="icon" src={program.speaker.avatar} />
+          <span class="text-body-small-strong">{program.speaker.name}</span>
+        </div>
+      )
+    }
     <span class="text-body-small">{sessionTypeLabel}</span>
   </div>
 </div>
@@ -87,6 +101,17 @@ const sessionTypeLabel =
   .card .title-container span {
     margin: auto 0;
     height: fit-content;
+  }
+
+  .card .title-container--placeholder {
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    height: 56px;
+  }
+
+  .card--placeholder .footer-container {
+    justify-content: flex-end;
   }
 
   .card .footer-container {

@@ -14,58 +14,58 @@ export const sessionSchedule: Schedule[] = [
   },
   {
     startTime: "10：30",
-    roomAProgramID: "longExample",
+    roomAProgramID: "1264506",
     roomBProgramID: "blank",
   },
   {
     startTime: "11：25",
-    roomAProgramID: "longExample",
-    roomBProgramID: "longLongExample",
+    roomAProgramID: "1251920",
+    roomBProgramID: "1251905",
   },
   {
     startTime: "12：10",
-    roomAProgramID: "sponsorExample",
+    roomAProgramID: "sponsorSlot1",
     roomBProgramID: "lunch",
   },
   {
     startTime: "12：30",
-    roomAProgramID: "sponsorExample",
+    roomAProgramID: "sponsorSlot2",
     roomBProgramID: "blank",
   },
   {
     startTime: "12：50",
-    roomAProgramID: "sponsorExample",
+    roomAProgramID: "sponsorSlot3",
     roomBProgramID: "blank",
   },
   {
     startTime: "13：10",
-    roomAProgramID: "sponsorExample",
+    roomAProgramID: "sponsorSlot4",
     roomBProgramID: "blank",
   },
   {
     startTime: "13：30",
-    roomAProgramID: "shortExample",
-    roomBProgramID: "shortExample",
+    roomAProgramID: "1236917",
+    roomBProgramID: "1237370",
   },
   {
     startTime: "14：05",
-    roomAProgramID: "shortExample",
-    roomBProgramID: "shortExample",
+    roomAProgramID: "1255534",
+    roomBProgramID: "1257333",
   },
   {
     startTime: "14：40",
-    roomAProgramID: "longExample",
-    roomBProgramID: "longExample",
+    roomAProgramID: "1263399",
+    roomBProgramID: "1263912",
   },
   {
     startTime: "15：35",
-    roomAProgramID: "shortExample",
-    roomBProgramID: "shortExample",
+    roomAProgramID: "1263610",
+    roomBProgramID: "1264230",
   },
   {
     startTime: "16：10",
-    roomAProgramID: "shortExample",
-    roomBProgramID: "shortExample",
+    roomAProgramID: "1264524",
+    roomBProgramID: "1264549",
   },
   {
     startTime: "16：40",
@@ -87,8 +87,8 @@ export const sessionSchedule: Schedule[] = [
 export const workshopSchedule: Schedule[] = [
   {
     startTime: "11：25",
-    roomAProgramID: "workshopExample",
-    roomBProgramID: "workshopExample",
+    roomAProgramID: "1259723",
+    roomBProgramID: "1264338",
   },
   {
     startTime: "12：10",
@@ -97,12 +97,12 @@ export const workshopSchedule: Schedule[] = [
   },
   {
     startTime: "13：30",
-    roomAProgramID: "workshopExample40min",
-    roomBProgramID: "workshopExample40min",
+    roomAProgramID: "1257229",
+    roomBProgramID: "1259713",
   },
   {
     startTime: "15：30",
-    roomAProgramID: "workshopExample40min",
-    roomBProgramID: "workshopExample40min",
+    roomAProgramID: "1263141",
+    roomBProgramID: "1264403",
   },
 ];

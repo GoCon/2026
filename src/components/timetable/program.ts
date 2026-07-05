@@ -35,11 +35,12 @@ export type ProgramShortTalk = {
 
 export type ProgramSponsorSession = {
   type: "sponsorSession";
+  isPlaceholder?: boolean;
 } & ProgramSessionCommon;
 
 export type ProgramWorkshop = {
   type: "workshop";
-  duration: "20min" | "40min";
+  duration: "40min" | "90min";
 } & ProgramSessionCommon;
 
 export type ProgramSessionCommon = {
@@ -52,7 +53,9 @@ export type ProgramSessionCommon = {
   description?: string;
 };
 
-export const programs = {
+import { parseProgramsFromRawData } from "./parseRawData";
+
+const organizerPrograms = {
   opening: {
     type: "organizer",
     timeString: "10:15 - 10:20",
@@ -70,91 +73,90 @@ export const programs = {
     height: "150px",
     spHeight: "150px",
   },
-  longExample: {
-    id: "longExample",
-    type: "longSession",
-    timeString: "13:30 - 14:00",
-    title: "Long Session Example",
-    difficulty: "beginner",
-    room: "roomA",
-    speaker: {
-      name: "Speaker Name",
-      company: "Speaker Company",
-      description: "Speaker Description",
-      xUrl: "https://x.com/speaker",
-    },
-    description: "Long Session Description",
-  },
-  longLongExample: {
-    id: "longLongExample",
-    type: "longSession",
-    timeString: "13:30 - 14:00",
-    title:
-      "Long Session Example Long Session Example Long Session Example Long Session Example Long Session Example Long Session Example Long Session Example Long Session Example",
-    difficulty: "beginner",
-    room: "roomA",
-    speaker: {
-      name: "Speaker Name",
-    },
-    description: "Long Session Description",
-  },
-  shortExample: {
-    id: "shortExample",
-    type: "shortTalk",
-    timeString: "14:00 - 14:30",
-    title: "Short Talk Example",
-    room: "roomA",
-    difficulty: "beginner",
-    speaker: {
-      name: "Speaker Name",
-    },
-    description: "Short Talk Description",
-  },
-  sponsorExample: {
-    id: "sponsorExample",
-    type: "sponsorSession",
-    timeString: "14:30 - 15:00",
-    title: "Sponsor Session Example",
-    difficulty: "beginner",
-    speaker: {
-      name: "Speaker Name",
-    },
-    room: "roomA",
-    description: "Sponsor Session Description",
-  },
-  workshopExample: {
-    id: "workshopExample",
-    type: "workshop",
-    timeString: "15:00 - 15:30",
-    title: "Workshop Example",
-    difficulty: "beginner",
-    speaker: {
-      name: "Speaker Name",
-    },
-    room: "roomA",
-    duration: "20min",
-    description: "Workshop Description",
-  },
-  workshopExample40min: {
-    id: "workshopExample40min",
-    type: "workshop",
-    timeString: "15:00 - 15:30",
-    title: "Workshop Example",
-    difficulty: "beginner",
-    speaker: {
-      name: "Speaker Name",
-    },
-    room: "roomA",
-    duration: "40min",
-    description: "Workshop Description",
-  },
-} as const satisfies Record<string, Program>;
+} as const satisfies Record<string, ProgramOrganizer>;
 
-export type ProgramId = keyof typeof programs;
+const sponsorPlaceholderPrograms = {
+  sponsorSlot1: {
+    type: "sponsorSession",
+    isPlaceholder: true,
+    id: "sponsorSlot1",
+    timeString: "12:10 - 12:25",
+    title: "Coming Soon",
+    difficulty: "beginner",
+    speaker: { name: "" },
+    room: "roomA",
+  },
+  sponsorSlot2: {
+    type: "sponsorSession",
+    isPlaceholder: true,
+    id: "sponsorSlot2",
+    timeString: "12:30 - 12:45",
+    title: "Coming Soon",
+    difficulty: "beginner",
+    speaker: { name: "" },
+    room: "roomA",
+  },
+  sponsorSlot3: {
+    type: "sponsorSession",
+    isPlaceholder: true,
+    id: "sponsorSlot3",
+    timeString: "12:50 - 13:05",
+    title: "Coming Soon",
+    difficulty: "beginner",
+    speaker: { name: "" },
+    room: "roomA",
+  },
+  sponsorSlot4: {
+    type: "sponsorSession",
+    isPlaceholder: true,
+    id: "sponsorSlot4",
+    timeString: "13:10 - 13:25",
+    title: "Coming Soon",
+    difficulty: "beginner",
+    speaker: { name: "" },
+    room: "roomA",
+  },
+} as const satisfies Record<string, ProgramSponsorSession>;
+
+const sessionPrograms = parseProgramsFromRawData();
+
+export const programs: Record<string, Program> = {
+  ...organizerPrograms,
+  ...sponsorPlaceholderPrograms,
+  ...sessionPrograms,
+};
+
+export type ProgramId = string;
+
+export type ProgramSession = Extract<
+  Program,
+  { type: "longSession" | "shortTalk" | "sponsorSession" | "workshop" }
+>;
+
+export function getProgramSessions(): ProgramSession[] {
+  const sessions: ProgramSession[] = [];
+
+  for (const program of Object.values(programs)) {
+    if (
+      program.type !== "longSession" &&
+      program.type !== "shortTalk" &&
+      program.type !== "sponsorSession" &&
+      program.type !== "workshop"
+    ) {
+      continue;
+    }
+    if (program.type === "sponsorSession" && program.isPlaceholder) {
+      continue;
+    }
+    sessions.push(program);
+  }
+
+  return sessions;
+}
 
 export function getProgram(id: ProgramId | "blank"): Program {
   if (id === "blank") {
     return blankProgram;
   }
-  return programs[id];
+  return programs[id] ?? blankProgram;
 }

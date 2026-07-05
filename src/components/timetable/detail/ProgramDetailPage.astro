@@ -100,7 +100,7 @@ const description =
   </div>
 
   <section id="content">
-    <div>{program.description}</div>
+    <div class="description">{program.description}</div>
   </section>
 
   <section id="speaker">
@@ -214,6 +214,10 @@ const description =
 
   section#content {
     margin-bottom: var(--space-m);
+  }
+
+  section#content .description {
+    white-space: pre-wrap;
   }
 
   section#speaker {
