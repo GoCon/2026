@@ -7,11 +7,20 @@ type Props = {
 
 const { difficulty } = Astro.props as Props;
 
-const displayText = {
-  beginner: "初心者向け",
-  intermediate: "中級者向け",
-  advanced: "上級者向け",
-};
+const currentLocale = Astro.currentLocale || "ja";
+
+const displayText =
+  currentLocale === "ja"
+    ? {
+        beginner: "初心者向け",
+        intermediate: "中級者向け",
+        advanced: "上級者向け",
+      }
+    : {
+        beginner: "Beginner",
+        intermediate: "Intermediate",
+        advanced: "Advanced",
+      };
 ---
 
 <div class="badge" data-difficulty={difficulty}>

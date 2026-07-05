@@ -1,12 +1,14 @@
 ---
 import type { ProgramShortTalk } from "../program";
 import DifficultyBadge from "./DifficultyBadge.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 type Props = {
   program: Extract<ProgramShortTalk, { type: "shortTalk" }>;
 };
 
 const { program } = Astro.props as Props;
+const currentLocale = Astro.currentLocale || "ja";
 ---
 
 <div class="card">
@@ -18,7 +20,7 @@ const { program } = Astro.props as Props;
   </div>
   <a
     class="title-container text-body-large-strong"
-    href={`/timetable/${program.id}`}
+    href={getRelativeLocaleUrl(currentLocale, `timetable/${program.id}`)}
     class="text-body-large-strong"
   >
     <span>{program.title}</span>

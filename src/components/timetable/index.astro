@@ -13,6 +13,10 @@ interface Props {
 
 const { initialTab = "session", initialRoom = "roomA" } = Astro.props;
 
+const currentLocale = Astro.currentLocale || "ja";
+const sessionTabLabel = currentLocale === "ja" ? "セッション" : "Session";
+const workshopTabLabel = currentLocale === "ja" ? "ワークショップ" : "Workshop";
+
 const schedules = [
   {
     id: "session",
@@ -40,7 +44,7 @@ const schedules = [
       tabindex="0"
       aria-selected={initialTab === "session"}
     >
-      <span class="button-text">セッション</span>
+      <span class="button-text">{sessionTabLabel}</span>
     </div>
     <div
       class:list={["select-button", { "is-active": initialTab === "workshop" }]}
@@ -49,7 +53,7 @@ const schedules = [
       tabindex="0"
       aria-selected={initialTab === "workshop"}
     >
-      <span class="button-text">ワークショップ</span>
+      <span class="button-text">{workshopTabLabel}</span>
     </div>
   </div>
   {

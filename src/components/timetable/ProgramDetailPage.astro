@@ -1,0 +1,192 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { constants } from "../../constants";
+import SubPage from "../../layouts/SubPage.astro";
+import BackLink from "../ui/BackLink.astro";
+import SectionTitle from "../ui/SectionTitle.astro";
+import DifficultyBadge from "./card/DifficultyBadge.astro";
+import type { ProgramSession } from "./programDetail";
+
+interface Props {
+  program: ProgramSession;
+}
+
+const { program } = Astro.props;
+const currentLocale = Astro.currentLocale || "ja";
+
+const sectionTitle = currentLocale === "ja" ? "タイムテーブル" : "Timetable";
+const backLinkText =
+  currentLocale === "ja" ? "タイムテーブルに戻る" : "Back to Timetable";
+
+function getSessionTypeLabel(
+  sessionProgram: ProgramSession,
+  locale: string,
+): string {
+  switch (sessionProgram.type) {
+    case "longSession":
+      return "Long Session(40min)";
+    case "shortTalk":
+      return "Short Talk(20min)";
+    case "sponsorSession":
+      return locale === "ja"
+        ? "ランチ・ドリンクセッション(15min)"
+        : "Lunch & Drink Session(15min)";
+    case "workshop":
+      return `Workshop(${sessionProgram.duration})`;
+  }
+}
+
+function getRoomLabel(
+  room: ProgramSession["room"],
+  type: ProgramSession["type"],
+): string {
+  const isWorkshop = type === "workshop";
+  if (isWorkshop) {
+    return room === "roomA" ? "WorkshopA" : "WorkshopB";
+  }
+  return room === "roomA" ? "RoomA" : "RoomB";
+}
+
+const sessionTypeLabel = getSessionTypeLabel(program, currentLocale);
+const roomLabel = getRoomLabel(program.room, program.type);
+
+const timetableParams = new URLSearchParams({
+  tab: program.type === "workshop" ? "workshop" : "session",
+  room: program.room === "roomB" ? "b" : "a",
+});
+const timetableUrl = `${getRelativeLocaleUrl(currentLocale, "timetable")}?${timetableParams.toString()}`;
+---
+
+<SubPage
+  pageTitleJa="タイムテーブル"
+  pageTitleEn="Timetable"
+  documentTitle={`${program.title} - ${sectionTitle} | ${constants.pageTitle}`}
+>
+  <div>
+    <BackLink href={timetableUrl} text={backLinkText} />
+    <SectionTitle>
+      <span class="section-title">{program.title}</span>
+    </SectionTitle>
+  </div>
+
+  <div class="metadata text-body-medium">
+    <span>{program.timeString}</span>
+    <span class="metadata-separator">·</span>
+    <span>{roomLabel}</span>
+    <span class="metadata-separator">·</span>
+    <span>{sessionTypeLabel}</span>
+  </div>
+
+  <div class="badges">
+    <DifficultyBadge difficulty={program.difficulty} />
+    {
+      program.type === "sponsorSession" && (
+        <div class="sponsored-session-badge">
+          <span class="text-body-small">Sponsored Session</span>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="speaker">
+    {
+      program.speaker.avatar && (
+        <img
+          class="speaker-avatar"
+          src={program.speaker.avatar}
+          alt={program.speaker.name}
+        />
+      )
+    }
+    <div class="speaker-info">
+      <span class="text-body-large-strong">{program.speaker.name}</span>
+      {
+        program.speaker.company && (
+          <span class="text-body-medium speaker-company">
+            {program.speaker.company}
+          </span>
+        )
+      }
+    </div>
+  </div>
+
+  {
+    program.description && (
+      <p class="description text-body-large">{program.description}</p>
+    )
+  }
+</SubPage>
+
+<style>
+  .section-title {
+    display: inline-block;
+  }
+
+  .section-title::first-letter {
+    color: var(--text-accent);
+  }
+
+  .metadata {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xxs);
+    margin-top: var(--space-xs);
+    color: var(--text-secondary);
+  }
+
+  .metadata-separator {
+    color: var(--text-secondary);
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xxs);
+    margin-top: var(--space-s);
+  }
+
+  .sponsored-session-badge {
+    background-color: var(--text-secondary);
+    padding: 0 var(--space-xs);
+    color: var(--text-on-fill);
+    border-radius: var(--radius-objects);
+    height: fit-content;
+    display: flex;
+  }
+
+  .sponsored-session-badge span {
+    margin-top: -2px;
+  }
+
+  .speaker {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    margin-top: var(--space-m);
+  }
+
+  .speaker-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .speaker-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxxs);
+  }
+
+  .speaker-company {
+    color: var(--text-secondary);
+  }
+
+  .description {
+    margin-top: var(--space-m);
+    line-height: 1.75;
+    color: var(--text-primary);
+  }
+</style>
