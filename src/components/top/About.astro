@@ -1,49 +1,94 @@
 ---
 import Chip from "../ui/Chip.astro";
 import SectionTitle from "../ui/SectionTitle.astro";
+
+const currentLocale = Astro.currentLocale || "ja";
+const isJa = currentLocale === "ja";
+
+const dateChipText = isJa ? "開催日時" : "Date & Time";
+const dateText = isJa ? "2026年9月11日（金）" : "September 11, 2026 (Fri)";
+
+const venueChipText = isJa ? "会場" : "Venue";
+
+const ticketChipText = isJa ? "チケット" : "Ticket";
+const ticketText = isJa ? "後日公開" : "Coming soon";
 ---
 
 <section id="about">
   <div id="about-top">
     <SectionTitle>
-      <span class="section-title"
-        ><span style="color: var(--text-accent);">Go Conference<wbr /></span
-        >とは</span
-      >
+      {
+        isJa ? (
+          <span class="section-title">
+            <span style="color: var(--text-accent);">
+              Go Conference<wbr />
+            </span>
+            とは
+          </span>
+        ) : (
+          <span class="section-title">
+            What is{" "}
+            <span style="color: var(--text-accent);">
+              Go Conference<wbr />
+            </span>
+            ?
+          </span>
+        )
+      }
     </SectionTitle>
-    <span class="text-body-large"
-      >Go Conference はプログラミング言語 ”Go”
-      ユーザーのためのカンファレンスです。</span
-    >
+    <span class="text-body-large">
+      {
+        isJa
+          ? 'Go Conference はプログラミング言語 "Go" ユーザーのためのカンファレンスです。'
+          : 'Go Conference is a conference for users of the programming language "Go".'
+      }
+    </span>
   </div>
 
   <div id="about-details">
     <div class="row">
-      <div class="chip-container">
-        <Chip text="開催日時" />
+      <div class:list={["chip-container", { "chip-container-en": !isJa }]}>
+        <Chip text={dateChipText} />
       </div>
       <!-- TODO 開催時間の追加 -->
-      <span class="text-body-large-strong"> 2026年9月11日（金）</span>
+      <span class="text-body-large-strong">{dateText}</span>
     </div>
     <div class="row">
-      <div class="chip-container">
-        <Chip text="会場" />
+      <div class:list={["chip-container", { "chip-container-en": !isJa }]}>
+        <Chip text={venueChipText} />
       </div>
-      <span class="text-body-large-strong"
-        >東京都中野区中野4丁目10番2号　<br class="sp-only" /><wbr
-        />中野セントラルパークサウス1,B1F</span
-      >
+      <span class="text-body-large-strong">
+        {
+          isJa ? (
+            <>
+              東京都中野区中野4丁目10番2号　<br class="sp-only" />
+              <wbr />
+              中野セントラルパークサウス1,B1F
+            </>
+          ) : (
+            <>
+              Nakano Central Park South 1F / B1F, <br class="pc-only" />
+              <wbr />
+              4-10-2 Nakano, Nakano-ku, Tokyo, Japan
+            </>
+          )
+        }
+      </span>
     </div>
     <div class="row">
-      <div class="chip-container">
-        <Chip text="チケット" />
+      <div class:list={["chip-container", { "chip-container-en": !isJa }]}>
+        <Chip text={ticketChipText} />
       </div>
-      <span class="text-body-large-strong">後日公開</span>
+      <span class="text-body-large-strong">{ticketText}</span>
     </div>
   </div>
 </section>
 
 <style>
+  .pc-only {
+    display: block;
+  }
+
   .sp-only {
     display: none;
   }
@@ -83,7 +128,15 @@ import SectionTitle from "../ui/SectionTitle.astro";
     width: 160px;
   }
 
+  .row .chip-container-en {
+    width: 200px;
+  }
+
   @media screen and (max-width: 768px) {
+    .pc-only {
+      display: none;
+    }
+
     .sp-only {
       display: block;
     }
