@@ -14,7 +14,11 @@ const { lang = "ja" } = Astro.props;
     {lang === "en" ? (
       <h2>We asked everyone: "<span class="staffs-title-accent">What I love about the Go community!</span>"</h2>
     ) : (
-      <h2>みんなの「<span class="staffs-title-accent">Go コミュニティのここが好き！</span>」を<br />聞いてみました！</h2>
+      <h2>
+        みんなの<wbr />「<span class="staffs-title-accent"
+        >Goコミュニティの<wbr />ここが好き！</span>
+        」を<br />聞いて<wbr />みました！
+      </h2>
     )}
   </div>
   <div class="staffs-grid" data-staff-grid>
