@@ -2,11 +2,20 @@
 import { staffs } from "./staff_list";
 import XLogo from "../assets/icons/x.svg";
 import GitHubLogo from "../assets/icons/github.svg";
+
+interface Props {
+  lang?: "ja" | "en";
+}
+const { lang = "ja" } = Astro.props;
 ---
 
 <section class="staffs-section">
   <div class="staffs-title">
-    <h2>みんなの「<span class="staffs-title-accent">Go コミュニティのここが好き！</span>」を<br />聞いてみました！</h2>
+    {lang === "en" ? (
+      <h2>We asked everyone: "<span class="staffs-title-accent">What I love about the Go community!</span>"</h2>
+    ) : (
+      <h2>みんなの「<span class="staffs-title-accent">Go コミュニティのここが好き！</span>」を<br />聞いてみました！</h2>
+    )}
   </div>
   <div class="staffs-grid" data-staff-grid>
     {
