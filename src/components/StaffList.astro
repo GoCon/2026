@@ -103,6 +103,14 @@ import GitHubLogo from "../assets/icons/github.svg";
     margin: 0;
     padding-left: 30px;
     position: relative;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  @media screen and (max-width: 768px) {
+    .staffs-title h2 br {
+      display: none;
+    }
   }
 
   .staffs-title h2::before,
