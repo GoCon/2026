@@ -148,7 +148,7 @@ import GitHubLogo from "../assets/icons/github.svg";
     gap: 24px;
     margin-top: 32px;
     justify-content: center;
-    grid-template-columns: repeat(3, 360px);
+    grid-template-columns: repeat(3, minmax(0, 360px));
     visibility: hidden;
 
     &.staffs-grid--ready {
@@ -156,11 +156,11 @@ import GitHubLogo from "../assets/icons/github.svg";
     }
 
     @media screen and (max-width: 1200px) {
-      grid-template-columns: repeat(2, 360px);
+      grid-template-columns: repeat(2, minmax(0, 360px));
     }
 
     @media screen and (max-width: 800px) {
-      grid-template-columns: 360px;
+      grid-template-columns: minmax(0, 360px);
     }
   }
 
@@ -168,10 +168,10 @@ import GitHubLogo from "../assets/icons/github.svg";
     background: var(--primitive-light-blue);
     border-radius: 16px;
     padding: 20px;
-    width: 360px;
+    max-width: 360px;
+    width: 100%;
     min-height: 160px;
     box-sizing: border-box;
-    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 16px;
