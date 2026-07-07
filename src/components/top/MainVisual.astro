@@ -6,6 +6,8 @@ import logoImageRow from "../../assets/mainVisual/mv_logo_sp.svg";
 import Button from "../ui/Button.astro";
 
 const currentLocale = Astro.currentLocale || "ja";
+const ticketUrl =
+  "https://conference.findy-code.io/conferences/gocon26/23/registration";
 ---
 
 <section id="main-visual">
@@ -40,18 +42,18 @@ const currentLocale = Astro.currentLocale || "ja";
           )
         }
       </div>
-      <!-- <Button
+      <Button
         size="large"
-        href=""
+        href={ticketUrl}
         isBlankLink
         class="mv-button"
       >
         {
           currentLocale === "ja"
-            ? "プロポーザルに応募"
-            : "Apply for the proposal"
+            ? "イベントに申し込む"
+            : "Register for the event"
         }
-      </Button> -->
+      </Button>
     </div>
   </div>
 </section>
