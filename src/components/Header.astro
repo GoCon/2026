@@ -9,6 +9,8 @@ import Button from "./ui/Button.astro";
 
 const currentLocale = Astro.currentLocale || "ja";
 const pathname = Astro.url.pathname;
+const ticketUrl =
+  "https://conference.findy-code.io/conferences/gocon26/23/registration";
 ---
 
 <style>
@@ -19,7 +21,7 @@ const pathname = Astro.url.pathname;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4px 40px;
+    padding: 4px clamp(16px, -11.429px + 3.571vw, 40px);
     height: 81px;
     box-sizing: border-box;
     background: var(--surface-primary);
@@ -88,7 +90,7 @@ const pathname = Astro.url.pathname;
 
     & .navigation-menu {
       display: flex;
-      gap: 26px;
+      gap: clamp(16px, 4.571px + 1.488vw, 26px);
       list-style: none;
       margin: 0;
       padding: 0;
@@ -240,15 +242,14 @@ const pathname = Astro.url.pathname;
       </li>
     </ul>
 
-    <!-- メインボタン -->
-    <!-- <div class="header-button">
-      <Button href="#" isBlankLink>
+    <div class="header-button">
+      <Button href={ticketUrl} isBlankLink>
         {
           currentLocale === "ja"
-            ? "プロポーザルに応募"
-            : "Apply for the proposal"
+            ? "イベントに申し込む"
+            : "Register for the event"
         }
       </Button>
-    </div> -->
+    </div>
   </div>
 </header>

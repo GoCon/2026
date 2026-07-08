@@ -10,8 +10,7 @@ const dateText = isJa ? "2026年9月11日（金）" : "September 11, 2026 (Fri)"
 
 const venueChipText = isJa ? "会場" : "Venue";
 
-const ticketChipText = isJa ? "チケット" : "Ticket";
-const ticketText = isJa ? "後日公開" : "Coming soon";
+const ticketChipText = isJa ? "参加費" : "Admission";
 ---
 
 <section id="about">
@@ -21,7 +20,8 @@ const ticketText = isJa ? "後日公開" : "Coming soon";
         isJa ? (
           <span class="section-title">
             <span style="color: var(--text-accent);">
-              Go Conference<wbr />
+              Go Conference
+              <wbr />
             </span>
             とは
           </span>
@@ -29,7 +29,8 @@ const ticketText = isJa ? "後日公開" : "Coming soon";
           <span class="section-title">
             What is{" "}
             <span style="color: var(--text-accent);">
-              Go Conference<wbr />
+              Go Conference
+              <wbr />
             </span>
             ?
           </span>
@@ -61,7 +62,8 @@ const ticketText = isJa ? "後日公開" : "Coming soon";
         {
           isJa ? (
             <>
-              東京都中野区中野4丁目10番2号　<br class="sp-only" />
+              東京都中野区中野4丁目10番2号　
+              <br class="sp-only" />
               <wbr />
               中野セントラルパークサウス1,B1F
             </>
@@ -79,7 +81,39 @@ const ticketText = isJa ? "後日公開" : "Coming soon";
       <div class:list={["chip-container", { "chip-container-en": !isJa }]}>
         <Chip text={ticketChipText} />
       </div>
-      <span class="text-body-large-strong">{ticketText}</span>
+      <span
+        class:list={[
+          "text-body-large-strong",
+          "ticket-prices",
+          { "ticket-prices-en": !isJa },
+        ]}
+      >
+        {
+          isJa ? (
+            <>
+              <span class="ticket-label">一般参加 + Official Partyあり:</span>
+              <span class="ticket-price">7,000円（税込）</span>
+              <span class="ticket-label">一般参加 + Official Partyなし:</span>
+              <span class="ticket-price">5,000円（税込）</span>
+              <span class="ticket-label">学生参加 + Official Partyあり:</span>
+              <span class="ticket-price">3,000円（税込）</span>
+              <span class="ticket-label">学生参加 + Official Partyなし:</span>
+              <span class="ticket-price">1,500円（税込）</span>
+            </>
+          ) : (
+            <>
+              <span class="ticket-label">General + Official Party:</span>
+              <span class="ticket-price">¥7,000 (tax incl.)</span>
+              <span class="ticket-label">General (no Official Party):</span>
+              <span class="ticket-price">¥5,000 (tax incl.)</span>
+              <span class="ticket-label">Student + Official Party:</span>
+              <span class="ticket-price">¥3,000 (tax incl.)</span>
+              <span class="ticket-label">Student (no Official Party):</span>
+              <span class="ticket-price">¥1,500 (tax incl.)</span>
+            </>
+          )
+        }
+      </span>
     </div>
   </div>
 </section>
@@ -132,6 +166,22 @@ const ticketText = isJa ? "後日公開" : "Coming soon";
     width: 200px;
   }
 
+  .ticket-prices {
+    display: grid;
+    grid-template-columns: 15rem 8.5rem;
+    column-gap: var(--space-xxs);
+    row-gap: 2px;
+    align-items: baseline;
+  }
+
+  .ticket-prices-en {
+    grid-template-columns: 18rem 9.5rem;
+  }
+
+  .ticket-prices .ticket-price {
+    white-space: nowrap;
+  }
+
   @media screen and (max-width: 768px) {
     .pc-only {
       display: none;
@@ -152,6 +202,12 @@ const ticketText = isJa ? "後日公開" : "Coming soon";
       text-align: center;
       gap: var(--space-xs);
       padding: var(--space-s) 0;
+    }
+
+    .ticket-prices {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      row-gap: var(--space-xxs);
     }
 
     .section-title {
