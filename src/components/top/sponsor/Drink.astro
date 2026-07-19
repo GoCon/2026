@@ -1,0 +1,94 @@
+---
+import { Image } from "astro:assets";
+import type { SponsorWithUrl } from "../sponsors";
+
+interface Props {
+  sponsors: SponsorWithUrl[];
+}
+
+const { sponsors } = Astro.props;
+
+if (sponsors.length === 0) {
+  return null;
+}
+
+const currentLocale = Astro.currentLocale || "ja";
+---
+
+<div class="sponsor-section">
+  <h4 class="text-h4">
+    {currentLocale === "ja" ? "ドリンク" : "Drink"}
+  </h4>
+  <ul>
+    {
+      sponsors.map((sponsor) => (
+        <li>
+          <a href={sponsor.link} target="_blank" rel="noopener noreferrer">
+            <Image
+              src={sponsor.imageSrc}
+              alt={sponsor.name}
+              title={sponsor.name}
+              loading="lazy"
+              priority
+            />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .sponsor-section {
+    text-align: center;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    text-align: center;
+    padding: 0 118px;
+    margin: 0 auto;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  li {
+    width: calc(50% - 10px);
+    display: flex;
+    justify-content: center;
+  }
+
+  a {
+    display: block;
+  }
+
+  a:hover {
+    opacity: 0.7;
+  }
+
+  a > img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 354 / 164;
+    max-width: 354px;
+    object-fit: contain;
+    display: block;
+  }
+
+  @media screen and (max-width: 768px) {
+    ul {
+      padding: 0 40px;
+    }
+
+    li {
+      width: 100%;
+    }
+
+    a > img {
+      width: 262px;
+      aspect-ratio: 262 / 64;
+    }
+  }
+</style>
