@@ -1,8 +1,9 @@
 # build output
 dist/
 
-# News OGP images (generated at build / dev server start)
+# OGP images (generated at build / dev server start)
 public/og/news/*.png
+public/og/timetable/*.png
 
 # generated types
 .astro/

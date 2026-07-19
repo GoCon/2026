@@ -1,0 +1,12 @@
+---
+import ProgramDetailPage from "../../components/timetable/detail/ProgramDetailPage.astro";
+import { getProgramDetailStaticPaths } from "../../components/timetable/detail/programDetail";
+
+export async function getStaticPaths() {
+  return getProgramDetailStaticPaths();
+}
+
+const { program } = Astro.props;
+---
+
+<ProgramDetailPage program={program} />

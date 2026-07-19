@@ -2,7 +2,11 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { AstroIntegration } from "astro";
-import { generateNewsOgImage } from "../utils/generateNewsOgImage";
+import { getProgramSessions } from "../components/timetable/detail/programDetail";
+import {
+  generateNewsOgImage,
+  generateProgramOgImage,
+} from "../utils/generateOgImage";
 
 const projectRoot = path.resolve(
   fileURLToPath(new URL("../..", import.meta.url)),
@@ -65,6 +69,26 @@ async function loadNewsArticles(): Promise<NewsArticleMeta[]> {
   );
 }
 
+async function getNewsOgImageAssets() {
+  const framePath = path.join(projectRoot, "public/news_ogp_frame.jpg");
+  const fontPath = path.join(
+    projectRoot,
+    "node_modules/@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-700-normal.woff",
+  );
+
+  return { framePath, fontPath };
+}
+
+async function getProgramOgImageAssets() {
+  const framePath = path.join(projectRoot, "public/session_ogp_frame.jpg");
+  const fontPath = path.join(
+    projectRoot,
+    "node_modules/@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-700-normal.woff",
+  );
+
+  return { framePath, fontPath };
+}
+
 /*
  * すべてのニュース記事の OGP 画像を生成する。
  * 戻り値はなく、画像が生成されたら終了する。
@@ -72,11 +96,7 @@ async function loadNewsArticles(): Promise<NewsArticleMeta[]> {
 async function generateAllNewsOgImages(): Promise<void> {
   const articles = await loadNewsArticles();
   const outDir = path.join(projectRoot, "public/og/news");
-  const framePath = path.join(projectRoot, "public/news_ogp_frame.jpg");
-  const fontPath = path.join(
-    projectRoot,
-    "node_modules/@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-700-normal.woff",
-  );
+  const { framePath, fontPath } = await getNewsOgImageAssets();
 
   await fs.mkdir(outDir, { recursive: true });
 
@@ -92,15 +112,42 @@ async function generateAllNewsOgImages(): Promise<void> {
   );
 }
 
+/*
+ * すべてのタイムテーブル program の OGP 画像を生成する。
+ * 戻り値はなく、画像が生成されたら終了する。
+ */
+async function generateAllProgramOgImages(): Promise<void> {
+  const programs = getProgramSessions();
+  const outDir = path.join(projectRoot, "public/og/timetable");
+  const { framePath, fontPath } = await getProgramOgImageAssets();
+
+  await fs.mkdir(outDir, { recursive: true });
+
+  await Promise.all(
+    programs.map((program) =>
+      generateProgramOgImage({
+        title: program.title,
+        framePath,
+        fontPath,
+        outputPath: path.join(outDir, `${program.id}.png`),
+      }),
+    ),
+  );
+}
+
+async function generateAllOgImages(): Promise<void> {
+  await Promise.all([generateAllNewsOgImages(), generateAllProgramOgImages()]);
+}
+
 export function newsOgImagesIntegration(): AstroIntegration {
   return {
     name: "gocon-news-og-images",
     hooks: {
       "astro:build:start": async () => {
-        await generateAllNewsOgImages();
+        await generateAllOgImages();
       },
       "astro:server:start": async () => {
-        await generateAllNewsOgImages();
+        await generateAllOgImages();
       },
     },
   };
