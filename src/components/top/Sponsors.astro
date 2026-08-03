@@ -1,0 +1,96 @@
+---
+import SectionTitle from "../ui/SectionTitle.astro";
+
+import Gold from "./sponsor/Gold.astro";
+import Silver from "./sponsor/Silver.astro";
+import Drink from "./sponsor/Drink.astro";
+import Lunch from "./sponsor/Lunch.astro";
+import Bronze from "./sponsor/Bronze.astro";
+import Gopher from "./sponsor/Gopher.astro";
+import Tool from "./sponsor/Tool.astro";
+import {
+  goldSponsors,
+  silverSponsors,
+  drinkSponsors,
+  lunchSponsors,
+  bronzeSponsors,
+  gopherSponsors,
+  toolSponsors,
+} from "./sponsors";
+
+const currentLocale = Astro.currentLocale || "ja";
+
+if (
+  goldSponsors.length === 0 &&
+  silverSponsors.length === 0 &&
+  drinkSponsors.length === 0 &&
+  lunchSponsors.length === 0 &&
+  bronzeSponsors.length === 0 &&
+  gopherSponsors.length === 0 &&
+  toolSponsors.length === 0
+) {
+  return null;
+}
+---
+
+<section id="sponsors">
+  <SectionTitle>
+    {
+      currentLocale === "en" ? (
+        <span class="section-title">
+          <span style="color: var(--text-accent);">S</span>ponsors
+        </span>
+      ) : (
+        <span class="section-title">
+          <span style="color: var(--text-accent);">ス</span>ポンサー
+        </span>
+      )
+    }
+  </SectionTitle>
+  <div class="content">
+    <Gold sponsors={goldSponsors} />
+    <Silver sponsors={silverSponsors} />
+    <Drink sponsors={drinkSponsors} />
+    <Lunch sponsors={lunchSponsors} />
+    <Bronze sponsors={bronzeSponsors} />
+    <Gopher sponsors={gopherSponsors} />
+    <Tool sponsors={toolSponsors} />
+  </div>
+</section>
+
+<style>
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-l) var(--space-m);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+    width: 100%;
+  }
+
+  .section-title {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    section {
+      padding: var(--space-m) var(--space-s);
+      gap: var(--space-s);
+    }
+
+    .content {
+      max-width: 450px;
+    }
+  }
+</style>
