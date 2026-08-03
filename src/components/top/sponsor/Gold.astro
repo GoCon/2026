@@ -33,7 +33,17 @@ const currentLocale = Astro.currentLocale || "ja";
     {
       sponsors.map((sponsor) => (
         <li>
-          <a href={sponsor.link} target="_blank" rel="noopener noreferrer">
+          {sponsor.link ? (
+            <a href={sponsor.link} target="_blank" rel="noopener noreferrer">
+              <Image
+                src={sponsor.imageSrc}
+                alt={sponsor.name}
+                title={sponsor.name}
+                loading="lazy"
+                priority
+              />
+            </a>
+          ) : (
             <Image
               src={sponsor.imageSrc}
               alt={sponsor.name}
@@ -41,7 +51,7 @@ const currentLocale = Astro.currentLocale || "ja";
               loading="lazy"
               priority
             />
-          </a>
+          )}
         </li>
       ))
     }
@@ -71,13 +81,15 @@ const currentLocale = Astro.currentLocale || "ja";
 
   a {
     display: block;
+    transition: opacity 0.15s ease;
   }
 
   a:hover {
     opacity: 0.7;
   }
 
-  a > img {
+  a > img,
+  li > img {
     width: 532px;
     height: auto;
     aspect-ratio: 532 / 280;
