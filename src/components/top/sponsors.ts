@@ -1,4 +1,10 @@
 import type { ImageMetadata } from "astro";
+import gold1Img from "../../assets/sponsors/gold/gold_1.png";
+import gold2Img from "../../assets/sponsors/gold/gold_2.png";
+import gold3Img from "../../assets/sponsors/gold/gold_3.png";
+import gold4Img from "../../assets/sponsors/gold/gold_4.png";
+import gold5Img from "../../assets/sponsors/gold/gold_5.png";
+import gold6Img from "../../assets/sponsors/gold/gold_6.png";
 import gopher3Img from "../../assets/sponsors/gopher/gopher_3.png";
 import gopher5Img from "../../assets/sponsors/gopher/gopher_5.png";
 import gopher7Img from "../../assets/sponsors/gopher/gopher_7.jpg";
@@ -26,6 +32,36 @@ export type Sponsor = {
 
 
 export const goldSponsors: SponsorWithUrl[] = [
+  {
+    name: "GMO Flatt Security株式会社",
+    imageSrc: gold1Img,
+    link: "https://flatt.tech/",
+  },
+  {
+    name: "株式会社LayerX",
+    imageSrc: gold2Img,
+    link: "https://jobs.layerx.co.jp/",
+  },
+  {
+    name: "株式会社TOKIUM",
+    imageSrc: gold3Img,
+    link: "https://engineer.recruit.tokium.jp/",
+  },
+  {
+    name: "株式会社タイミー",
+    imageSrc: gold4Img,
+    link: "https://product-recruit.timee.co.jp/",
+  },
+  {
+    name: "ディップ株式会社",
+    imageSrc: gold5Img,
+    link: "https://recruit-dip.com/",
+  },
+  {
+    name: "弁護士ドットコム",
+    imageSrc: gold6Img,
+    link: "https://www.bengo4.com/corporate/",
+  },
 ];
 
 export const silverSponsors: SponsorWithUrl[] = [
