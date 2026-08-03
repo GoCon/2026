@@ -14,6 +14,38 @@ import silver7Img from "../../assets/sponsors/silver/silver_7.png";
 import silver8Img from "../../assets/sponsors/silver/silver_8.png";
 import silver10Img from "../../assets/sponsors/silver/silver_10.png";
 import silver11Img from "../../assets/sponsors/silver/silver_11.png";
+import lunch2Img from "../../assets/sponsors/lunch/lunch_2.png";
+import bronze1Img from "../../assets/sponsors/bronze/bronze_1.jpg";
+import bronze2Img from "../../assets/sponsors/bronze/bronze_2.png";
+import bronze4Img from "../../assets/sponsors/bronze/bronze_4.png";
+import bronze5Img from "../../assets/sponsors/bronze/bronze_5.png";
+import bronze6Img from "../../assets/sponsors/bronze/bronze_6.png";
+import bronze7Img from "../../assets/sponsors/bronze/bronze_7.png";
+import bronze8Img from "../../assets/sponsors/bronze/bronze_8.png";
+import bronze9Img from "../../assets/sponsors/bronze/bronze_9.png";
+import bronze10Img from "../../assets/sponsors/bronze/bronze_10.jpg";
+import bronze11Img from "../../assets/sponsors/bronze/bronze_11.png";
+import bronze13Img from "../../assets/sponsors/bronze/bronze_13.png";
+import bronze14Img from "../../assets/sponsors/bronze/bronze_14.png";
+import bronze15Img from "../../assets/sponsors/bronze/bronze_15.jpg";
+import bronze16Img from "../../assets/sponsors/bronze/bronze_16.png";
+import bronze17Img from "../../assets/sponsors/bronze/bronze_17.png";
+import bronze18Img from "../../assets/sponsors/bronze/bronze_18.png";
+import bronze19Img from "../../assets/sponsors/bronze/bronze_19.png";
+import bronze20Img from "../../assets/sponsors/bronze/bronze_20.png";
+import bronze21Img from "../../assets/sponsors/bronze/bronze_21.png";
+import bronze22Img from "../../assets/sponsors/bronze/bronze_22.png";
+import bronze25Img from "../../assets/sponsors/bronze/bronze_25.png";
+import bronze26Img from "../../assets/sponsors/bronze/bronze_26.png";
+import bronze28Img from "../../assets/sponsors/bronze/bronze_28.png";
+import bronze29Img from "../../assets/sponsors/bronze/bronze_29.png";
+import bronze30Img from "../../assets/sponsors/bronze/bronze_30.jpg";
+import bronze31Img from "../../assets/sponsors/bronze/bronze_31.png";
+import bronze33Img from "../../assets/sponsors/bronze/bronze_33.png";
+import bronze34Img from "../../assets/sponsors/bronze/bronze_34.png";
+import bronze35Img from "../../assets/sponsors/bronze/bronze_35.png";
+import bronze36Img from "../../assets/sponsors/bronze/bronze_36.png";
+import bronze37Img from "../../assets/sponsors/bronze/bronze_37.png";
 import gopher3Img from "../../assets/sponsors/gopher/gopher_3.png";
 import gopher5Img from "../../assets/sponsors/gopher/gopher_5.png";
 import gopher7Img from "../../assets/sponsors/gopher/gopher_7.jpg";
@@ -126,12 +158,56 @@ export const silverSponsors: SponsorWithUrl[] = [
 ];
 
 export const drinkSponsors: SponsorWithUrl[] = [
+  // { name: "株式会社エウレカ", imageSrc: drink1Img, link: "" },
 ];
 
 export const lunchSponsors: SponsorWithUrl[] = [
+  // { name: "エムスリー株式会社", imageSrc: lunch1Img, link: "" },
+  {
+    name: "株式会社ミラティブ",
+    imageSrc: lunch2Img,
+    link: "https://www.mirrativ.co.jp/",
+  },
 ];
 
 export const bronzeSponsors: Sponsor[] = [
+  { name: "株式会社 MIXI", imageSrc: bronze1Img },
+  { name: "BBSakura Networks株式会社", imageSrc: bronze2Img },
+  // { name: "Bloomberg LP", imageSrc: bronze3Img },
+  { name: "株式会社BuySell Technologies", imageSrc: bronze4Img },
+  { name: "ENECHANGE株式会社", imageSrc: bronze5Img },
+  { name: "株式会社GENDA", imageSrc: bronze6Img },
+  { name: "株式会社Hacobu", imageSrc: bronze7Img },
+  { name: "株式会社hacomono", imageSrc: bronze8Img },
+  { name: "HENNGE株式会社", imageSrc: bronze9Img },
+  { name: "株式会社HRBrain", imageSrc: bronze10Img },
+  { name: "株式会社KiteRa", imageSrc: bronze11Img },
+  // { name: "LINEヤフー株式会社", imageSrc: bronze12Img },
+  { name: "movus technologies株式会社", imageSrc: bronze13Img },
+  { name: "Repro株式会社", imageSrc: bronze14Img },
+  { name: "Sansan株式会社", imageSrc: bronze15Img },
+  { name: "株式会社SODA", imageSrc: bronze16Img },
+  { name: "株式会社straya", imageSrc: bronze17Img },
+  { name: "株式会社TRUSTDOCK", imageSrc: bronze18Img },
+  { name: "株式会社アンドパッド", imageSrc: bronze19Img },
+  { name: "株式会社オプティム", imageSrc: bronze20Img },
+  { name: "株式会社カナリー", imageSrc: bronze21Img },
+  { name: "株式会社カミナシ", imageSrc: bronze22Img },
+  // { name: "株式会社ギークニア", imageSrc: bronze23Img },
+  // { name: "株式会社ギフティ", imageSrc: bronze24Img },
+  { name: "株式会社スタンバイ", imageSrc: bronze25Img },
+  { name: "株式会社スマートバンク", imageSrc: bronze26Img },
+  // { name: "株式会社ディー・エヌ・エー", imageSrc: bronze27Img },
+  { name: "株式会社ドワンゴ", imageSrc: bronze28Img },
+  { name: "株式会社ネットプロテクションズ", imageSrc: bronze29Img },
+  { name: "株式会社はてな", imageSrc: bronze30Img },
+  { name: "株式会社バニッシュ・スタンダード", imageSrc: bronze31Img },
+  // { name: "ハンディ株式会社", imageSrc: bronze32Img },
+  { name: "フラー株式会社", imageSrc: bronze33Img },
+  { name: "株式会社メルカリ", imageSrc: bronze34Img },
+  { name: "ロゴスウェア株式会社", imageSrc: bronze35Img },
+  { name: "東急株式会社", imageSrc: bronze36Img },
+  { name: "東京科学大学デジタル創作同好会traP", imageSrc: bronze37Img },
 ];
 
 export const gopherSponsors: Sponsor[] = [
