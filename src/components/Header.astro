@@ -201,6 +201,12 @@ const ticketUrl =
       </li>
       <li class="navigation-menu-item">
         <TextLink
+          href={getRelativeLocaleUrl(currentLocale, "job-board")}
+          text="Job Board"
+        />
+      </li>
+      <li class="navigation-menu-item">
+        <TextLink
           href="https://docs.google.com/document/d/1jZqZfcH7NqCMyPXt_ZhvhlFXj4fKF-TNfXG_GIHBsfo/edit?tab=t.0#heading=h.95wf1aolrg0m"
           text="Sponsor FAQ"
           isBlankLink
@@ -209,11 +215,6 @@ const ticketUrl =
       <!-- <li>
         <a href={getRelativeLocaleUrl(currentLocale, "timetable")}>
           Timetable
-        </a>
-      </li>
-      <li>
-        <a href={getRelativeLocaleUrl(currentLocale, "jobboard")}>
-          Job Board
         </a>
       </li>
       <li>
