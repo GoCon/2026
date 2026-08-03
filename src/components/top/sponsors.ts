@@ -51,6 +51,7 @@ import gopher5Img from "../../assets/sponsors/gopher/gopher_5.png";
 import gopher7Img from "../../assets/sponsors/gopher/gopher_7.jpg";
 import gopher8Img from "../../assets/sponsors/gopher/gopher_8.png";
 import gopher9Img from "../../assets/sponsors/gopher/gopher_9.png";
+import gopher10Img from "../../assets/sponsors/gopher/gopher_10.png";
 import gopher11Img from "../../assets/sponsors/gopher/gopher_11.png";
 import gopher12Img from "../../assets/sponsors/gopher/gopher_12.png";
 import gopher15Img from "../../assets/sponsors/gopher/gopher_15.jpg";
@@ -96,7 +97,7 @@ export const goldSponsors: SponsorWithUrl[] = [
   {
     name: "ディップ株式会社",
     imageSrc: gold5Img,
-    link: "https://recruit-dip.com/",
+    link: "",
   },
   {
     name: "弁護士ドットコム",
@@ -220,7 +221,7 @@ export const gopherSponsors: Sponsor[] = [
   { name: "kazuhiro1982", imageSrc: gopher7Img },
   { name: "KojiKa", imageSrc: gopher8Img },
   { name: "Koya Hachiya", imageSrc: gopher9Img },
-  // { name: "Kyoto.go", imageSrc: gopher10Img },
+  { name: "Kyoto.go", imageSrc: gopher10Img },
   { name: "masakurapa", imageSrc: gopher11Img },
   { name: "Miki", imageSrc: gopher12Img },
   // { name: "momi", imageSrc: gopher13Img },
