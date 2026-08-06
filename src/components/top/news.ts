@@ -9,6 +9,12 @@ export type News = {
 
 export const news: News[] = [
   {
+    titleJa: "Go Conference 2026 ワークショップの参加受付を開始します",
+    titleEn: "Workshop Registration Now Open for Go Conference 2026",
+    date: "2026.8.6",
+    newsSlug: "workshop-recruitment",
+  },
+  {
     titleJa: "Go Conference 2026 のスポンサーが決定しました",
     titleEn: "Sponsors Announced for Go Conference 2026",
     date: "2026.7.9",
