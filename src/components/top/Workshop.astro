@@ -1,0 +1,177 @@
+---
+import SectionTitle from "../ui/SectionTitle.astro";
+import Button from "../ui/Button.astro";
+
+const currentLocale = Astro.currentLocale || "ja";
+const isJa = currentLocale === "ja";
+
+type Workshop = {
+  part: number;
+  titles: [string] | [string, string];
+  href: string;
+};
+
+const workshops: Workshop[] = [
+  {
+    part: 1,
+    titles: [
+      "Let’s Play Go: The Card Game",
+      "Go × SIMDで高速化するベクトル検索 ~ ルーフラインモデルでSIMDが効く境界を探れ！ ~",
+    ],
+    href: "https://connpass.com/event/402516",
+  },
+  {
+    part: 2,
+    titles: [
+      "go.devの歩き方、その先へ 〜Go公式リソースの旅。明日からの調べ方を手に入れるワークショップ〜",
+      "こだわりを静的解析で表現しよう 90分で作って動かす自作analyzer入門",
+    ],
+    href: "https://connpass.com/event/400636",
+  },
+  {
+    part: 3,
+    titles: [
+      "TinyGoで遊んでみよう！TinyGo Keeb Workshop",
+      "TDDを通じてGoらしいテストを体験しよう！",
+    ],
+    href: "https://connpass.com/event/402515",
+  },
+];
+---
+
+<section id="workshop">
+  <div id="workshop-top">
+    <SectionTitle>
+      {
+        isJa ? (
+          <span class="section-title">
+            <span class="accent">ワ</span>ークショップ
+          </span>
+        ) : (
+          <span class="section-title">
+            <span class="accent">W</span>orkshop
+          </span>
+        )
+      }
+    </SectionTitle>
+    <span class="text-body-large">
+      {
+        isJa
+          ? "ワークショップはConnpassより参加登録ができます。"
+          : "You can register for the workshop via Connpass."
+      }
+    </span>
+  </div>
+
+  <div id="workshop-details">
+    {
+      workshops.map((workshop) => (
+        <div class="col">
+          <div class="workshop-detail">
+            <div class="text-h4">
+              Workshop <span class="accent">Part {workshop.part}</span>
+            </div>
+            <ul class="workshop-title text-body-medium">
+              {workshop.titles.map((title) => (
+                <li>{title}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="btn-wrapper">
+            <Button
+              variant="secondary"
+              size="large"
+              href={workshop.href}
+              isBlankLink
+            >
+              {isJa ? "参加登録" : "Register"}
+            </Button>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .accent {
+    color: var(--text-accent);
+  }
+
+  section#workshop {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-l) var(--space-m);
+    display: flex;
+    gap: var(--space-m);
+    flex-direction: column;
+    background: var(--surface-secondary);
+    border-radius: var(--radius-section);
+  }
+
+  #workshop-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--space-s);
+  }
+
+  #workshop-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 362px);
+    justify-content: center;
+    gap: var(--space-xs);
+  }
+
+  .col {
+    padding: var(--space-s);
+    background-color: var(--surface-primary);
+    border-radius: var(--radius-objects);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .btn-wrapper {
+    margin-top: auto;
+  }
+
+  .workshop-detail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxxs);
+  }
+
+  .workshop-title {
+    color: var(--text-secondary);
+    margin: unset;
+    list-style: none;
+    padding-inline-start: 0;
+  }
+
+  .workshop-title li {
+    padding-inline-start: 1.5em;
+    text-indent: -1em;
+  }
+
+  .workshop-title li::before {
+    content: "・";
+  }
+
+  @media screen and (max-width: 768px) {
+    section#workshop {
+      padding: var(--space-m) var(--space-s);
+      border-radius: var(--radius-section) var(--radius-section) 0 0;
+      gap: var(--space-s);
+    }
+
+    #workshop-top {
+      gap: var(--space-xs);
+    }
+
+    #workshop-details {
+      grid-template-columns: repeat(auto-fill, 342px);
+    }
+  }
+</style>
