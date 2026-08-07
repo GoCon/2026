@@ -1,0 +1,148 @@
+---
+import type { ProgramSponsorSession } from "../program";
+import DifficultyBadge from "../DifficultyBadge.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+type Props = {
+  program: Extract<ProgramSponsorSession, { type: "sponsorSession" }>;
+};
+
+const { program } = Astro.props as Props;
+const currentLocale = Astro.currentLocale || "ja";
+const isPlaceholder = program.isPlaceholder === true;
+const sessionTypeLabel =
+  currentLocale === "ja"
+    ? "ランチ・ドリンクセッション(15min)"
+    : "Lunch & Drink Session(15min)";
+const placeholderTitle =
+  currentLocale === "ja" ? "詳細未定" : "Coming Soon";
+---
+
+<div class="card" class:list={[{ "card--placeholder": isPlaceholder }]}>
+  <div class="metadata-container text-body-medium-strong">
+    <div class="time-container">
+      <span>{program.timeString}</span>
+    </div>
+    <div class="sponsored-session-badge">
+      <span class="text-body-small">Sponsored Session</span>
+    </div>
+    {!isPlaceholder && <DifficultyBadge difficulty={program.difficulty} />}
+  </div>
+  {
+    isPlaceholder ? (
+      <div class="title-container title-container--placeholder text-body-large-strong">
+        <span>{placeholderTitle}</span>
+      </div>
+    ) : (
+      <a
+        class="title-container text-body-large-strong"
+        href={getRelativeLocaleUrl(currentLocale, `timetable/${program.id}`)}
+      >
+        <span>{program.title}</span>
+      </a>
+    )
+  }
+  <div class="footer-container">
+    {
+      !isPlaceholder && (
+        <div class="speaker-container">
+          <img class="icon" src={program.speaker.avatar} />
+          <span class="text-body-small-strong">{program.speaker.name}</span>
+        </div>
+      )
+    }
+    <span class="text-body-small">{sessionTypeLabel}</span>
+  </div>
+</div>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxxs);
+    padding: var(--space-xs) var(--space-s);
+    border-radius: var(--radius-objects);
+    background-color: var(--surface-session-light);
+    min-height: 150px;
+    box-sizing: border-box;
+  }
+
+  .card .metadata-container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xxxs);
+  }
+
+  .card .metadata-container .time-container {
+    flex: 1;
+  }
+
+  .card .title-container {
+    color: var(--text-primary);
+    transition: color 0.1s ease-in-out;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    height: 56px;
+  }
+
+  .card .title-container:hover {
+    color: var(--text-accent);
+  }
+
+  .card .title-container .text-wrapper {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: fit-content;
+  }
+
+  .card .title-container span {
+    margin: auto 0;
+    height: fit-content;
+  }
+
+  .card .title-container--placeholder {
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    height: 56px;
+  }
+
+  .card--placeholder .footer-container {
+    justify-content: flex-end;
+  }
+
+  .card .footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .card .footer-container .speaker-container {
+    display: flex;
+    gap: var(--space-xxxs);
+  }
+
+  .card .footer-container .speaker-container .icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .card .sponsored-session-badge {
+    background-color: var(--text-secondary);
+    padding: 0 var(--space-xs);
+    color: var(--text-on-fill);
+    border-radius: var(--radius-objects);
+    height: fit-content;
+    display: flex;
+  }
+
+  .card .sponsored-session-badge span {
+    margin-top: -2px;
+  }
+</style>

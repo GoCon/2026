@@ -11,4 +11,7 @@ export default defineConfig({
     defaultLocale: "ja",
     locales: ["en", "ja"],
   },
+  devToolbar: {
+    enabled: false,
+  },
 });

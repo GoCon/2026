@@ -1,0 +1,432 @@
+---
+import { sessionSchedule, workshopSchedule } from "./schedule";
+import Card from "./card.astro";
+import { getProgram } from "./program";
+
+export type TimetableTab = "session" | "workshop";
+export type TimetableRoom = "roomA" | "roomB";
+
+interface Props {
+  initialTab?: TimetableTab;
+  initialRoom?: TimetableRoom;
+}
+
+const { initialTab = "session", initialRoom = "roomA" } = Astro.props;
+
+const currentLocale = Astro.currentLocale || "ja";
+const sessionTabLabel = currentLocale === "ja" ? "セッション" : "Session";
+const workshopTabLabel = currentLocale === "ja" ? "ワークショップ" : "Workshop";
+
+const schedules = [
+  {
+    id: "session",
+    data: sessionSchedule,
+    roomClass: "room--session",
+    roomALabel: "RoomA",
+    roomBLabel: "RoomB",
+  },
+  {
+    id: "workshop",
+    data: workshopSchedule,
+    roomClass: "room--workshop",
+    roomALabel: "WorkshopA",
+    roomBLabel: "WorkshopB",
+  },
+] as const;
+---
+
+<section id="timetable">
+  <div class="select-button-container">
+    <div
+      class:list={["select-button", { "is-active": initialTab === "session" }]}
+      id="session"
+      role="button"
+      tabindex="0"
+      aria-selected={initialTab === "session"}
+    >
+      <span class="button-text">{sessionTabLabel}</span>
+    </div>
+    <div
+      class:list={["select-button", { "is-active": initialTab === "workshop" }]}
+      id="workshop"
+      role="button"
+      tabindex="0"
+      aria-selected={initialTab === "workshop"}
+    >
+      <span class="button-text">{workshopTabLabel}</span>
+    </div>
+  </div>
+  {
+    schedules.map(({ id, data, roomClass, roomALabel, roomBLabel }) => (
+      <div
+        class:list={["content", { "is-visible": id === initialTab }]}
+        data-schedule-content={id}
+        data-mobile-room={initialRoom}
+      >
+        <div class="header row">
+          <div class="blank" />
+          <div
+            class:list={[
+              "header-content",
+              "room",
+              roomClass,
+              { "is-active": initialRoom === "roomA" },
+            ]}
+            data-room="roomA"
+            role="button"
+            tabindex="0"
+            aria-selected={initialRoom === "roomA"}
+          >
+            <span>{roomALabel}</span>
+          </div>
+          <div
+            class:list={[
+              "header-content",
+              "room",
+              roomClass,
+              { "is-active": initialRoom === "roomB" },
+            ]}
+            data-room="roomB"
+            role="button"
+            tabindex="0"
+            aria-selected={initialRoom === "roomB"}
+          >
+            <span>{roomBLabel}</span>
+          </div>
+        </div>
+        {data.map((column) => (
+          <div class="row">
+            <div class="start-time-container">
+              <span class="text-h4">{column.startTime}</span>
+            </div>
+            <div class="card-container" data-room="roomA">
+              <Card program={getProgram(column.roomAProgramID)} />
+            </div>
+            <div class="card-container" data-room="roomB">
+              <Card program={getProgram(column.roomBProgramID)} />
+            </div>
+          </div>
+        ))}
+      </div>
+    ))
+  }
+</section>
+
+<script>
+  type TimetableTab = "session" | "workshop";
+  type TimetableRoom = "roomA" | "roomB";
+
+  const TAB_QUERY_KEY = "tab";
+  const ROOM_QUERY_KEY = "room";
+
+  function getTabFromUrl(): TimetableTab {
+    const tab = new URLSearchParams(window.location.search).get(TAB_QUERY_KEY);
+    return tab === "workshop" ? "workshop" : "session";
+  }
+
+  function getRoomFromUrl(): TimetableRoom {
+    const room = new URLSearchParams(window.location.search).get(
+      ROOM_QUERY_KEY,
+    );
+    return room === "b" ? "roomB" : "roomA";
+  }
+
+  function setUrlParams(params: { tab?: TimetableTab; room?: TimetableRoom }) {
+    const url = new URL(window.location.href);
+
+    if (params.tab) {
+      url.searchParams.set(TAB_QUERY_KEY, params.tab);
+    }
+
+    if (params.room) {
+      url.searchParams.set(ROOM_QUERY_KEY, params.room === "roomB" ? "b" : "a");
+    }
+
+    history.replaceState(null, "", url);
+  }
+
+  function setMobileRoom(
+    content: Element,
+    room: TimetableRoom,
+    shouldUpdateUrl = true,
+  ) {
+    content.setAttribute("data-mobile-room", room);
+
+    content
+      .querySelectorAll(".header-content.room[data-room]")
+      .forEach((header) => {
+        const isActive = header.getAttribute("data-room") === room;
+        header.classList.toggle("is-active", isActive);
+        header.setAttribute("aria-selected", String(isActive));
+      });
+
+    if (shouldUpdateUrl) {
+      setUrlParams({ room });
+    }
+  }
+
+  function initTimetableToggle() {
+    const timetable = document.getElementById("timetable");
+    if (!timetable) return;
+
+    const sessionButton = timetable.querySelector("#session");
+    const workshopButton = timetable.querySelector("#workshop");
+    const sessionContent = timetable.querySelector(
+      '[data-schedule-content="session"]',
+    );
+    const workshopContent = timetable.querySelector(
+      '[data-schedule-content="workshop"]',
+    );
+    const scheduleContents = timetable.querySelectorAll(
+      "[data-schedule-content]",
+    );
+
+    function showSchedule(type: TimetableTab, shouldUpdateUrl = true) {
+      const isSession = type === "session";
+
+      sessionButton?.classList.toggle("is-active", isSession);
+      workshopButton?.classList.toggle("is-active", !isSession);
+      sessionButton?.setAttribute("aria-selected", String(isSession));
+      workshopButton?.setAttribute("aria-selected", String(!isSession));
+
+      sessionContent?.classList.toggle("is-visible", isSession);
+      workshopContent?.classList.toggle("is-visible", !isSession);
+
+      if (shouldUpdateUrl) {
+        setUrlParams({ tab: type });
+      }
+    }
+
+    function syncFromUrl(shouldUpdateUrl = false) {
+      showSchedule(getTabFromUrl(), shouldUpdateUrl);
+      scheduleContents.forEach((content) => {
+        setMobileRoom(content, getRoomFromUrl(), shouldUpdateUrl);
+      });
+    }
+
+    timetable.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const header = target.closest(".header-content.room[data-room]");
+      if (!header) return;
+
+      const content = header.closest("[data-schedule-content]");
+      if (
+        !(content instanceof HTMLElement) ||
+        !content.classList.contains("is-visible")
+      ) {
+        return;
+      }
+
+      const room = header.getAttribute("data-room");
+      if (room === "roomA" || room === "roomB") {
+        setMobileRoom(content, room);
+      }
+    });
+
+    sessionButton?.addEventListener("click", () => showSchedule("session"));
+    workshopButton?.addEventListener("click", () => showSchedule("workshop"));
+    window.addEventListener("popstate", () => syncFromUrl(false));
+
+    syncFromUrl(false);
+  }
+
+  initTimetableToggle();
+</script>
+
+<style>
+  #timetable {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    --site-header-height: 81px;
+  }
+
+  .select-button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: var(--space-xxs);
+  }
+
+  .select-button {
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: calc(var(--space-s) - 3px) calc(var(--space-m) - 3px);
+    border-radius: var(--radius-button);
+    transition: all 0.2s ease-in-out;
+    background-color: transparent;
+  }
+
+  .select-button#session {
+    border: 3px solid var(--primitive-blue);
+  }
+
+  .select-button#session:hover,
+  .select-button#session.is-active {
+    color: var(--text-on-fill);
+    background-color: var(--primitive-blue);
+  }
+
+  .select-button#workshop {
+    border: 3px solid var(--surface-workshop);
+  }
+
+  .select-button#workshop:hover,
+  .select-button#workshop.is-active {
+    color: var(--text-on-fill);
+    background-color: var(--surface-workshop);
+  }
+
+  .select-button .button-text {
+    /* text-h4 */
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  .content {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 133px;
+  }
+
+  .content.is-visible {
+    display: flex;
+  }
+
+  .content .row {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .content .row > :nth-child(1) {
+    width: 97px;
+    flex-shrink: 0;
+  }
+
+  .content .row > :nth-child(2),
+  .content .row > :nth-child(3) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .content .row .start-time-container {
+    align-self: stretch;
+  }
+
+  .content .header.row {
+    top: var(--site-header-height);
+    z-index: 100;
+    background-color: var(--surface-primary);
+  }
+
+  .content .row .start-time-container > span {
+    display: block;
+    position: sticky;
+    top: calc(var(--site-header-height));
+    z-index: 1;
+  }
+
+  .content .header .header-content.room {
+    width: 100%;
+    padding: var(--space-xs) var(--space-m);
+    color: var(--text-on-fill);
+    border-radius: var(--radius-objects);
+
+    /* text-h4 */
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  .content .header .header-content.room--session {
+    background-color: var(--surface-session);
+  }
+
+  .content .header .header-content.room--workshop {
+    background-color: var(--surface-workshop);
+  }
+
+  .content .header .header-content.room span {
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+  }
+
+  @media screen and (max-width: 768px) {
+    #timetable {
+      --site-header-height: 56px;
+    }
+
+    .select-button {
+      padding: calc(var(--space-xxs) - 2px) calc(var(--space-s) - 2px);
+      border-width: 2px;
+    }
+
+    .select-button .button-text {
+      /* 16px → 14px */
+      font-size: clamp(0.875rem, 0.786rem + 0.446vw, 1rem);
+      font-weight: bold;
+      line-height: 1.75;
+    }
+
+    .content .header.row .blank,
+    .content .row .start-time-container {
+      display: none;
+    }
+
+    .content .header.row {
+      position: sticky;
+      gap: 0;
+    }
+
+    .content .header.row > .header-content.room {
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+      border-radius: 0;
+      background-color: var(--surface-primary);
+      box-sizing: border-box;
+      color: var(--text-accent);
+      border-bottom: 2px solid var(--primitive-blue);
+      padding: var(--space-xs) clamp(20px, 5.714px + 4.464vw, 40px);
+
+      /* large-strong */
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.75;
+    }
+
+    .content .header .header-content.room:not(.is-active) {
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--primitive-light-gray);
+    }
+
+    .content .card-container[data-room] {
+      display: none;
+    }
+
+    .content[data-mobile-room="roomA"] .card-container[data-room="roomA"],
+    .content[data-mobile-room="roomB"] .card-container[data-room="roomB"] {
+      display: block;
+    }
+
+    .content .row > .card-container {
+      flex: 1;
+      width: 100%;
+    }
+
+    .content[data-mobile-room="roomA"]
+      .row:has(.card-container[data-room="roomA"] [data-blank-collapsed-sp]),
+    .content[data-mobile-room="roomB"]
+      .row:has(.card-container[data-room="roomB"] [data-blank-collapsed-sp]) {
+      display: none;
+    }
+  }
+</style>

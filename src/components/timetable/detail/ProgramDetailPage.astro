@@ -1,0 +1,268 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { constants } from "../../../constants";
+import SubPage from "../../../layouts/SubPage.astro";
+import { getProgramOgImagePublicPath } from "../../../utils/generateOgImage";
+import BackLink from "../../ui/BackLink.astro";
+import SectionTitle from "../../ui/SectionTitle.astro";
+import DifficultyBadge from "../DifficultyBadge.astro";
+import type { ProgramSession } from "./programDetail";
+import RoomIcon from "../../../assets/icons/room.svg";
+import XLogo from "../../../assets/icons/x.svg";
+
+interface Props {
+  program: ProgramSession;
+}
+
+const { program } = Astro.props;
+const { type } = program;
+const currentLocale = Astro.currentLocale || "ja";
+
+const sectionTitle = currentLocale === "ja" ? "タイムテーブル" : "Timetable";
+const backLinkText =
+  currentLocale === "ja" ? "タイムテーブルに戻る" : "Back to Timetable";
+
+function getSessionTypeLabel(
+  sessionProgram: ProgramSession,
+  locale: string,
+): string {
+  switch (sessionProgram.type) {
+    case "longSession":
+      return "Long Session(40min)";
+    case "shortTalk":
+      return "Short Talk(20min)";
+    case "sponsorSession":
+      return locale === "ja"
+        ? "ランチ・ドリンクセッション(15min)"
+        : "Lunch & Drink Session(15min)";
+    case "workshop":
+      return `Workshop(${sessionProgram.duration})`;
+  }
+}
+
+function getRoomLabel(
+  room: ProgramSession["room"],
+  type: ProgramSession["type"],
+): string {
+  const isWorkshop = type === "workshop";
+  if (isWorkshop) {
+    return room === "roomA" ? "WorkshopA" : "WorkshopB";
+  }
+  return room === "roomA" ? "RoomA" : "RoomB";
+}
+
+const sessionTypeLabel = getSessionTypeLabel(program, currentLocale);
+const roomLabel = getRoomLabel(program.room, type);
+
+const timetableParams = new URLSearchParams({
+  tab: type === "workshop" ? "workshop" : "session",
+  room: program.room === "roomB" ? "b" : "a",
+});
+const timetableUrl = `${getRelativeLocaleUrl(currentLocale, "timetable")}?${timetableParams.toString()}`;
+const description =
+  program.description ??
+  `${program.title} - ${sectionTitle} | ${constants.pageTitle}`;
+---
+
+<SubPage
+  pageTitleJa="タイムテーブル"
+  pageTitleEn="Timetable"
+  documentTitle={`${program.title} - ${sectionTitle} | ${constants.pageTitle}`}
+  description={description}
+  ogImage={getProgramOgImagePublicPath(program.id)}
+  ogType="article"
+  twitterCard="summary_large_image"
+>
+  <div class="header">
+    <BackLink href={timetableUrl} text={backLinkText} />
+    <SectionTitle>
+      <span class="section-title">{program.title}</span>
+    </SectionTitle>
+    <div class="metadata text-body-large-strong">
+      <div class="badges">
+        <div class:list={["room-badge", `room-badge--${type}`]}>
+          <RoomIcon class="room-icon" />
+          <span>{roomLabel}</span>
+        </div>
+        {
+          type === "sponsorSession" && (
+            <div class="sponsored-session-badge">
+              <span>Sponsored Session</span>
+            </div>
+          )
+        }
+        <DifficultyBadge difficulty={program.difficulty} variant="detail" />
+      </div>
+      <div class="session-type-label">
+        <span class="text-body-large-strong">{sessionTypeLabel}</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="content">
+    <div class="description">{program.description}</div>
+  </section>
+
+  <section id="speaker">
+    <div class="speaker-info">
+      <div class="speaker-info-name">
+        <img
+          class="speaker-avatar"
+          src={program.speaker.avatar}
+          alt={program.speaker.name}
+        />
+        <span class="text-body-medium-strong">{program.speaker.name}</span>
+      </div>
+      {
+        program.speaker.xUrl && (
+          <a
+            href={program.speaker.xUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            aria-label={`X Link`}
+          >
+            <XLogo />
+          </a>
+        )
+      }
+    </div>
+    {
+      program.speaker.company && (
+        <div class="company-name text-body-small-strong">
+          <p>{program.speaker.company}</p>
+        </div>
+      )
+    }
+    {
+      program.speaker.description && (
+        <div class="text-body-medium">
+          <p>{program.speaker.description}</p>
+        </div>
+      )
+    }
+  </section></SubPage
+>
+
+<style>
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    margin-bottom: var(--space-m);
+  }
+
+  .section-title {
+    display: inline-block;
+  }
+
+  .section-title::first-letter {
+    color: var(--text-accent);
+  }
+
+  .metadata {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-on-fill);
+  }
+
+  .badges {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-xxs);
+  }
+
+  .room-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xxs);
+    padding: var(--space-xxxs) var(--space-s) var(--space-xxxs) var(--space-xs);
+    border-radius: var(--radius-objects);
+  }
+
+  .room-badge--longSession,
+  .room-badge--shortTalk,
+  .room-badge--sponsorSession {
+    background-color: var(--surface-session);
+  }
+
+  .room-badge .room-icon {
+    fill: var(--text-on-fill);
+    size: 24px;
+  }
+
+  .room-badge--workshop {
+    background-color: var(--surface-workshop);
+  }
+
+  .sponsored-session-badge {
+    background-color: var(--text-secondary);
+    padding: var(--space-xxxs) var(--space-xs);
+    border-radius: var(--radius-objects);
+    display: flex;
+  }
+
+  .sponsored-session-badge span {
+    margin-top: -2px;
+  }
+
+  .session-type-label {
+    color: var(--text-accent);
+  }
+
+  section#content {
+    margin-bottom: var(--space-m);
+  }
+
+  section#content .description {
+    white-space: pre-wrap;
+  }
+
+  section#speaker {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface-primary);
+    border: 2px solid var(--surface-disabled);
+    border-radius: var(--radius-objects);
+    gap: 8px;
+    padding: var(--space-m);
+  }
+
+  section#speaker p {
+    margin: 0;
+  }
+
+  section#speaker .speaker-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  section#speaker .speaker-info-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-xxs);
+  }
+
+  section#speaker .speaker-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  section#speaker .social-link {
+    display: flex;
+    width: 30px;
+    height: 30px;
+  }
+
+  section#speaker .company-name {
+    color: var(--text-secondary);
+  }
+</style>
