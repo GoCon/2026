@@ -35,7 +35,6 @@ import bronze19Img from "../../assets/sponsors/bronze/bronze_19.png";
 import bronze20Img from "../../assets/sponsors/bronze/bronze_20.png";
 import bronze21Img from "../../assets/sponsors/bronze/bronze_21.png";
 import bronze22Img from "../../assets/sponsors/bronze/bronze_22.png";
-import bronze25Img from "../../assets/sponsors/bronze/bronze_25.png";
 import bronze26Img from "../../assets/sponsors/bronze/bronze_26.png";
 import bronze27Img from "../../assets/sponsors/bronze/bronze_27.png";
 import bronze28Img from "../../assets/sponsors/bronze/bronze_28.png";
@@ -49,6 +48,7 @@ import bronze36Img from "../../assets/sponsors/bronze/bronze_36.png";
 import bronze37Img from "../../assets/sponsors/bronze/bronze_37.png";
 import gopher3Img from "../../assets/sponsors/gopher/gopher_3.png";
 import gopher5Img from "../../assets/sponsors/gopher/gopher_5.png";
+import gopher6Img from "../../assets/sponsors/gopher/gopher_6.png";
 import gopher7Img from "../../assets/sponsors/gopher/gopher_7.jpg";
 import gopher8Img from "../../assets/sponsors/gopher/gopher_8.png";
 import gopher9Img from "../../assets/sponsors/gopher/gopher_9.png";
@@ -72,7 +72,6 @@ export type Sponsor = {
   name: string;
   imageSrc: ImageMetadata;
 };
-
 
 export const goldSponsors: SponsorWithUrl[] = [
   {
@@ -122,7 +121,7 @@ export const silverSponsors: SponsorWithUrl[] = [
   {
     name: "株式会社Finatextホールディングス",
     imageSrc: silver4Img,
-    link: "",
+    link: "https://finatext.com/recruit",
   },
   {
     name: "株式会社miive",
@@ -197,7 +196,7 @@ export const bronzeSponsors: Sponsor[] = [
   { name: "株式会社カミナシ", imageSrc: bronze22Img },
   // { name: "株式会社ギークニア", imageSrc: bronze23Img },
   // { name: "株式会社ギフティ", imageSrc: bronze24Img },
-  { name: "株式会社スタンバイ", imageSrc: bronze25Img },
+  // { name: "株式会社スタンバイ", imageSrc: bronze25Img },
   { name: "株式会社スマートバンク", imageSrc: bronze26Img },
   { name: "株式会社ディー・エヌ・エー", imageSrc: bronze27Img },
   { name: "株式会社ドワンゴ", imageSrc: bronze28Img },
@@ -218,7 +217,7 @@ export const gopherSponsors: Sponsor[] = [
   { name: "Go Sueyoshi (sue445)", imageSrc: gopher3Img },
   // { name: "haruyama480", imageSrc: gopher4Img },
   { name: "hiro", imageSrc: gopher5Img },
-  // { name: "JJ", imageSrc: gopher6Img },
+  { name: "JJ", imageSrc: gopher6Img },
   { name: "kazuhiro1982", imageSrc: gopher7Img },
   { name: "KojiKa", imageSrc: gopher8Img },
   { name: "Koya Hachiya", imageSrc: gopher9Img },
@@ -237,5 +236,4 @@ export const gopherSponsors: Sponsor[] = [
   // { name: "瀬上 祐匡", imageSrc: gopher22Img },
 ];
 
-export const toolSponsors: Sponsor[] = [
-];
+export const toolSponsors: Sponsor[] = [];

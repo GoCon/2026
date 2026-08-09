@@ -7,6 +7,7 @@ import gold5Img from "../assets/jobboard/gold/gold_5.png";
 import gold6Img from "../assets/jobboard/gold/gold_6.png";
 import silver2Img from "../assets/jobboard/silver/silver_2.png";
 import silver3Img from "../assets/jobboard/silver/silver_3.png";
+import silver4Img from "../assets/jobboard/silver/silver_4.png";
 import silver5Img from "../assets/jobboard/silver/silver_5.png";
 import silver6Img from "../assets/jobboard/silver/silver_6.png";
 import silver7Img from "../assets/jobboard/silver/silver_7.jpg";
@@ -96,7 +97,11 @@ export const jobBoards: JobBoard[] = [
     description: "合同会社DMM.com",
     url: "https://dmm-corp.com/recruit/engineer/",
   },
-  // Finatextホールディングス: ジョブボード画像未提出
+  {
+    image: silver4Img,
+    description: "株式会社Finatextホールディングス",
+    url: "https://finatext.com/recruit",
+  },
   {
     image: silver5Img,
     description: "株式会社miive",
