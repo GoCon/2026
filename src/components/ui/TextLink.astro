@@ -23,7 +23,7 @@ const {
   rel={isBlankLink ? "noopener noreferrer" : undefined}
 >
   <span class="text-body-large-strong">{text}</span>
-  {isBlankLink && <OpenInNewIcon class="link-icon" fill="red" />}
+  {isBlankLink && <OpenInNewIcon class="link-icon" />}
   {withArrowIcon && <DoubleArrowIcon class="link-icon double-arrow" />}
 </a>
 
@@ -43,8 +43,8 @@ const {
   }
 
   .link-icon {
-    width: 20px;
-    height: 20px;
+    width: var(--link-icon-size, 20px);
+    height: var(--link-icon-size, 20px);
     fill: var(--text-primary);
     margin-top: 2px;
     flex-shrink: 0;

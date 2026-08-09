@@ -21,7 +21,7 @@ const ticketUrl =
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4px clamp(16px, -11.429px + 3.571vw, 40px);
+    padding: 4px clamp(12px, -20px + 4.167vw, 40px);
     height: 81px;
     box-sizing: border-box;
     background: var(--surface-primary);
@@ -31,7 +31,7 @@ const ticketUrl =
   .header-logo {
     display: block;
     height: 100%;
-    width: 165px;
+    width: clamp(100px, 25.714px + 9.673vw, 165px);
     padding: 8px;
     box-sizing: border-box;
     margin: 0;
@@ -51,7 +51,11 @@ const ticketUrl =
   }
 
   .header-button {
-    width: 192px;
+    width: clamp(140px, 80.571px + 7.738vw, 192px);
+  }
+
+  .header-button :global(.c-button) {
+    --btn-font-size: clamp(12px, 7.429px + 0.595vw, 16px);
   }
 
   .language-switcher {
@@ -87,10 +91,11 @@ const ticketUrl =
     display: flex;
     align-items: center;
     gap: 26px;
+    font-size: clamp(12px, 7.429px + 0.595vw, 16px);
 
     & .navigation-menu {
       display: flex;
-      gap: clamp(16px, 4.571px + 1.488vw, 26px);
+      gap: clamp(12px, -4px + 2.083vw, 26px);
       list-style: none;
       margin: 0;
       padding: 0;
@@ -112,6 +117,7 @@ const ticketUrl =
         background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(32px);
         z-index: 1000;
+        font-size: 16px;
 
         & .navigation-menu {
           flex-direction: column;
@@ -120,6 +126,14 @@ const ticketUrl =
         }
       }
     }
+  }
+
+  .navigation :global(.navigation-menu .text-body-large-strong) {
+    font-size: inherit;
+  }
+
+  .navigation :global(.navigation-menu .link-icon) {
+    --link-icon-size: clamp(14px, 7.143px + 0.893vw, 20px);
   }
 
   .navigation-toggle {
@@ -153,6 +167,18 @@ const ticketUrl =
   }
 
   @media screen and (max-width: 768px) {
+    .header-button {
+      width: 192px;
+    }
+
+    .header-button :global(.c-button) {
+      --btn-font-size: 16px;
+    }
+
+    .navigation :global(.navigation-menu .link-icon) {
+      --link-icon-size: 20px;
+    }
+
     .navigation-icon {
       width: 40px;
       height: 40px;
@@ -193,6 +219,18 @@ const ticketUrl =
       <li class="navigation-menu-item">
         <TextLink href={getRelativeLocaleUrl(currentLocale)} text="Home" />
       </li>
+      <!-- <li>
+        <TextLink
+          href={getRelativeLocaleUrl(currentLocale, "timetable")}
+          text="Timetable"
+        />
+      </li> -->
+      <!-- <li>
+        <TextLink
+          href={getRelativeLocaleUrl(currentLocale, "floorguide")}
+          text="Floor Guide"
+        />
+      </li> -->
       <li>
         <TextLink
           href={getRelativeLocaleUrl(currentLocale, "staffs")}
@@ -212,16 +250,6 @@ const ticketUrl =
           isBlankLink
         />
       </li>
-      <!-- <li>
-        <a href={getRelativeLocaleUrl(currentLocale, "timetable")}>
-          Timetable
-        </a>
-      </li>
-      <li>
-        <a href={getRelativeLocaleUrl(currentLocale, "floormap")}>
-          Floor Map
-        </a>
-      </li> -->
 
       <!-- 言語切り替えボタン -->
       <li class="language-switcher">
