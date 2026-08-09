@@ -35,6 +35,7 @@ import bronze19Img from "../../assets/sponsors/bronze/bronze_19.png";
 import bronze20Img from "../../assets/sponsors/bronze/bronze_20.png";
 import bronze21Img from "../../assets/sponsors/bronze/bronze_21.png";
 import bronze22Img from "../../assets/sponsors/bronze/bronze_22.png";
+import bronze25Img from "../../assets/sponsors/bronze/bronze_25.png";
 import bronze26Img from "../../assets/sponsors/bronze/bronze_26.png";
 import bronze27Img from "../../assets/sponsors/bronze/bronze_27.png";
 import bronze28Img from "../../assets/sponsors/bronze/bronze_28.png";
@@ -196,7 +197,7 @@ export const bronzeSponsors: Sponsor[] = [
   { name: "株式会社カミナシ", imageSrc: bronze22Img },
   // { name: "株式会社ギークニア", imageSrc: bronze23Img },
   // { name: "株式会社ギフティ", imageSrc: bronze24Img },
-  // { name: "株式会社スタンバイ", imageSrc: bronze25Img },
+  { name: "株式会社スタンバイ", imageSrc: bronze25Img },
   { name: "株式会社スマートバンク", imageSrc: bronze26Img },
   { name: "株式会社ディー・エヌ・エー", imageSrc: bronze27Img },
   { name: "株式会社ドワンゴ", imageSrc: bronze28Img },
