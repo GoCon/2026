@@ -8,6 +8,7 @@ import Lunch from "./sponsor/Lunch.astro";
 import Bronze from "./sponsor/Bronze.astro";
 import Gopher from "./sponsor/Gopher.astro";
 import Tool from "./sponsor/Tool.astro";
+import Wifi from "./sponsor/Wifi.astro";
 import {
   goldSponsors,
   silverSponsors,
@@ -16,6 +17,7 @@ import {
   bronzeSponsors,
   gopherSponsors,
   toolSponsors,
+  wifiSponsors,
 } from "./sponsors";
 
 const currentLocale = Astro.currentLocale || "ja";
@@ -27,7 +29,8 @@ if (
   lunchSponsors.length === 0 &&
   bronzeSponsors.length === 0 &&
   gopherSponsors.length === 0 &&
-  toolSponsors.length === 0
+  toolSponsors.length === 0 &&
+  wifiSponsors.length === 0
 ) {
   return null;
 }
@@ -55,6 +58,7 @@ if (
     <Bronze sponsors={bronzeSponsors} />
     <Gopher sponsors={gopherSponsors} />
     <Tool sponsors={toolSponsors} />
+    <Wifi sponsors={wifiSponsors} />
   </div>
 </section>
 
