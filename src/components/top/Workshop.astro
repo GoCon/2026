@@ -131,7 +131,8 @@ const workshops: Workshop[] = [
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
-    max-width: 250px;
+    width: 28%;
+    min-width: 280px;
   }
 
   .btn-wrapper {
@@ -172,7 +173,16 @@ const workshops: Workshop[] = [
     }
 
     #workshop-details {
-      min-width: none;
+      flex-wrap: nowrap;
+      flex-direction: column;
+    }
+
+    .col {
+      width: auto;
+      box-sizing: border-box;
+      min-width: auto;
+      max-width: 400px;
+      margin: 0 auto;
     }
   }
 </style>
