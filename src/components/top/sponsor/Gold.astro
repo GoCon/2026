@@ -39,6 +39,8 @@ const currentLocale = Astro.currentLocale || "ja";
                 src={sponsor.imageSrc}
                 alt={sponsor.name}
                 title={sponsor.name}
+                width={532}
+                height={280}
                 loading="lazy"
                 priority
               />
@@ -48,6 +50,8 @@ const currentLocale = Astro.currentLocale || "ja";
               src={sponsor.imageSrc}
               alt={sponsor.name}
               title={sponsor.name}
+              width={532}
+              height={280}
               loading="lazy"
               priority
             />
@@ -109,7 +113,8 @@ const currentLocale = Astro.currentLocale || "ja";
       justify-content: center;
     }
 
-    a > img {
+    a > img,
+    li > img {
       width: 342px;
       aspect-ratio: 342 / 160;
     }
