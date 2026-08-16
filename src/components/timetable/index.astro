@@ -287,22 +287,24 @@ const schedules = [
 
   .select-button#session {
     border: 3px solid var(--primitive-blue);
-  }
-
-  .select-button#session:hover,
-  .select-button#session.is-active {
     color: var(--text-on-fill);
     background-color: var(--primitive-blue);
   }
 
-  .select-button#workshop {
-    border: 3px solid var(--surface-workshop);
+  .select-button#session.is-active {
+    color: var(--text-primary);
+    background-color: transparent;
   }
 
-  .select-button#workshop:hover,
-  .select-button#workshop.is-active {
+  .select-button#workshop {
+    border: 3px solid var(--surface-workshop);
     color: var(--text-on-fill);
     background-color: var(--surface-workshop);
+  }
+
+  .select-button#workshop.is-active {
+    color: var(--text-primary);
+    background-color: transparent;
   }
 
   .select-button .button-text {
