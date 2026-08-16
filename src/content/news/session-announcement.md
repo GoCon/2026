@@ -32,8 +32,8 @@ Go Conference 2026（2026 年 9 月 11 日・中野セントラルパークカ�
 ## ワークショップ / Workshop
 
 - **Go × SIMDで高速化するベクトル検索 ~ ルーフラインモデルでSIMDが効く境界を探れ！ ~** — Hiromu Nakamura
-- **Let's Play Go: The Card Game** — Senoue
-- **go.devの歩き方、その先へ 〜Go公式リソースの旅。明日からの調べ方を手に入れるワークショップ〜** — sunecosuri
+- **Let’s Play Go: The Card Game** — Senoue
+- **go.devの歩き方、その先へ 〜Go公式リソースの旅。明日からの調べ方を手に入れるワークショップ〜** — Koki Narumi
 - **TDDを通じてGoらしいテストを体験しよう！** — Go Connect
 - **TinyGoで遊んでみよう！TinyGo Keeb Workshop** — TinyGo Keeb
 - **こだわりを静的解析で表現しよう 90分で作って動かす自作analyzer入門** — つばさ
