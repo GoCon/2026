@@ -154,6 +154,8 @@ const description =
 
   .section-title {
     display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
 
   .section-title::first-letter {
@@ -162,14 +164,17 @@ const description =
 
   .metadata {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-xxs);
     color: var(--text-on-fill);
   }
 
   .badges {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     gap: var(--space-xxs);
   }
@@ -218,6 +223,7 @@ const description =
 
   section#content .description {
     white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
 
   section#speaker {
@@ -228,6 +234,7 @@ const description =
     border-radius: var(--radius-objects);
     gap: 8px;
     padding: var(--space-m);
+    overflow-wrap: anywhere;
   }
 
   section#speaker p {
