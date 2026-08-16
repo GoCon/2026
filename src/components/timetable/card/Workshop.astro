@@ -109,4 +109,12 @@ const workshopHeights = {
     border-radius: 50%;
     object-fit: cover;
   }
+
+  @media screen and (max-width: 375px) {
+    .card .footer-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xxxs);
+    }
+  }
 </style>

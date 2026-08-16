@@ -114,4 +114,12 @@ const currentLocale = Astro.currentLocale || "ja";
       overflow: visible;
     }
   }
+
+  @media screen and (max-width: 375px) {
+    .card .footer-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xxxs);
+    }
+  }
 </style>
