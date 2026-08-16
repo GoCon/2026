@@ -13,7 +13,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const rootDir = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+);
 const inputPath = path.join(rootDir, "src/components/timetable/rawData.json");
 const outputPath = path.join(rootDir, "src/components/timetable/data.json");
 
@@ -152,10 +155,7 @@ function parseWorkshopDuration(categoryItems: number[]): WorkshopDuration {
   return "40min";
 }
 
-function parseRoom(
-  roomId: number | null | undefined,
-  rooms: RawRoom[],
-): Room {
+function parseRoom(roomId: number | null | undefined, rooms: RawRoom[]): Room {
   if (roomId === null || roomId === undefined) {
     return "roomA";
   }
@@ -175,9 +175,7 @@ function parseSpeaker(rawSpeaker: RawSpeaker | undefined): Speaker {
 
   return {
     name: rawSpeaker.fullName,
-    ...(rawSpeaker.profilePicture
-      ? { avatar: rawSpeaker.profilePicture }
-      : {}),
+    ...(rawSpeaker.profilePicture ? { avatar: rawSpeaker.profilePicture } : {}),
     ...(xLink ? { xUrl: xLink.url } : {}),
     ...(rawSpeaker.tagLine ? { company: rawSpeaker.tagLine } : {}),
     ...(rawSpeaker.bio

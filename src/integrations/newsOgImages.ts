@@ -130,6 +130,10 @@ async function generateAllProgramOgImages(): Promise<void> {
         framePath,
         fontPath,
         outputPath: path.join(outDir, `${program.id}.png`),
+        speaker: {
+          name: program.speaker.name,
+          avatarUrl: program.speaker.avatar,
+        },
       }),
     ),
   );
