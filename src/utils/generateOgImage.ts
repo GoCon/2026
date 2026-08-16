@@ -1,6 +1,11 @@
+import dns from "node:dns";
 import fs from "node:fs/promises";
+import https from "node:https";
 import satori from "satori";
 import sharp from "sharp";
+
+// Node 17+ は IPv6 を先に試す。Netlify 上では AAAA が通らず fetch が失敗することがある。
+dns.setDefaultResultOrder("ipv4first");
 
 /** `public/news_ogp_frame.jpg` のピクセルサイズ */
 export const NEWS_OGP_WIDTH = 2400;
@@ -110,26 +115,98 @@ type GenerateOgImageOptions = {
   speaker?: OgSpeaker;
 };
 
+const AVATAR_FETCH_TIMEOUT_MS = 15_000;
+const AVATAR_FETCH_RETRIES = 3;
+
+function downloadAvatar(
+  url: string,
+  redirectsLeft = 5,
+): Promise<{ buffer: Buffer; contentType: string }> {
+  return new Promise((resolve, reject) => {
+    const request = https.get(
+      url,
+      {
+        family: 4,
+        headers: {
+          Accept: "image/jpeg,image/png,image/webp,image/svg+xml,*/*;q=0.1",
+          "User-Agent": "GoCon2026OGP/1.0 (https://gocon.jp/2026)",
+        },
+      },
+      (response) => {
+        const status = response.statusCode ?? 0;
+        if (
+          status >= 300 &&
+          status < 400 &&
+          response.headers.location &&
+          redirectsLeft > 0
+        ) {
+          const nextUrl = new URL(response.headers.location, url).href;
+          response.resume();
+          downloadAvatar(nextUrl, redirectsLeft - 1).then(resolve, reject);
+          return;
+        }
+
+        if (status !== 200) {
+          response.resume();
+          reject(new Error(`HTTP ${status}`));
+          return;
+        }
+
+        const chunks: Buffer[] = [];
+        response.on("data", (chunk: Buffer) => {
+          chunks.push(chunk);
+        });
+        response.on("end", () => {
+          resolve({
+            buffer: Buffer.concat(chunks),
+            contentType: String(response.headers["content-type"] ?? ""),
+          });
+        });
+        response.on("error", reject);
+      },
+    );
+
+    request.on("error", reject);
+    request.setTimeout(AVATAR_FETCH_TIMEOUT_MS, () => {
+      request.destroy(new Error("Timed out"));
+    });
+  });
+}
+
 async function toAvatarDataUri(url: string): Promise<string | undefined> {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      return undefined;
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= AVATAR_FETCH_RETRIES; attempt += 1) {
+    try {
+      const { buffer, contentType } = await downloadAvatar(url);
+      const size = SESSION_SPEAKER_AREA.avatarSize * 2;
+      try {
+        const png = await sharp(buffer)
+          .rotate()
+          .resize(size, size, { fit: "cover" })
+          .toColorspace("srgb")
+          .png()
+          .toBuffer();
+        return `data:image/png;base64,${png.toString("base64")}`;
+      } catch (error) {
+        const isSvg =
+          contentType.includes("svg") ||
+          new URL(url).pathname.endsWith(".svg");
+        if (isSvg) {
+          return `data:image/svg+xml;base64,${buffer.toString("base64")}`;
+        }
+        throw error;
+      }
+    } catch (error) {
+      lastError = error;
     }
-
-    const buffer = Buffer.from(await response.arrayBuffer());
-    const png = await sharp(buffer)
-      .resize(
-        SESSION_SPEAKER_AREA.avatarSize * 2,
-        SESSION_SPEAKER_AREA.avatarSize * 2,
-      )
-      .png()
-      .toBuffer();
-
-    return `data:image/png;base64,${png.toString("base64")}`;
-  } catch {
-    return undefined;
   }
+
+  console.warn(
+    `[og-image] Failed to load speaker avatar: ${url}`,
+    lastError instanceof Error ? lastError.message : lastError,
+  );
+  return undefined;
 }
 
 /**

@@ -123,20 +123,23 @@ async function generateAllProgramOgImages(): Promise<void> {
 
   await fs.mkdir(outDir, { recursive: true });
 
-  await Promise.all(
-    programs.map((program) =>
-      generateProgramOgImage({
-        title: program.title,
-        framePath,
-        fontPath,
-        outputPath: path.join(outDir, `${program.id}.png`),
-        speaker: {
-          name: program.speaker.name,
-          avatarUrl: program.speaker.avatar,
-        },
-      }),
-    ),
-  );
+  const concurrency = 4;
+  for (let i = 0; i < programs.length; i += concurrency) {
+    await Promise.all(
+      programs.slice(i, i + concurrency).map((program) =>
+        generateProgramOgImage({
+          title: program.title,
+          framePath,
+          fontPath,
+          outputPath: path.join(outDir, `${program.id}.png`),
+          speaker: {
+            name: program.speaker.name,
+            avatarUrl: program.speaker.avatar,
+          },
+        }),
+      ),
+    );
+  }
 }
 
 async function generateAllOgImages(): Promise<void> {
