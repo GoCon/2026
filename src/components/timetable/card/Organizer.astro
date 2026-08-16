@@ -16,7 +16,10 @@ const style = [
   .join("; ");
 ---
 
-<div class="card" style={style || undefined}>
+<div
+  class:list={["card", { "card--sized": Boolean(spHeight) }]}
+  style={style || undefined}
+>
   <div class="time-container text-body-medium-strong">
     <span>{program.timeString}</span>
   </div>
@@ -33,9 +36,12 @@ const style = [
     padding: var(--space-xs) var(--space-s);
     border: 2px solid var(--surface-disabled);
     border-radius: var(--radius-objects);
-    height: var(--organizer-height, auto);
+    height: var(--organizer-height, 100%);
     box-sizing: border-box;
-    height: 100%;
+  }
+
+  .card .time-container {
+    min-height: 25px;
   }
 
   @media screen and (max-width: 768px) {

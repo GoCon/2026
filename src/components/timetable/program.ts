@@ -54,6 +54,9 @@ export type ProgramSessionCommon = {
 };
 
 import { parseProgramsFromRawData } from "./parseRawData";
+import { enrichProgramsWithScheduleTime } from "./enrichProgramTime";
+import { workshopSchedule } from "./schedule";
+import { sessionGridCells } from "./sessionGrid";
 
 const organizerPrograms = {
   opening: {
@@ -68,10 +71,15 @@ const organizerPrograms = {
   },
   lunch: {
     type: "organizer",
-    timeString: "12:05 - 13:30",
+    timeString: "12:05 - 14:00",
     title: "お昼休憩",
-    height: "150px",
     spHeight: "150px",
+  },
+  keynote: {
+    type: "organizer",
+    timeString: "10:30 - 11:10",
+    title: "基調講演",
+    spHeight: "300px",
   },
 } as const satisfies Record<string, ProgramOrganizer>;
 
@@ -80,7 +88,7 @@ const sponsorPlaceholderPrograms = {
     type: "sponsorSession",
     isPlaceholder: true,
     id: "sponsorSlot1",
-    timeString: "12:10 - 12:25",
+    timeString: "12:20 - 12:35",
     title: "Coming Soon",
     difficulty: "beginner",
     speaker: { name: "" },
@@ -90,7 +98,7 @@ const sponsorPlaceholderPrograms = {
     type: "sponsorSession",
     isPlaceholder: true,
     id: "sponsorSlot2",
-    timeString: "12:30 - 12:45",
+    timeString: "12:45 - 13:00",
     title: "Coming Soon",
     difficulty: "beginner",
     speaker: { name: "" },
@@ -100,16 +108,6 @@ const sponsorPlaceholderPrograms = {
     type: "sponsorSession",
     isPlaceholder: true,
     id: "sponsorSlot3",
-    timeString: "12:50 - 13:05",
-    title: "Coming Soon",
-    difficulty: "beginner",
-    speaker: { name: "" },
-    room: "roomA",
-  },
-  sponsorSlot4: {
-    type: "sponsorSession",
-    isPlaceholder: true,
-    id: "sponsorSlot4",
     timeString: "13:10 - 13:25",
     title: "Coming Soon",
     difficulty: "beginner",
@@ -120,11 +118,15 @@ const sponsorPlaceholderPrograms = {
 
 const sessionPrograms = parseProgramsFromRawData();
 
-export const programs: Record<string, Program> = {
-  ...organizerPrograms,
-  ...sponsorPlaceholderPrograms,
-  ...sessionPrograms,
-};
+export const programs: Record<string, Program> = enrichProgramsWithScheduleTime(
+  {
+    ...organizerPrograms,
+    ...sponsorPlaceholderPrograms,
+    ...sessionPrograms,
+  },
+  sessionGridCells,
+  workshopSchedule,
+);
 
 export type ProgramId = string;
 

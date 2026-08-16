@@ -11,7 +11,7 @@ const { program } = Astro.props as Props;
 const currentLocale = Astro.currentLocale || "ja";
 ---
 
-<div class="card">
+<div class="card card--long-session">
   <div class="metadata-container text-body-medium-strong">
     <div class="time-container">
       <span>{program.timeString}</span>
@@ -44,13 +44,16 @@ const currentLocale = Astro.currentLocale || "ja";
     padding: var(--space-xs) var(--space-s);
     border-radius: var(--radius-objects);
     background-color: var(--surface-session-light);
-    min-height: 300px;
+    height: 100%;
+    min-height: 0;
     box-sizing: border-box;
+    overflow: hidden;
   }
 
   .card .metadata-container {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
   }
 
   .card .metadata-container .time-container {
@@ -64,6 +67,7 @@ const currentLocale = Astro.currentLocale || "ja";
     overflow: hidden;
     align-items: center;
     height: 56px;
+    flex-shrink: 0;
   }
 
   .card .title-container:hover {
@@ -88,6 +92,7 @@ const currentLocale = Astro.currentLocale || "ja";
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    flex-shrink: 0;
   }
 
   .card .footer-container .speaker-container {
@@ -100,5 +105,13 @@ const currentLocale = Astro.currentLocale || "ja";
     height: 24px;
     border-radius: 50%;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 768px) {
+    .card.card--long-session {
+      height: auto;
+      min-height: 300px;
+      overflow: visible;
+    }
   }
 </style>
