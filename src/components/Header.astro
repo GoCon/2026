@@ -9,6 +9,8 @@ import Button from "./ui/Button.astro";
 
 const currentLocale = Astro.currentLocale || "ja";
 const pathname = Astro.url.pathname;
+const ticketUrl =
+  "https://conference.findy-code.io/conferences/gocon26/23/registration";
 ---
 
 <style>
@@ -19,7 +21,7 @@ const pathname = Astro.url.pathname;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4px 40px;
+    padding: 4px clamp(12px, -20px + 4.167vw, 40px);
     height: 81px;
     box-sizing: border-box;
     background: var(--surface-primary);
@@ -29,7 +31,7 @@ const pathname = Astro.url.pathname;
   .header-logo {
     display: block;
     height: 100%;
-    width: 165px;
+    width: clamp(100px, 25.714px + 9.673vw, 165px);
     padding: 8px;
     box-sizing: border-box;
     margin: 0;
@@ -49,7 +51,11 @@ const pathname = Astro.url.pathname;
   }
 
   .header-button {
-    width: 192px;
+    width: clamp(140px, 80.571px + 7.738vw, 192px);
+  }
+
+  .header-button :global(.c-button) {
+    --btn-font-size: clamp(12px, 7.429px + 0.595vw, 16px);
   }
 
   .language-switcher {
@@ -85,10 +91,11 @@ const pathname = Astro.url.pathname;
     display: flex;
     align-items: center;
     gap: 26px;
+    font-size: clamp(12px, 7.429px + 0.595vw, 16px);
 
     & .navigation-menu {
       display: flex;
-      gap: 26px;
+      gap: clamp(12px, -4px + 2.083vw, 26px);
       list-style: none;
       margin: 0;
       padding: 0;
@@ -110,6 +117,7 @@ const pathname = Astro.url.pathname;
         background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(32px);
         z-index: 1000;
+        font-size: 16px;
 
         & .navigation-menu {
           flex-direction: column;
@@ -118,6 +126,14 @@ const pathname = Astro.url.pathname;
         }
       }
     }
+  }
+
+  .navigation :global(.navigation-menu .text-body-large-strong) {
+    font-size: inherit;
+  }
+
+  .navigation :global(.navigation-menu .link-icon) {
+    --link-icon-size: clamp(14px, 7.143px + 0.893vw, 20px);
   }
 
   .navigation-toggle {
@@ -151,6 +167,18 @@ const pathname = Astro.url.pathname;
   }
 
   @media screen and (max-width: 768px) {
+    .header-button {
+      width: 192px;
+    }
+
+    .header-button :global(.c-button) {
+      --btn-font-size: 16px;
+    }
+
+    .navigation :global(.navigation-menu .link-icon) {
+      --link-icon-size: 20px;
+    }
+
     .navigation-icon {
       width: 40px;
       height: 40px;
@@ -191,16 +219,28 @@ const pathname = Astro.url.pathname;
       <li class="navigation-menu-item">
         <TextLink href={getRelativeLocaleUrl(currentLocale)} text="Home" />
       </li>
-      <li class="navigation-menu-item">
+      <li>
         <TextLink
           href={getRelativeLocaleUrl(currentLocale, "timetable")}
           text="Timetable"
         />
       </li>
-      <li class="navigation-menu-item">
+      <!-- <li>
+        <TextLink
+          href={getRelativeLocaleUrl(currentLocale, "floorguide")}
+          text="Floor Guide"
+        />
+      </li> -->
+      <li>
         <TextLink
           href={getRelativeLocaleUrl(currentLocale, "staffs")}
           text="Staffs"
+        />
+      </li>
+      <li class="navigation-menu-item">
+        <TextLink
+          href={getRelativeLocaleUrl(currentLocale, "job-board")}
+          text="Job Board"
         />
       </li>
       <li class="navigation-menu-item">
@@ -210,16 +250,6 @@ const pathname = Astro.url.pathname;
           isBlankLink
         />
       </li>
-      <!-- <li>
-        <a href={getRelativeLocaleUrl(currentLocale, "jobboard")}>
-          Job Board
-        </a>
-      </li>
-      <li>
-        <a href={getRelativeLocaleUrl(currentLocale, "floormap")}>
-          Floor Map
-        </a>
-      </li> -->
 
       <!-- 言語切り替えボタン -->
       <li class="language-switcher">
@@ -241,15 +271,14 @@ const pathname = Astro.url.pathname;
       </li>
     </ul>
 
-    <!-- メインボタン -->
-    <!-- <div class="header-button">
-      <Button href="#" isBlankLink>
+    <div class="header-button">
+      <Button href={ticketUrl} isBlankLink>
         {
           currentLocale === "ja"
-            ? "プロポーザルに応募"
-            : "Apply for the proposal"
+            ? "イベントに申し込む"
+            : "Register for the event"
         }
       </Button>
-    </div> -->
+    </div>
   </div>
 </header>
