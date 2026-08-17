@@ -12,7 +12,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write .",
-    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,astro}'"
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,astro}'",
+    "transform:timetable": "node --experimental-strip-types scripts/transform-timetable-data.ts"
   },
   "dependencies": {
     "@fontsource/noto-sans-jp": "^5.2.9",

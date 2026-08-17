@@ -1,8 +1,13 @@
 # build output
 dist/
 
-# News OGP images (generated at build / dev server start)
+# OGP images (generated at build / dev server start)
 public/og/news/*.png
+public/og/timetable/*.png
+
+# Sessionize API raw data (unnecessary fields; transform before committing)
+src/components/timetable/rawData.json
+src/components/timetable/tmp.json
 
 # generated types
 .astro/
