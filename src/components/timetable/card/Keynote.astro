@@ -10,27 +10,44 @@ type Props = {
 const { program } = Astro.props as Props;
 const currentLocale = Astro.currentLocale || "ja";
 const timeString = getProgramTimeString(program);
+const isPlaceholder = program.isPlaceholder === true;
+const placeholderTitle = currentLocale === "ja" ? "基調講演" : "Keynote";
 ---
 
-<div class="card card--keynote">
+<div
+  class="card card--keynote"
+  class:list={[{ "card--placeholder": isPlaceholder }]}
+>
   <div class="metadata-container text-body-medium-strong">
     <div class="time-container">
       <span>{timeString}</span>
     </div>
   </div>
-  <a
-    class="title-container text-body-large-strong"
-    href={getRelativeLocaleUrl(currentLocale, `timetable/${program.id}`)}
-  >
-    <div class="text-wrapper">
-      <span>{program.title}</span>
-    </div>
-  </a>
+  {
+    isPlaceholder ? (
+      <div class="title-container title-container--placeholder text-body-large-strong">
+        <span>{placeholderTitle}</span>
+      </div>
+    ) : (
+      <a
+        class="title-container text-body-large-strong"
+        href={getRelativeLocaleUrl(currentLocale, `timetable/${program.id}`)}
+      >
+        <div class="text-wrapper">
+          <span>{program.title}</span>
+        </div>
+      </a>
+    )
+  }
   <div class="footer-container">
-    <div class="speaker-container">
-      <img class="icon" src={program.speaker.avatar} alt="" />
-      <span class="text-body-small-strong">{program.speaker.name}</span>
-    </div>
+    {
+      !isPlaceholder && (
+        <div class="speaker-container">
+          <img class="icon" src={program.speaker.avatar} alt="" />
+          <span class="text-body-small-strong">{program.speaker.name}</span>
+        </div>
+      )
+    }
     <span class="text-body-small">Keynote(40min)</span>
   </div>
 </div>
@@ -84,6 +101,17 @@ const timeString = getProgramTimeString(program);
   .card .title-container span {
     margin: auto 0;
     height: fit-content;
+  }
+
+  .card .title-container--placeholder {
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    height: 56px;
+  }
+
+  .card--placeholder .footer-container {
+    justify-content: flex-end;
   }
 
   .card .footer-container {

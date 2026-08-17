@@ -46,6 +46,7 @@ export type ProgramWorkshop = {
 
 export type ProgramKeynote = {
   type: "keynote";
+  isPlaceholder?: boolean;
 } & Omit<ProgramSessionCommon, "difficulty">;
 
 export type ProgramSessionCommon = {
@@ -78,12 +79,14 @@ const organizerPrograms = {
   },
 } as const satisfies Record<string, ProgramOrganizer>;
 
-/** 未入力時のみ使う基調講演プレースホルダー（organizer カード） */
-const keynotePlaceholder: ProgramOrganizer = {
-  type: "organizer",
-  timeString: "10:30 - 11:10",
-  title: "基調講演",
-  spHeight: "300px",
+/** 未入力時のみ使う基調講演プレースホルダー（セッションカードと同じ見た目） */
+const keynotePlaceholder: ProgramKeynote = {
+  type: "keynote",
+  isPlaceholder: true,
+  id: "keynote",
+  title: "Coming Soon",
+  speaker: { name: "" },
+  room: "roomA",
 };
 
 /** 未入力時のみ使うスポンサー枠プレースホルダー */
@@ -173,6 +176,9 @@ export function getProgramSessions(): ProgramSession[] {
       continue;
     }
     if (program.type === "sponsorSession" && program.isPlaceholder) {
+      continue;
+    }
+    if (program.type === "keynote" && program.isPlaceholder) {
       continue;
     }
     sessions.push(program);
