@@ -4,7 +4,7 @@
  * - Accepted のみ残す
  * - スピーカー情報をセッションへ埋め込む
  * - categoryItems から type / difficulty / duration を解決する
- * - room / timeString を解決する
+ * - room を解決する
  *
  * Usage:
  *   pnpm transform:timetable
@@ -50,7 +50,6 @@ type ShapedSession = {
   id: string;
   type: SessionType;
   title: string;
-  timeString: string;
   difficulty: Difficulty;
   speaker: Speaker;
   room: Room;
@@ -102,24 +101,6 @@ type RawData = {
 
 function normalizeDescription(description: string): string {
   return description.replace(/\r\n/g, "\n");
-}
-
-function formatTimeString(
-  startsAt: string | null | undefined,
-  endsAt: string | null | undefined,
-): string {
-  if (!startsAt || !endsAt) {
-    return "";
-  }
-
-  const formatTime = (isoString: string): string => {
-    const date = new Date(isoString);
-    const hours = date.getHours().toString().padStart(2, "0");
-    const minutes = date.getMinutes().toString().padStart(2, "0");
-    return `${hours}:${minutes}`;
-  };
-
-  return `${formatTime(startsAt)} - ${formatTime(endsAt)}`;
 }
 
 function parseSessionType(categoryItems: number[]): SessionType | null {
@@ -203,7 +184,6 @@ function transformSession(
     id: session.id,
     type,
     title: session.title,
-    timeString: formatTimeString(session.startsAt, session.endsAt),
     difficulty: parseDifficulty(session.categoryItems ?? []),
     speaker: parseSpeaker(speakerMap.get(speakerId)),
     room: parseRoom(session.roomId, rooms),

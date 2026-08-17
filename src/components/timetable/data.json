@@ -4,7 +4,6 @@
       "id": "1264338",
       "type": "workshop",
       "title": "Go × SIMDで高速化するベクトル検索 ~ ルーフラインモデルでSIMDが効く境界を探れ！ ~",
-      "timeString": "",
       "difficulty": "intermediate",
       "speaker": {
         "name": "Hiromu Nakamura",
@@ -21,7 +20,6 @@
       "id": "1264506",
       "type": "longSession",
       "title": "Go における FFI のこれまでとこれから",
-      "timeString": "",
       "difficulty": "advanced",
       "speaker": {
         "name": "goccy",
@@ -37,7 +35,6 @@
       "id": "1236917",
       "type": "shortTalk",
       "title": "Go におけるコンソールゲーム開発最前線 〜非対応環境でランタイムを動かす技術〜",
-      "timeString": "",
       "difficulty": "advanced",
       "speaker": {
         "name": "Hajime Hoshi",
@@ -53,7 +50,6 @@
       "id": "1264403",
       "type": "workshop",
       "title": "go.devの歩き方、その先へ 〜Go公式リソースの旅。明日からの調べ方を手に入れるワークショップ〜",
-      "timeString": "",
       "difficulty": "beginner",
       "speaker": {
         "name": "Koki Narumi",
@@ -70,7 +66,6 @@
       "id": "1257333",
       "type": "shortTalk",
       "title": "Goコンパイラを作ってGoをもっと理解する",
-      "timeString": "",
       "difficulty": "intermediate",
       "speaker": {
         "name": "ikura-hamu",
@@ -85,7 +80,6 @@
       "id": "1237370",
       "type": "shortTalk",
       "title": "Goと一緒に育つCLI — 9年のOSS保守で見た標準ライブラリとtestingの進化",
-      "timeString": "",
       "difficulty": "intermediate",
       "speaker": {
         "name": "Tatsuya Kaneko",
@@ -101,7 +95,6 @@
       "id": "1259723",
       "type": "workshop",
       "title": "Let’s Play Go: The Card Game",
-      "timeString": "",
       "difficulty": "beginner",
       "speaker": {
         "name": "Senoue",
@@ -118,7 +111,6 @@
       "id": "1263399",
       "type": "longSession",
       "title": "OpenTelemetry eBPF Instrumentationの舞台裏",
-      "timeString": "",
       "difficulty": "advanced",
       "speaker": {
         "name": "ymotongpoo",
@@ -134,7 +126,6 @@
       "id": "1255534",
       "type": "shortTalk",
       "title": "range over func 2年間の軌跡 — Issue #56413 はGoのエコシステムをどう変えたか",
-      "timeString": "",
       "difficulty": "beginner",
       "speaker": {
         "name": "國分 竜二",
@@ -149,7 +140,6 @@
       "id": "1264549",
       "type": "shortTalk",
       "title": "synctest時代のhttptest: Go 1.27で変わるHTTPサーバテストの裏側",
-      "timeString": "",
       "difficulty": "intermediate",
       "speaker": {
         "name": "budougumi0617",
@@ -165,7 +155,6 @@
       "id": "1257229",
       "type": "workshop",
       "title": "TDDを通じてGoらしいテストを体験しよう！",
-      "timeString": "",
       "difficulty": "beginner",
       "speaker": {
         "name": "Go Connect",
@@ -181,7 +170,6 @@
       "id": "1263610",
       "type": "shortTalk",
       "title": "TinyGo 開発サイクルを高速化する：Go で作るエミュレータ入門",
-      "timeString": "",
       "difficulty": "beginner",
       "speaker": {
         "name": "倉澤大樹 Hiroki Kurasawa",
@@ -197,7 +185,6 @@
       "id": "1259713",
       "type": "workshop",
       "title": "TinyGoで遊んでみよう！TinyGo Keeb Workshop",
-      "timeString": "",
       "difficulty": "beginner",
       "speaker": {
         "name": "TinyGo Keeb",
@@ -214,7 +201,6 @@
       "id": "1251920",
       "type": "longSession",
       "title": "When Goroutines Are Not Enough: Runtime Locality in High-Throughput Go",
-      "timeString": "",
       "difficulty": "intermediate",
       "speaker": {
         "name": "Takeru Hayasaka",
@@ -230,7 +216,6 @@
       "id": "1263141",
       "type": "workshop",
       "title": "こだわりを静的解析で表現しよう 90分で作って動かす自作analyzer入門",
-      "timeString": "",
       "difficulty": "beginner",
       "speaker": {
         "name": "つばさ",
@@ -246,7 +231,6 @@
       "id": "1264230",
       "type": "shortTalk",
       "title": "そのリトライ、死んだコネクションを使い回していませんか ── GoのHTTPクライアントとHTTP/2を実プロダクト障害から学び直す",
-      "timeString": "",
       "difficulty": "intermediate",
       "speaker": {
         "name": "Yusa Matsuda",
@@ -261,7 +245,6 @@
       "id": "1264524",
       "type": "shortTalk",
       "title": "標準パッケージに uuid が追加された背景から見る Go らしい意思決定",
-      "timeString": "",
       "difficulty": "beginner",
       "speaker": {
         "name": "convto",
@@ -277,7 +260,6 @@
       "id": "1263912",
       "type": "longSession",
       "title": "標準ライブラリをどこまで信じるか —900アプリを支えるプラットフォームへのファイルアップロード導入から学ぶ io・mime・multipart",
-      "timeString": "",
       "difficulty": "intermediate",
       "speaker": {
         "name": "Takuya Sakamoto",
@@ -293,7 +275,6 @@
       "id": "1251905",
       "type": "longSession",
       "title": "海上で動くGoサーバー: goroutineとchannelでさばく航行データストリーム",
-      "timeString": "",
       "difficulty": "intermediate",
       "speaker": {
         "name": "Atsuki Seo",

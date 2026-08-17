@@ -5,6 +5,7 @@ import OrganizerCard from "./card/Organizer.astro";
 import ShortTalkCard from "./card/ShortTalk.astro";
 import SponsorSessionCard from "./card/SponsorSession.astro";
 import WorkshopCard from "./card/Workshop.astro";
+import KeynoteCard from "./card/Keynote.astro";
 import BlankCard from "./card/Blank.astro";
 
 type Props = {
@@ -25,6 +26,8 @@ const { program } = Astro.props as Props;
     <SponsorSessionCard program={program} />
   ) : program.type === "workshop" ? (
     <WorkshopCard program={program} />
+  ) : program.type === "keynote" ? (
+    <KeynoteCard program={program} />
   ) : program.type === "blank" ? (
     <BlankCard spHeight={program.spHeight} />
   ) : null

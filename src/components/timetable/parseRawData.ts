@@ -1,30 +1,36 @@
 import sessionData from "./data.json";
-import type { Speaker } from "./speaker";
+import { manualSessions } from "./manualSessions";
 import type { Program } from "./program";
+import type { SessionProgram } from "./sessionProgram";
 
-type SessionProgram = {
-  id: string;
-  type: "longSession" | "shortTalk" | "sponsorSession" | "workshop";
-  title: string;
-  timeString: string;
-  difficulty: "beginner" | "intermediate" | "advanced";
-  speaker: Speaker;
-  room: "roomA" | "roomB";
-  description?: string;
-  duration?: "40min" | "90min";
-};
+export type { SessionProgram } from "./sessionProgram";
 
 type SessionData = {
   sessions: SessionProgram[];
 };
 
-export function parseProgramsFromRawData(): Record<string, Program> {
-  const data = sessionData as unknown as SessionData;
+function sessionsToPrograms(
+  sessions: SessionProgram[],
+): Record<string, Program> {
   const programs: Record<string, Program> = {};
-
-  for (const session of data.sessions) {
+  for (const session of sessions) {
     programs[session.id] = session as Program;
   }
-
   return programs;
+}
+
+/**
+ * Sessionize 由来 (data.json) と手動入力 (manualSessions.ts) をマージする。
+ * 同じ id がある場合は manualSessions 側を優先する。
+ */
+export function parseProgramsFromRawData(): Record<string, Program> {
+  const fromSessionize = sessionsToPrograms(
+    (sessionData as SessionData).sessions,
+  );
+  const fromManual = sessionsToPrograms(manualSessions);
+
+  return {
+    ...fromSessionize,
+    ...fromManual,
+  };
 }

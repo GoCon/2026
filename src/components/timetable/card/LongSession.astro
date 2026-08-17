@@ -1,5 +1,6 @@
 ---
 import type { ProgramLongSession } from "../program";
+import { getProgramTimeString } from "../programTime";
 import DifficultyBadge from "../DifficultyBadge.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
@@ -9,12 +10,13 @@ type Props = {
 
 const { program } = Astro.props as Props;
 const currentLocale = Astro.currentLocale || "ja";
+const timeString = getProgramTimeString(program);
 ---
 
 <div class="card card--long-session">
   <div class="metadata-container text-body-medium-strong">
     <div class="time-container">
-      <span>{program.timeString}</span>
+      <span>{timeString}</span>
     </div>
     <DifficultyBadge difficulty={program.difficulty} />
   </div>

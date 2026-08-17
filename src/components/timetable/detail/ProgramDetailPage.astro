@@ -35,6 +35,8 @@ function getSessionTypeLabel(
       return locale === "ja"
         ? "ランチ・ドリンクセッション(15min)"
         : "Lunch & Drink Session(15min)";
+    case "keynote":
+      return "Keynote(40min)";
     case "workshop":
       return `Workshop(${sessionProgram.duration})`;
   }
@@ -91,7 +93,14 @@ const description =
             </div>
           )
         }
-        <DifficultyBadge difficulty={program.difficulty} variant="detail" />
+        {
+          type !== "keynote" && (
+            <DifficultyBadge
+              difficulty={program.difficulty}
+              variant="detail"
+            />
+          )
+        }
       </div>
       <div class="session-type-label">
         <span class="text-body-large-strong">{sessionTypeLabel}</span>
@@ -189,7 +198,8 @@ const description =
 
   .room-badge--longSession,
   .room-badge--shortTalk,
-  .room-badge--sponsorSession {
+  .room-badge--sponsorSession,
+  .room-badge--keynote {
     background-color: var(--surface-session);
   }
 

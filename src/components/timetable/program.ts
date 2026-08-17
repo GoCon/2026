@@ -6,6 +6,7 @@ export type Program =
   | ProgramShortTalk
   | ProgramSponsorSession
   | ProgramWorkshop
+  | ProgramKeynote
   | ProgramBlank;
 
 type ProgramBlank = {
@@ -43,9 +44,12 @@ export type ProgramWorkshop = {
   duration: "40min" | "90min";
 } & ProgramSessionCommon;
 
+export type ProgramKeynote = {
+  type: "keynote";
+} & Omit<ProgramSessionCommon, "difficulty">;
+
 export type ProgramSessionCommon = {
   id: string;
-  timeString: string;
   title: string;
   difficulty: "beginner" | "intermediate" | "advanced";
   speaker: Speaker;
@@ -54,9 +58,6 @@ export type ProgramSessionCommon = {
 };
 
 import { parseProgramsFromRawData } from "./parseRawData";
-import { enrichProgramsWithScheduleTime } from "./enrichProgramTime";
-import { workshopSchedule } from "./schedule";
-import { sessionGridCells } from "./sessionGrid";
 
 const organizerPrograms = {
   opening: {
@@ -75,20 +76,22 @@ const organizerPrograms = {
     title: "お昼休憩",
     spHeight: "150px",
   },
-  keynote: {
-    type: "organizer",
-    timeString: "10:30 - 11:10",
-    title: "基調講演",
-    spHeight: "300px",
-  },
 } as const satisfies Record<string, ProgramOrganizer>;
 
+/** 未入力時のみ使う基調講演プレースホルダー（organizer カード） */
+const keynotePlaceholder: ProgramOrganizer = {
+  type: "organizer",
+  timeString: "10:30 - 11:10",
+  title: "基調講演",
+  spHeight: "300px",
+};
+
+/** 未入力時のみ使うスポンサー枠プレースホルダー */
 const sponsorPlaceholderPrograms = {
   sponsorSlot1: {
     type: "sponsorSession",
     isPlaceholder: true,
     id: "sponsorSlot1",
-    timeString: "12:20 - 12:35",
     title: "Coming Soon",
     difficulty: "beginner",
     speaker: { name: "" },
@@ -98,7 +101,6 @@ const sponsorPlaceholderPrograms = {
     type: "sponsorSession",
     isPlaceholder: true,
     id: "sponsorSlot2",
-    timeString: "12:45 - 13:00",
     title: "Coming Soon",
     difficulty: "beginner",
     speaker: { name: "" },
@@ -108,7 +110,6 @@ const sponsorPlaceholderPrograms = {
     type: "sponsorSession",
     isPlaceholder: true,
     id: "sponsorSlot3",
-    timeString: "13:10 - 13:25",
     title: "Coming Soon",
     difficulty: "beginner",
     speaker: { name: "" },
@@ -118,21 +119,44 @@ const sponsorPlaceholderPrograms = {
 
 const sessionPrograms = parseProgramsFromRawData();
 
-export const programs: Record<string, Program> = enrichProgramsWithScheduleTime(
-  {
+function withPlaceholders(
+  sessions: Record<string, Program>,
+): Record<string, Program> {
+  const result: Record<string, Program> = {
     ...organizerPrograms,
-    ...sponsorPlaceholderPrograms,
-    ...sessionPrograms,
-  },
-  sessionGridCells,
-  workshopSchedule,
-);
+  };
+
+  if (!sessions.keynote) {
+    result.keynote = keynotePlaceholder;
+  }
+
+  for (const [id, placeholder] of Object.entries(sponsorPlaceholderPrograms)) {
+    if (!sessions[id]) {
+      result[id] = placeholder;
+    }
+  }
+
+  return {
+    ...result,
+    ...sessions,
+  };
+}
+
+export const programs: Record<string, Program> =
+  withPlaceholders(sessionPrograms);
 
 export type ProgramId = string;
 
 export type ProgramSession = Extract<
   Program,
-  { type: "longSession" | "shortTalk" | "sponsorSession" | "workshop" }
+  {
+    type:
+      | "longSession"
+      | "shortTalk"
+      | "sponsorSession"
+      | "workshop"
+      | "keynote";
+  }
 >;
 
 export function getProgramSessions(): ProgramSession[] {
@@ -143,7 +167,8 @@ export function getProgramSessions(): ProgramSession[] {
       program.type !== "longSession" &&
       program.type !== "shortTalk" &&
       program.type !== "sponsorSession" &&
-      program.type !== "workshop"
+      program.type !== "workshop" &&
+      program.type !== "keynote"
     ) {
       continue;
     }

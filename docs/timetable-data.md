@@ -1,6 +1,7 @@
 # タイムテーブルデータのライフサイクル
 
 セッション・スピーカーなどのタイムテーブルデータは Sessionize API から取得し、整形したうえでサイトに組み込みます。
+基調講演・スポンサーセッションは Sessionize 外のため、別ファイルに手動で入力します。
 
 ## 全体の流れ
 
@@ -18,8 +19,14 @@ Sessionize API
 整形済みデータ（git 追跡）
   src/components/timetable/data.json
       │
-      │  3. ビルド時に読み込み（parseRawData.ts）
-      ▼
+      ├──────────────────────────────────────┐
+      │                                      │
+      │  3. ビルド時に読み込み                 │ 手動入力
+      │     (parseRawData.ts)                ▼
+      │                      src/components/timetable/manualSessions.ts
+      │                                      │
+      └──────────────────┬───────────────────┘
+                         ▼
 サイト表示（プログラム詳細・タイムテーブルなど）
 ```
 
@@ -45,15 +52,78 @@ Sessionize API
   - Accepted セッションのみ残す
   - スピーカー情報をセッションへ埋め込む
   - `categoryItems` から `type` / `difficulty` / `duration` を解決する
-  - `room` / `timeString` を解決する
+  - `room` を解決する
   - サイト未使用のフィールドを除去する
-- `parseRawData.ts` は整形済み JSON を `Program` のマップへ載せる薄い読み込み層
+  - 表示用の時刻は含めない（カード表示時に `sessionGrid` / `schedule` から計算）
+- `parseRawData.ts` は整形済み JSON と手動入力を `Program` のマップへ載せる薄い読み込み層
 
 ## 4. 整形済みデータ（git 追跡対象）
 
 - ファイル: `src/components/timetable/data.json`
 - 利用時に使いやすい形（スピーカー埋め込み済みなど）で git 追跡する
-- タイムテーブル上の配置（枠・開始時刻など）は、データ本体とは別に `schedule.ts` などで管理する
+- タイムテーブル上の配置（枠・開始時刻など）は、データ本体とは別に `sessionGrid.ts` / `schedule.ts` などで管理する
+- **`pnpm transform:timetable` で上書きされる**ため、基調講演・スポンサーはここに書かない
+
+## 5. 基調講演・スポンサーセッション（手動入力）
+
+- ファイル: `src/components/timetable/manualSessions.ts`
+- `SessionProgram` 型のオブジェクト配列として入力する（型チェックが効く）
+- `transform:timetable` の影響を受けない
+- 未入力の枠はプレースホルダー表示のまま（基調講演は「基調講演」、スポンサーは「詳細未定」）
+- エントリを追加すると、タイムテーブルカード・詳細ページ・OGP が通常セッションと同様に出る
+
+### 使う id（タイムテーブル配置と対応）
+
+| id | 種別 | 枠 |
+| --- | --- | --- |
+| `keynote` | `keynote` | 10:30 基調講演 |
+| `sponsorSlot1` | `sponsorSession` | 12:20 スポンサー 1 |
+| `sponsorSlot2` | `sponsorSession` | 12:45 スポンサー 2 |
+| `sponsorSlot3` | `sponsorSession` | 13:10 スポンサー 3 |
+
+### 入力例
+
+`manualSessions.ts` の配列にオブジェクトを追加する。
+
+```ts
+import type { SessionProgram } from "./sessionProgram";
+
+export const manualSessions: SessionProgram[] = [
+  {
+    id: "keynote",
+    type: "keynote",
+    title: "基調講演のタイトル",
+    speaker: {
+      name: "登壇者名",
+      avatar: "https://example.com/avatar.jpg",
+      xUrl: "https://x.com/example",
+      company: "所属",
+      description: "登壇者紹介",
+    },
+    room: "roomA",
+    description: "セッション概要",
+  },
+  {
+    id: "sponsorSlot1",
+    type: "sponsorSession",
+    title: "スポンサーセッションのタイトル",
+    difficulty: "beginner",
+    speaker: {
+      name: "登壇者名",
+      avatar: "https://example.com/avatar.jpg",
+      company: "所属",
+      description: "登壇者紹介",
+    },
+    room: "roomA",
+    description: "セッション概要",
+  },
+];
+```
+
+- `difficulty` はスポンサー・通常セッション向け（`"beginner"` / `"intermediate"` / `"advanced"`）。基調講演には不要
+- スポンサーは必要な枠だけ追加すればよい（例: Slot1 だけ埋めて Slot2/3 は Coming Soon のまま）
+
+時刻は `sessionGrid.ts` / `schedule.ts` から表示時に計算するため、入力データには含めない。
 
 ## 運用上の注意
 
@@ -61,11 +131,13 @@ Sessionize API
 | ---- | --- | ---- |
 | API 生データ (`rawData.json`) | 管理外 | 整形の入力。不要フィールドを含む |
 | 整形スクリプト (`scripts/transform-timetable-data.ts`) | 追跡する | 生データ → 利用しやすい整形済みデータ |
-| 整形済みデータ (`data.json`) | 追跡する | ビルド・サイト表示の入力 |
+| 整形済みデータ (`data.json`) | 追跡する | CFP セッション等のビルド・サイト表示入力 |
+| 手動セッション (`manualSessions.ts`) | 追跡する | 基調講演・スポンサーセッション |
 | 取得の自動化 | 未対応 | build 前実行の自動化は今後対応 |
 
 データ更新時は次の順で行う。
 
 1. Sessionize API のレスポンスを `rawData.json` に保存する
 2. `pnpm transform:timetable` で `data.json` を生成する
-3. `data.json` の変更のみをコミットする
+3. 基調講演・スポンサーは `manualSessions.ts` を編集する
+4. `data.json` / `manualSessions.ts` の変更をコミットする
