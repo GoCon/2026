@@ -62,6 +62,7 @@ import gopher18Img from "../../assets/sponsors/gopher/gopher_18.jpg";
 import gopher19Img from "../../assets/sponsors/gopher/gopher_19.png";
 import gopher20Img from "../../assets/sponsors/gopher/gopher_20.png";
 import gopher21Img from "../../assets/sponsors/gopher/gopher_21.png";
+import wifi1Img from "../../assets/sponsors/wifi/wifi_1.png";
 
 export type SponsorWithUrl = {
   name: string;
@@ -237,4 +238,10 @@ export const gopherSponsors: Sponsor[] = [
   // { name: "瀬上 祐匡", imageSrc: gopher22Img },
 ];
 
-export const toolSponsors: Sponsor[] = [];
+export const toolSponsors: Sponsor[] = [
+  { name: "株式会社LayerX", imageSrc: gold2Img },
+];
+
+export const wifiSponsors: Sponsor[] = [
+  { name: "インターネット・ゼミ", imageSrc: wifi1Img },
+];

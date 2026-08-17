@@ -118,9 +118,9 @@ const workshops: Workshop[] = [
   }
 
   #workshop-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 362px);
+    display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: var(--space-xs);
   }
 
@@ -131,6 +131,8 @@ const workshops: Workshop[] = [
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
+    width: 28%;
+    min-width: 280px;
   }
 
   .btn-wrapper {
@@ -162,7 +164,7 @@ const workshops: Workshop[] = [
   @media screen and (max-width: 768px) {
     section#workshop {
       padding: var(--space-m) var(--space-s);
-      border-radius: var(--radius-section) var(--radius-section) 0 0;
+      border-radius: var(--radius-section-sp) var(--radius-section-sp) 0 0;
       gap: var(--space-s);
     }
 
@@ -171,7 +173,16 @@ const workshops: Workshop[] = [
     }
 
     #workshop-details {
-      grid-template-columns: repeat(auto-fill, 342px);
+      flex-wrap: nowrap;
+      flex-direction: column;
+    }
+
+    .col {
+      width: auto;
+      box-sizing: border-box;
+      min-width: auto;
+      max-width: 400px;
+      margin: 0 auto;
     }
   }
 </style>
