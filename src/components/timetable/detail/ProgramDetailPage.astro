@@ -94,7 +94,7 @@ const description =
           )
         }
         {
-          type !== "keynote" && (
+          type !== "keynote" && program.difficulty && (
             <DifficultyBadge
               difficulty={program.difficulty}
               variant="detail"

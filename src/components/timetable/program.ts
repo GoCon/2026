@@ -37,7 +37,8 @@ export type ProgramShortTalk = {
 export type ProgramSponsorSession = {
   type: "sponsorSession";
   isPlaceholder?: boolean;
-} & ProgramSessionCommon;
+  difficulty?: "beginner" | "intermediate" | "advanced";
+} & Omit<ProgramSessionCommon, "difficulty">;
 
 export type ProgramWorkshop = {
   type: "workshop";
@@ -93,7 +94,6 @@ const sponsorPlaceholderPrograms = {
     isPlaceholder: true,
     id: "sponsorSlot1",
     title: "Coming Soon",
-    difficulty: "beginner",
     speaker: { name: "" },
     room: "roomA",
   },
@@ -102,7 +102,6 @@ const sponsorPlaceholderPrograms = {
     isPlaceholder: true,
     id: "sponsorSlot2",
     title: "Coming Soon",
-    difficulty: "beginner",
     speaker: { name: "" },
     room: "roomA",
   },
@@ -111,7 +110,6 @@ const sponsorPlaceholderPrograms = {
     isPlaceholder: true,
     id: "sponsorSlot3",
     title: "Coming Soon",
-    difficulty: "beginner",
     speaker: { name: "" },
     room: "roomA",
   },
