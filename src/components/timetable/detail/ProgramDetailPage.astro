@@ -82,10 +82,10 @@ const description =
     </SectionTitle>
     <div class="metadata text-body-large-strong">
       <div class="badges">
-        <div class:list={["room-badge", `room-badge--${type}`]}>
+        <!-- <div class:list={["room-badge", `room-badge--${type}`]}>
           <RoomIcon class="room-icon" />
           <span>{roomLabel}</span>
-        </div>
+        </div> -->
         {
           type === "sponsorSession" && (
             <div class="sponsored-session-badge">
@@ -95,10 +95,7 @@ const description =
         }
         {
           type !== "keynote" && (
-            <DifficultyBadge
-              difficulty={program.difficulty}
-              variant="detail"
-            />
+            <DifficultyBadge difficulty={program.difficulty} variant="detail" />
           )
         }
       </div>
