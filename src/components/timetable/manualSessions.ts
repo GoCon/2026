@@ -11,19 +11,19 @@ import m3Avatar from "../../assets/sponsors/session-avatars/lunch_2.png";
  * - 未入力の枠はこの配列に含めない（プレースホルダー表示のまま）
  */
 export const manualSessions: SessionProgram[] = [
-  {
-    id: "keynote",
-    type: "keynote",
-    title: "基調講演のタイトル",
-    speaker: {
-      name: "登壇者名",
-      avatar: "https://example.com/avatar.jpg",
-      xUrl: "https://x.com/example",
-      company: "所属",
-      description: "登壇者紹介",
-    },
-    description: "セッション概要",
-  },
+  // {
+  //   id: "keynote",
+  //   type: "keynote",
+  //   title: "基調講演のタイトル",
+  //   speaker: {
+  //     name: "登壇者名",
+  //     avatar: "https://example.com/avatar.jpg",
+  //     xUrl: "https://x.com/example",
+  //     company: "所属",
+  //     description: "登壇者紹介",
+  //   },
+  //   description: "セッション概要",
+  // },
   {
     id: "sponsorSlot1",
     type: "sponsorSession",
