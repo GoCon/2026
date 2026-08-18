@@ -52,6 +52,7 @@ import bronze34Img from "../../assets/sponsors/bronze/bronze_34.png";
 import bronze35Img from "../../assets/sponsors/bronze/bronze_35.png";
 import bronze36Img from "../../assets/sponsors/bronze/bronze_36.png";
 import bronze37Img from "../../assets/sponsors/bronze/bronze_37.png";
+import gopher1Img from "../../assets/sponsors/gopher/gopher_1.png";
 import gopher2Img from "../../assets/sponsors/gopher/gopher_2.jpeg";
 import gopher3Img from "../../assets/sponsors/gopher/gopher_3.png";
 import gopher4Img from "../../assets/sponsors/gopher/gopher_4.png";
@@ -234,7 +235,7 @@ export const bronzeSponsors: Sponsor[] = [
 ];
 
 export const gopherSponsors: Sponsor[] = [
-  // { name: "blami", imageSrc: gopher1Img },
+  { name: "blami", imageSrc: gopher1Img },
   { name: "chihiro", imageSrc: gopher2Img },
   { name: "Go Sueyoshi (sue445)", imageSrc: gopher3Img },
   { name: "haruyama480", imageSrc: gopher4Img },
