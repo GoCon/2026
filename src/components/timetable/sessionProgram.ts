@@ -4,7 +4,6 @@ type SessionProgramBase = {
   id: string;
   title: string;
   speaker: Speaker;
-  room: "roomA" | "roomB";
   description?: string;
 };
 

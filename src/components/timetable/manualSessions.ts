@@ -4,7 +4,7 @@ import type { SessionProgram } from "./sessionProgram";
  * 基調講演・スポンサーセッションなど Sessionize 外の手動入力。
  *
  * - id は sessionGrid と対応させること（keynote / sponsorSlot1〜3）
- * - 時刻は sessionGrid から自動解決される
+ * - 時刻・部屋は sessionGrid から自動解決される
  * - 未入力の枠はこの配列に含めない（プレースホルダー表示のまま）
  */
 export const manualSessions: SessionProgram[] = [
@@ -19,7 +19,6 @@ export const manualSessions: SessionProgram[] = [
   //     company: "所属",
   //     description: "登壇者紹介",
   //   },
-  //   room: "roomA",
   //   description: "セッション概要",
   // },
   // 以下はスポンサーセッションのサンプル
@@ -34,7 +33,6 @@ export const manualSessions: SessionProgram[] = [
   //     company: "所属",
   //     description: "登壇者紹介",
   //   },
-  //   room: "roomA",
   //   description: "セッション概要",
   // },
 ];
