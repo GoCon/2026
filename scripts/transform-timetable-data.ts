@@ -3,8 +3,9 @@
  *
  * - Accepted のみ残す
  * - スピーカー情報をセッションへ埋め込む
- * - categoryItems から type / difficulty / duration を解決する
- * - room を解決する
+ * - categoryItems から type / difficulty / duration を解決する（欠けていればエラー）
+ * - 部屋・開始時刻は Sessionize に含まれないため、ここでは扱わない
+ *   （sessionGrid.ts / schedule.ts で手動紐づけする）
  *
  * Usage:
  *   pnpm transform:timetable
@@ -36,7 +37,11 @@ const DIFFICULTY = {
 type SessionType = "longSession" | "shortTalk" | "workshop";
 type Difficulty = "beginner" | "intermediate" | "advanced";
 type WorkshopDuration = "40min" | "90min";
-type Room = "roomA" | "roomB";
+
+type ProposalKind =
+  | { type: "shortTalk" }
+  | { type: "longSession" }
+  | { type: "workshop"; duration: WorkshopDuration };
 
 type Speaker = {
   name: string;
@@ -52,7 +57,6 @@ type ShapedSession = {
   title: string;
   difficulty: Difficulty;
   speaker: Speaker;
-  room: Room;
   description: string;
   duration?: WorkshopDuration;
 };
@@ -80,74 +84,55 @@ type RawSession = {
   id: string;
   title: string;
   description?: string;
-  startsAt?: string | null;
-  endsAt?: string | null;
   speakers?: string[];
   categoryItems?: number[];
-  roomId?: number | null;
   status: string;
-};
-
-type RawRoom = {
-  id: number;
-  name: string;
 };
 
 type RawData = {
   sessions?: RawSession[];
   speakers?: RawSpeaker[];
-  rooms?: RawRoom[];
 };
+
+const PROPOSAL_KINDS: ReadonlyArray<readonly [number, ProposalKind]> = [
+  [PROPOSAL_TYPE.SHORT_SESSION, { type: "shortTalk" }],
+  [PROPOSAL_TYPE.LONG_SESSION, { type: "longSession" }],
+  [PROPOSAL_TYPE.SHORT_WORKSHOP, { type: "workshop", duration: "40min" }],
+  [PROPOSAL_TYPE.LONG_WORKSHOP, { type: "workshop", duration: "90min" }],
+];
+
+const DIFFICULTY_KINDS: ReadonlyArray<readonly [number, Difficulty]> = [
+  [DIFFICULTY.BEGINNER, "beginner"],
+  [DIFFICULTY.INTERMEDIATE, "intermediate"],
+  [DIFFICULTY.ADVANCED, "advanced"],
+];
 
 function normalizeDescription(description: string): string {
   return description.replace(/\r\n/g, "\n");
 }
 
-function parseSessionType(categoryItems: number[]): SessionType | null {
-  if (categoryItems.includes(PROPOSAL_TYPE.LONG_SESSION)) {
-    return "longSession";
+function requireExactlyOne<T>(
+  categoryItems: number[],
+  mapping: ReadonlyArray<readonly [number, T]>,
+  label: string,
+  sessionId: string,
+): T {
+  const matched = mapping.filter(([id]) => categoryItems.includes(id));
+  if (matched.length === 0) {
+    throw new Error(
+      `Session ${sessionId}: ${label} が categoryItems にありません`,
+    );
   }
-  if (categoryItems.includes(PROPOSAL_TYPE.SHORT_SESSION)) {
-    return "shortTalk";
+  if (matched.length !== 1) {
+    throw new Error(`Session ${sessionId}: ${label} が複数あります`);
   }
-  if (
-    categoryItems.includes(PROPOSAL_TYPE.SHORT_WORKSHOP) ||
-    categoryItems.includes(PROPOSAL_TYPE.LONG_WORKSHOP)
-  ) {
-    return "workshop";
-  }
-  return null;
+  const [, value] = matched[0];
+  return value;
 }
 
-function parseDifficulty(categoryItems: number[]): Difficulty {
-  if (categoryItems.includes(DIFFICULTY.ADVANCED)) {
-    return "advanced";
-  }
-  if (categoryItems.includes(DIFFICULTY.INTERMEDIATE)) {
-    return "intermediate";
-  }
-  return "beginner";
-}
-
-function parseWorkshopDuration(categoryItems: number[]): WorkshopDuration {
-  if (categoryItems.includes(PROPOSAL_TYPE.LONG_WORKSHOP)) {
-    return "90min";
-  }
-  return "40min";
-}
-
-function parseRoom(roomId: number | null | undefined, rooms: RawRoom[]): Room {
-  if (roomId === null || roomId === undefined) {
-    return "roomA";
-  }
-
-  const roomIndex = rooms.findIndex((room) => room.id === roomId);
-  return roomIndex === 1 ? "roomB" : "roomA";
-}
-
-function parseSpeaker(rawSpeaker: RawSpeaker | undefined): Speaker {
-  if (!rawSpeaker) {
-    return { name: "" };
+function parseSpeaker(rawSpeaker: RawSpeaker, sessionId: string): Speaker {
+  if (!rawSpeaker.fullName) {
+    throw new Error(`Session ${sessionId}: speaker の fullName がありません`);
   }
 
   const xLink = (rawSpeaker.links ?? []).find(
@@ -168,45 +153,79 @@ function parseSpeaker(rawSpeaker: RawSpeaker | undefined): Speaker {
 function transformSession(
   session: RawSession,
   speakerMap: Map<string, RawSpeaker>,
-  rooms: RawRoom[],
-): ShapedSession | null {
-  const type = parseSessionType(session.categoryItems ?? []);
-  if (!type) {
-    return null;
+): ShapedSession {
+  const categoryItems = session.categoryItems;
+  if (!categoryItems || categoryItems.length === 0) {
+    throw new Error(`Session ${session.id}: categoryItems がありません`);
   }
 
-  const speakerId = session.speakers?.[0];
-  if (!speakerId) {
-    return null;
+  const proposal = requireExactlyOne(
+    categoryItems,
+    PROPOSAL_KINDS,
+    "Proposal Type",
+    session.id,
+  );
+  const difficulty = requireExactlyOne(
+    categoryItems,
+    DIFFICULTY_KINDS,
+    "Proposal Level",
+    session.id,
+  );
+
+  if (!session.title) {
+    throw new Error(`Session ${session.id}: title がありません`);
+  }
+  if (session.description == null || session.description.trim() === "") {
+    throw new Error(`Session ${session.id}: description がありません`);
+  }
+
+  const speakerIds = session.speakers ?? [];
+  if (speakerIds.length === 0) {
+    throw new Error(`Session ${session.id}: speakers がありません`);
+  }
+  if (speakerIds.length !== 1) {
+    throw new Error(`Session ${session.id}: speakers が複数あります`);
+  }
+  const speakerId = speakerIds[0];
+
+  const rawSpeaker = speakerMap.get(speakerId);
+  if (!rawSpeaker) {
+    throw new Error(
+      `Session ${session.id}: speaker ${speakerId} が見つかりません`,
+    );
   }
 
   const shaped: ShapedSession = {
     id: session.id,
-    type,
+    type: proposal.type,
     title: session.title,
-    difficulty: parseDifficulty(session.categoryItems ?? []),
-    speaker: parseSpeaker(speakerMap.get(speakerId)),
-    room: parseRoom(session.roomId, rooms),
-    description: normalizeDescription(session.description ?? ""),
+    difficulty,
+    speaker: parseSpeaker(rawSpeaker, session.id),
+    description: normalizeDescription(session.description),
   };
 
-  if (type === "workshop") {
-    shaped.duration = parseWorkshopDuration(session.categoryItems ?? []);
+  if (proposal.type === "workshop") {
+    shaped.duration = proposal.duration;
   }
 
   return shaped;
 }
 
 function transform(raw: RawData): ShapedData {
-  const rooms = raw.rooms ?? [];
+  if (!raw.sessions) {
+    throw new Error("rawData.json に sessions がありません");
+  }
+  if (!raw.speakers) {
+    throw new Error("rawData.json に speakers がありません");
+  }
+
   const speakerMap = new Map(
-    (raw.speakers ?? []).map((speaker) => [speaker.id, speaker]),
+    raw.speakers.map((speaker) => [speaker.id, speaker]),
   );
 
-  const sessions = (raw.sessions ?? [])
+  const sessions = raw.sessions
     .filter((session) => session.status === "Accepted")
-    .map((session) => transformSession(session, speakerMap, rooms))
-    .filter((session): session is ShapedSession => session !== null);
+    .map((session) => transformSession(session, speakerMap));
 
   return { sessions };
 }

@@ -51,17 +51,16 @@ Sessionize API
 - 整形時に次を行う
   - Accepted セッションのみ残す
   - スピーカー情報をセッションへ埋め込む
-  - `categoryItems` から `type` / `difficulty` / `duration` を解決する
-  - `room` を解決する
+  - `categoryItems` から `type` / `difficulty` / `duration` を解決する（欠けていればエラー）
   - サイト未使用のフィールドを除去する
-  - 表示用の時刻は含めない（カード表示時に `sessionGrid` / `schedule` から計算）
+  - 表示用の時刻・部屋は含めない（カード表示時に `sessionGrid` / `schedule` から解決）
 - `parseRawData.ts` は整形済み JSON と手動入力を `Program` のマップへ載せる薄い読み込み層
 
 ## 4. 整形済みデータ（git 追跡対象）
 
 - ファイル: `src/components/timetable/data.json`
 - 利用時に使いやすい形（スピーカー埋め込み済みなど）で git 追跡する
-- タイムテーブル上の配置（枠・開始時刻など）は、データ本体とは別に `sessionGrid.ts` / `schedule.ts` などで管理する
+- タイムテーブル上の配置（枠・開始時刻・部屋）は、データ本体とは別に `sessionGrid.ts` / `schedule.ts` などで管理する
 - **`pnpm transform:timetable` で上書きされる**ため、基調講演・スポンサーはここに書かない
 
 ## 5. 基調講演・スポンサーセッション（手動入力）
@@ -74,9 +73,9 @@ Sessionize API
 
 ### 使う id（タイムテーブル配置と対応）
 
-| id | 種別 | 枠 |
-| --- | --- | --- |
-| `keynote` | `keynote` | 10:30 基調講演 |
+| id             | 種別             | 枠                 |
+| -------------- | ---------------- | ------------------ |
+| `keynote`      | `keynote`        | 10:30 基調講演     |
 | `sponsorSlot1` | `sponsorSession` | 12:20 スポンサー 1 |
 | `sponsorSlot2` | `sponsorSession` | 12:45 スポンサー 2 |
 | `sponsorSlot3` | `sponsorSession` | 13:10 スポンサー 3 |
@@ -100,7 +99,6 @@ export const manualSessions: SessionProgram[] = [
       company: "所属",
       description: "登壇者紹介",
     },
-    room: "roomA",
     description: "セッション概要",
   },
   {
@@ -114,7 +112,6 @@ export const manualSessions: SessionProgram[] = [
       company: "所属",
       description: "登壇者紹介",
     },
-    room: "roomA",
     description: "セッション概要",
   },
 ];
@@ -123,17 +120,17 @@ export const manualSessions: SessionProgram[] = [
 - `difficulty` はスポンサー・通常セッション向け（`"beginner"` / `"intermediate"` / `"advanced"`）。基調講演には不要
 - スポンサーは必要な枠だけ追加すればよい（例: Slot1 だけ埋めて Slot2/3 は Coming Soon のまま）
 
-時刻は `sessionGrid.ts` / `schedule.ts` から表示時に計算するため、入力データには含めない。
+時刻・部屋は `sessionGrid.ts` / `schedule.ts` から表示時に解決するため、入力データには含めない。
 
 ## 運用上の注意
 
-| 対象 | git | 役割 |
-| ---- | --- | ---- |
-| API 生データ (`rawData.json`) | 管理外 | 整形の入力。不要フィールドを含む |
-| 整形スクリプト (`scripts/transform-timetable-data.ts`) | 追跡する | 生データ → 利用しやすい整形済みデータ |
-| 整形済みデータ (`data.json`) | 追跡する | CFP セッション等のビルド・サイト表示入力 |
-| 手動セッション (`manualSessions.ts`) | 追跡する | 基調講演・スポンサーセッション |
-| 取得の自動化 | 未対応 | build 前実行の自動化は今後対応 |
+| 対象                                                   | git      | 役割                                     |
+| ------------------------------------------------------ | -------- | ---------------------------------------- |
+| API 生データ (`rawData.json`)                          | 管理外   | 整形の入力。不要フィールドを含む         |
+| 整形スクリプト (`scripts/transform-timetable-data.ts`) | 追跡する | 生データ → 利用しやすい整形済みデータ    |
+| 整形済みデータ (`data.json`)                           | 追跡する | CFP セッション等のビルド・サイト表示入力 |
+| 手動セッション (`manualSessions.ts`)                   | 追跡する | 基調講演・スポンサーセッション           |
+| 取得の自動化                                           | 未対応   | build 前実行の自動化は今後対応           |
 
 データ更新時は次の順で行う。
 
