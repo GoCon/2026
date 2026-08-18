@@ -27,7 +27,7 @@ export const manualSessions: SessionProgram[] = [
   {
     id: "sponsorSlot1",
     type: "sponsorSession",
-    title: "動画配信サーバーにおけるGC負荷低減の取り組み",
+    title: "株式会社ミラティブ: 動画配信サーバーにおけるGC負荷低減の取り組み",
     speaker: {
       name: "八谷航太（ヤタガイ コウタ）",
       avatar: mirrativAvatar.src,
@@ -39,7 +39,7 @@ export const manualSessions: SessionProgram[] = [
     id: "sponsorSlot2",
     type: "sponsorSession",
     title:
-      "Podは生きているのにGoだけが落ちる：GOGCとGOMEMLIMITで追うInvisible OOM Killの謎",
+      "株式会社エウレカ: Podは生きているのにGoだけが落ちる：GOGCとGOMEMLIMITで追うInvisible OOM Killの謎",
     speaker: {
       name: "Takeshi Watanabe",
       avatar: eurekaAvatar.src,
@@ -51,7 +51,7 @@ export const manualSessions: SessionProgram[] = [
     id: "sponsorSlot3",
     type: "sponsorSession",
     title:
-      "更なる可用性を求めて、5年間運用したKotlinのアプリケーションをGoでリプレイスする話",
+      "エムスリー株式会社: 更なる可用性を求めて、5年間運用したKotlinのアプリケーションをGoでリプレイスする話",
     speaker: {
       name: "田口 健介",
       avatar: m3Avatar.src,
