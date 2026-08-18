@@ -8,7 +8,7 @@
 ```text
 Sessionize API
       │
-      │  1. 取得（build 前に実行）
+      │  1. 取得（手動、または GitHub Actions が水曜・土曜に実行）
       ▼
 生データ（git 管理外）
   src/components/timetable/rawData.json
@@ -34,8 +34,28 @@ Sessionize API
 
 - Sessionize API からセッション・スピーカー等のデータを取得する
 - 取得結果を `src/components/timetable/rawData.json` に置く
-- 取得は **ビルド前** に行う
-- 取得処理の自動化は **追って対応予定**（現状は手動運用を想定）
+- API URL はリポジトリに置かず、環境変数 `SESSIONIZE_API_URL`（GitHub Actions では repository secret）で渡す
+- 取得スクリプト: `scripts/fetch-timetable-data.ts`
+- 実行: `SESSIONIZE_API_URL=... pnpm fetch:timetable`
+
+ローカルでの実行例:
+
+```sh
+export SESSIONIZE_API_URL='https://sessionize.com/api/v2/<id>/view/All'
+pnpm fetch:timetable
+pnpm transform:timetable
+git diff -- src/components/timetable/data.json
+```
+
+`SESSIONIZE_API_URL` はリポジトリに含めない。1 コマンドだけなら次でもよい。
+
+```sh
+SESSIONIZE_API_URL='https://sessionize.com/api/v2/<id>/view/All' pnpm fetch:timetable
+```
+- 自動取得は GitHub Actions（`.github/workflows/sync-sessionize.yml`）が水曜・土曜の 08:05 JST に実行する
+  - `data.json` に差分があれば PR を作成する
+  - 差分がなければ何もしない
+  - Actions タブの「Run workflow」から手動実行もできる（`workflow_dispatch`）
 
 ## 2. 生データ
 
@@ -124,17 +144,17 @@ export const manualSessions: SessionProgram[] = [
 
 ## 運用上の注意
 
-| 対象                                                   | git      | 役割                                     |
-| ------------------------------------------------------ | -------- | ---------------------------------------- |
-| API 生データ (`rawData.json`)                          | 管理外   | 整形の入力。不要フィールドを含む         |
-| 整形スクリプト (`scripts/transform-timetable-data.ts`) | 追跡する | 生データ → 利用しやすい整形済みデータ    |
-| 整形済みデータ (`data.json`)                           | 追跡する | CFP セッション等のビルド・サイト表示入力 |
-| 手動セッション (`manualSessions.ts`)                   | 追跡する | 基調講演・スポンサーセッション           |
-| 取得の自動化                                           | 未対応   | build 前実行の自動化は今後対応           |
+| 対象                                                   | git      | 役割                                                    |
+| ------------------------------------------------------ | -------- | ------------------------------------------------------- |
+| API 生データ (`rawData.json`)                          | 管理外   | 整形の入力。不要フィールドを含む                        |
+| 整形スクリプト (`scripts/transform-timetable-data.ts`) | 追跡する | 生データ → 利用しやすい整形済みデータ                   |
+| 整形済みデータ (`data.json`)                           | 追跡する | CFP セッション等のビルド・サイト表示入力                |
+| 手動セッション (`manualSessions.ts`)                   | 追跡する | 基調講演・スポンサーセッション                          |
+| 取得の自動化                                           | 追跡する | 水曜・土曜の GitHub Actions。URL は secret `SESSIONIZE_API_URL` |
 
 データ更新時は次の順で行う。
 
-1. Sessionize API のレスポンスを `rawData.json` に保存する
+1. `SESSIONIZE_API_URL` を指定して `pnpm fetch:timetable` を実行する（または GitHub Actions に任せる）
 2. `pnpm transform:timetable` で `data.json` を生成する
 3. 基調講演・スポンサーは `manualSessions.ts` を編集する
 4. `data.json` / `manualSessions.ts` の変更をコミットする
