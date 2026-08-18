@@ -5,6 +5,7 @@ import gold3Img from "../assets/jobboard/gold/gold_3.png";
 import gold4Img from "../assets/jobboard/gold/gold_4.png";
 import gold5Img from "../assets/jobboard/gold/gold_5.png";
 import gold6Img from "../assets/jobboard/gold/gold_6.png";
+import silver1Img from "../assets/jobboard/silver/silver_1.png";
 import silver2Img from "../assets/jobboard/silver/silver_2.png";
 import silver3Img from "../assets/jobboard/silver/silver_3.png";
 import silver4Img from "../assets/jobboard/silver/silver_4.png";
@@ -14,7 +15,9 @@ import silver7Img from "../assets/jobboard/silver/silver_7.jpg";
 import silver8Img from "../assets/jobboard/silver/silver_8.png";
 import silver10Img from "../assets/jobboard/silver/silver_10.png";
 import silver11Img from "../assets/jobboard/silver/silver_11.png";
+import lunch1Img from "../assets/jobboard/lunch/lunch_1.png";
 import lunch2Img from "../assets/jobboard/lunch/lunch_2.png";
+import drink1Img from "../assets/jobboard/drink/drink_1.jpg";
 import bronze1Img from "../assets/jobboard/bronze/bronze_1.png";
 import bronze2Img from "../assets/jobboard/bronze/bronze_2.png";
 import bronze4Img from "../assets/jobboard/bronze/bronze_4.png";
@@ -25,6 +28,7 @@ import bronze8Img from "../assets/jobboard/bronze/bronze_8.png";
 import bronze9Img from "../assets/jobboard/bronze/bronze_9.png";
 import bronze10Img from "../assets/jobboard/bronze/bronze_10.png";
 import bronze11Img from "../assets/jobboard/bronze/bronze_11.png";
+import bronze12Img from "../assets/jobboard/bronze/bronze_12.png";
 import bronze13Img from "../assets/jobboard/bronze/bronze_13.png";
 import bronze14Img from "../assets/jobboard/bronze/bronze_14.png";
 import bronze15Img from "../assets/jobboard/bronze/bronze_15.png";
@@ -88,6 +92,11 @@ export const jobBoards: JobBoard[] = [
   },
   // Silver
   {
+    image: silver1Img,
+    description: "株式会社CARTA HOLDINGS",
+    url: "https://hrmos.co/pages/cartaholdings/jobs/fl-e001?utm_source=gocon_2026&utm_medium=Paid+Other&utm_campaign=gocon_2026",
+  },
+  {
     image: silver2Img,
     description: "株式会社Datachain",
     url: "https://careers.datachain.jp/",
@@ -133,13 +142,22 @@ export const jobBoards: JobBoard[] = [
     url: "https://hrmos.co/pages/cyberagent-group",
   },
   // Lunch
-  // エムスリー株式会社: ジョブボード未登録
+  {
+    image: lunch1Img,
+    description: "エムスリー株式会社",
+    url: "https://jobs.m3.com/engineer",
+  },
   {
     image: lunch2Img,
     description: "株式会社ミラティブ",
     url: "https://www.mirrativ.co.jp/",
   },
-  // Drink: 株式会社エウレカ ジョブボード画像未提出
+  // Drink
+  {
+    image: drink1Img,
+    description: "株式会社エウレカ",
+    url: "https://career.pairs.lv/",
+  },
   // Bronze
   {
     image: bronze1Img,
@@ -192,7 +210,11 @@ export const jobBoards: JobBoard[] = [
     description: "株式会社KiteRa",
     url: "https://www.kitera.co.jp/recruit/golang/",
   },
-  // LINEヤフー株式会社: 未登録
+  {
+    image: bronze12Img,
+    description: "LINEヤフー株式会社",
+    url: "https://www.lycorp.co.jp/ja/technology-design/",
+  },
   {
     image: bronze13Img,
     description: "movus technologies株式会社",
@@ -243,7 +265,7 @@ export const jobBoards: JobBoard[] = [
     description: "株式会社カミナシ",
     url: "https://careers.kaminashi.jp/",
   },
-  // 株式会社ギークニア: 未登録
+  // 株式会社ギークニア: ジョブボード画像未提出
   // 株式会社ギフティ: 未登録
   {
     image: bronze25Img,

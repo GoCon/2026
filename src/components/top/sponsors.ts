@@ -5,6 +5,7 @@ import gold3Img from "../../assets/sponsors/gold/gold_3.png";
 import gold4Img from "../../assets/sponsors/gold/gold_4.png";
 import gold5Img from "../../assets/sponsors/gold/gold_5.png";
 import gold6Img from "../../assets/sponsors/gold/gold_6.png";
+import silver1Img from "../../assets/sponsors/silver/silver_1.png";
 import silver2Img from "../../assets/sponsors/silver/silver_2.png";
 import silver3Img from "../../assets/sponsors/silver/silver_3.png";
 import silver4Img from "../../assets/sponsors/silver/silver_4.png";
@@ -14,6 +15,8 @@ import silver7Img from "../../assets/sponsors/silver/silver_7.png";
 import silver8Img from "../../assets/sponsors/silver/silver_8.png";
 import silver10Img from "../../assets/sponsors/silver/silver_10.png";
 import silver11Img from "../../assets/sponsors/silver/silver_11.png";
+import drink1Img from "../../assets/sponsors/drink/drink_1.jpg";
+import lunch1Img from "../../assets/sponsors/lunch/lunch_1.png";
 import lunch2Img from "../../assets/sponsors/lunch/lunch_2.png";
 import bronze1Img from "../../assets/sponsors/bronze/bronze_1.jpg";
 import bronze2Img from "../../assets/sponsors/bronze/bronze_2.png";
@@ -25,6 +28,7 @@ import bronze8Img from "../../assets/sponsors/bronze/bronze_8.png";
 import bronze9Img from "../../assets/sponsors/bronze/bronze_9.png";
 import bronze10Img from "../../assets/sponsors/bronze/bronze_10.jpg";
 import bronze11Img from "../../assets/sponsors/bronze/bronze_11.png";
+import bronze12Img from "../../assets/sponsors/bronze/bronze_12.png";
 import bronze13Img from "../../assets/sponsors/bronze/bronze_13.png";
 import bronze14Img from "../../assets/sponsors/bronze/bronze_14.png";
 import bronze15Img from "../../assets/sponsors/bronze/bronze_15.jpg";
@@ -35,6 +39,7 @@ import bronze19Img from "../../assets/sponsors/bronze/bronze_19.png";
 import bronze20Img from "../../assets/sponsors/bronze/bronze_20.png";
 import bronze21Img from "../../assets/sponsors/bronze/bronze_21.png";
 import bronze22Img from "../../assets/sponsors/bronze/bronze_22.png";
+import bronze23Img from "../../assets/sponsors/bronze/bronze_23.png";
 import bronze25Img from "../../assets/sponsors/bronze/bronze_25.png";
 import bronze26Img from "../../assets/sponsors/bronze/bronze_26.png";
 import bronze27Img from "../../assets/sponsors/bronze/bronze_27.png";
@@ -47,7 +52,9 @@ import bronze34Img from "../../assets/sponsors/bronze/bronze_34.png";
 import bronze35Img from "../../assets/sponsors/bronze/bronze_35.png";
 import bronze36Img from "../../assets/sponsors/bronze/bronze_36.png";
 import bronze37Img from "../../assets/sponsors/bronze/bronze_37.png";
+import gopher2Img from "../../assets/sponsors/gopher/gopher_2.jpeg";
 import gopher3Img from "../../assets/sponsors/gopher/gopher_3.png";
+import gopher4Img from "../../assets/sponsors/gopher/gopher_4.png";
 import gopher5Img from "../../assets/sponsors/gopher/gopher_5.png";
 import gopher6Img from "../../assets/sponsors/gopher/gopher_6.png";
 import gopher7Img from "../../assets/sponsors/gopher/gopher_7.jpg";
@@ -56,7 +63,9 @@ import gopher9Img from "../../assets/sponsors/gopher/gopher_9.png";
 import gopher10Img from "../../assets/sponsors/gopher/gopher_10.png";
 import gopher11Img from "../../assets/sponsors/gopher/gopher_11.png";
 import gopher12Img from "../../assets/sponsors/gopher/gopher_12.png";
+import gopher13Img from "../../assets/sponsors/gopher/gopher_13.jpeg";
 import gopher15Img from "../../assets/sponsors/gopher/gopher_15.jpg";
+import gopher16Img from "../../assets/sponsors/gopher/gopher_16.jpg";
 import gopher17Img from "../../assets/sponsors/gopher/gopher_17.png";
 import gopher18Img from "../../assets/sponsors/gopher/gopher_18.jpg";
 import gopher19Img from "../../assets/sponsors/gopher/gopher_19.png";
@@ -109,7 +118,11 @@ export const goldSponsors: SponsorWithUrl[] = [
 ];
 
 export const silverSponsors: SponsorWithUrl[] = [
-  // { name: "株式会社CARTA HOLDINGS", imageSrc: silver1Img, link: "" },
+  {
+    name: "株式会社CARTA HOLDINGS",
+    imageSrc: silver1Img,
+    link: "https://hrmos.co/pages/cartaholdings/jobs/fl-e001?utm_source=gocon_2026&utm_medium=Paid+Other&utm_campaign=gocon_2026",
+  },
   {
     name: "株式会社Datachain",
     imageSrc: silver2Img,
@@ -145,7 +158,6 @@ export const silverSponsors: SponsorWithUrl[] = [
     imageSrc: silver8Img,
     link: "https://corp.every.tv/",
   },
-  // { name: "エムスリー株式会社", imageSrc: silver9Img, link: "" },
   {
     name: "株式会社カオナビ",
     imageSrc: silver10Img,
@@ -161,11 +173,19 @@ export const silverSponsors: SponsorWithUrl[] = [
 ];
 
 export const drinkSponsors: SponsorWithUrl[] = [
-  // { name: "株式会社エウレカ", imageSrc: drink1Img, link: "" },
+  {
+    name: "株式会社エウレカ",
+    imageSrc: drink1Img,
+    link: "https://career.pairs.lv/",
+  },
 ];
 
 export const lunchSponsors: SponsorWithUrl[] = [
-  // { name: "エムスリー株式会社", imageSrc: lunch1Img, link: "" },
+  {
+    name: "エムスリー株式会社",
+    imageSrc: lunch1Img,
+    link: "https://jobs.m3.com/engineer",
+  },
   {
     name: "株式会社ミラティブ",
     imageSrc: lunch2Img,
@@ -185,7 +205,7 @@ export const bronzeSponsors: Sponsor[] = [
   { name: "HENNGE株式会社", imageSrc: bronze9Img },
   { name: "株式会社HRBrain", imageSrc: bronze10Img },
   { name: "株式会社KiteRa", imageSrc: bronze11Img },
-  // { name: "LINEヤフー株式会社", imageSrc: bronze12Img },
+  { name: "LINEヤフー株式会社", imageSrc: bronze12Img },
   { name: "movus technologies株式会社", imageSrc: bronze13Img },
   { name: "Repro株式会社", imageSrc: bronze14Img },
   { name: "Sansan株式会社", imageSrc: bronze15Img },
@@ -196,7 +216,7 @@ export const bronzeSponsors: Sponsor[] = [
   { name: "株式会社オプティム", imageSrc: bronze20Img },
   { name: "株式会社カナリー", imageSrc: bronze21Img },
   { name: "株式会社カミナシ", imageSrc: bronze22Img },
-  // { name: "株式会社ギークニア", imageSrc: bronze23Img },
+  { name: "株式会社ギークニア", imageSrc: bronze23Img },
   // { name: "株式会社ギフティ", imageSrc: bronze24Img },
   { name: "株式会社スタンバイ", imageSrc: bronze25Img },
   { name: "株式会社スマートバンク", imageSrc: bronze26Img },
@@ -215,9 +235,9 @@ export const bronzeSponsors: Sponsor[] = [
 
 export const gopherSponsors: Sponsor[] = [
   // { name: "blami", imageSrc: gopher1Img },
-  // { name: "chihiro", imageSrc: gopher2Img },
+  { name: "chihiro", imageSrc: gopher2Img },
   { name: "Go Sueyoshi (sue445)", imageSrc: gopher3Img },
-  // { name: "haruyama480", imageSrc: gopher4Img },
+  { name: "haruyama480", imageSrc: gopher4Img },
   { name: "hiro", imageSrc: gopher5Img },
   { name: "JJ", imageSrc: gopher6Img },
   { name: "kazuhiro1982", imageSrc: gopher7Img },
@@ -226,10 +246,10 @@ export const gopherSponsors: Sponsor[] = [
   { name: "Kyoto.go", imageSrc: gopher10Img },
   { name: "masakurapa", imageSrc: gopher11Img },
   { name: "Miki", imageSrc: gopher12Img },
-  // { name: "momi", imageSrc: gopher13Img },
+  { name: "momi", imageSrc: gopher13Img },
   // { name: "sadah", imageSrc: gopher14Img },
   { name: "Songmu", imageSrc: gopher15Img },
-  // { name: "turbofish", imageSrc: gopher16Img },
+  { name: "turbofish", imageSrc: gopher16Img },
   { name: "utgwkk", imageSrc: gopher17Img },
   { name: "Yamato", imageSrc: gopher18Img },
   { name: "Yuki Tetsuka", imageSrc: gopher19Img },
