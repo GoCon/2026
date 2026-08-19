@@ -37,7 +37,8 @@ export type ProgramShortTalk = {
 export type ProgramSponsorSession = {
   type: "sponsorSession";
   isPlaceholder?: boolean;
-} & ProgramSessionCommon;
+  difficulty?: "beginner" | "intermediate" | "advanced";
+} & Omit<ProgramSessionCommon, "difficulty">;
 
 export type ProgramWorkshop = {
   type: "workshop";
@@ -54,7 +55,6 @@ export type ProgramSessionCommon = {
   title: string;
   difficulty: "beginner" | "intermediate" | "advanced";
   speaker: Speaker;
-  room: "roomA" | "roomB";
   description?: string;
 };
 
@@ -86,7 +86,6 @@ const keynotePlaceholder: ProgramKeynote = {
   id: "keynote",
   title: "Coming Soon",
   speaker: { name: "" },
-  room: "roomA",
 };
 
 /** 未入力時のみ使うスポンサー枠プレースホルダー */
@@ -96,27 +95,21 @@ const sponsorPlaceholderPrograms = {
     isPlaceholder: true,
     id: "sponsorSlot1",
     title: "Coming Soon",
-    difficulty: "beginner",
     speaker: { name: "" },
-    room: "roomA",
   },
   sponsorSlot2: {
     type: "sponsorSession",
     isPlaceholder: true,
     id: "sponsorSlot2",
     title: "Coming Soon",
-    difficulty: "beginner",
     speaker: { name: "" },
-    room: "roomA",
   },
   sponsorSlot3: {
     type: "sponsorSession",
     isPlaceholder: true,
     id: "sponsorSlot3",
     title: "Coming Soon",
-    difficulty: "beginner",
     speaker: { name: "" },
-    room: "roomA",
   },
 } as const satisfies Record<string, ProgramSponsorSession>;
 

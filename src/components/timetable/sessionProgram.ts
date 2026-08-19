@@ -4,7 +4,6 @@ type SessionProgramBase = {
   id: string;
   title: string;
   speaker: Speaker;
-  room: "roomA" | "roomB";
   description?: string;
 };
 
@@ -13,7 +12,12 @@ export type SessionProgram =
       type: "keynote";
     })
   | (SessionProgramBase & {
-      type: "longSession" | "shortTalk" | "sponsorSession" | "workshop";
+      type: "longSession" | "shortTalk" | "workshop";
       difficulty: "beginner" | "intermediate" | "advanced";
+      duration?: "40min" | "90min";
+    })
+  | (SessionProgramBase & {
+      type: "sponsorSession";
+      difficulty?: "beginner" | "intermediate" | "advanced";
       duration?: "40min" | "90min";
     });

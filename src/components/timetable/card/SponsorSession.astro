@@ -28,7 +28,9 @@ const placeholderTitle =
     <div class="sponsored-session-badge">
       <span class="text-body-small">Sponsored Session</span>
     </div>
-    {!isPlaceholder && <DifficultyBadge difficulty={program.difficulty} />}
+    {!isPlaceholder && program.difficulty && (
+      <DifficultyBadge difficulty={program.difficulty} />
+    )}
   </div>
   {
     isPlaceholder ? (

@@ -1,0 +1,50 @@
+name: Sync Sessionize timetable
+
+on:
+  schedule:
+    # 水曜・土曜 08:05 JST（UTC 火曜・金曜 23:05）
+    - cron: "5 23 * * 2,5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-sessionize
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Fetch Sessionize data
+        env:
+          SESSIONIZE_API_URL: ${{ secrets.SESSIONIZE_API_URL }}
+        run: node --experimental-strip-types scripts/fetch-timetable-data.ts
+
+      - name: Transform timetable data
+        run: node --experimental-strip-types scripts/transform-timetable-data.ts
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/sync-sessionize-timetable
+          delete-branch: true
+          add-paths: src/components/timetable/data.json
+          commit-message: "chore: Sessionize のセッションデータを更新"
+          title: Sessionize のセッションデータを更新
+          body: |
+            ## 概要
+
+            Sessionize API から取得したセッションデータを整形し、`data.json` を更新しました。
+
+            ## 変更理由
+
+            水曜・土曜朝の自動同期です。Actions タブから手動実行もできます。差分がなければ PR は作成されません。

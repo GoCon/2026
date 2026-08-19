@@ -7,6 +7,7 @@ import BackLink from "../../ui/BackLink.astro";
 import SectionTitle from "../../ui/SectionTitle.astro";
 import DifficultyBadge from "../DifficultyBadge.astro";
 import type { ProgramSession } from "./programDetail";
+import { getProgramRoom, type ProgramRoom } from "../programRoom";
 import RoomIcon from "../../../assets/icons/room.svg";
 import XLogo from "../../../assets/icons/x.svg";
 
@@ -42,10 +43,7 @@ function getSessionTypeLabel(
   }
 }
 
-function getRoomLabel(
-  room: ProgramSession["room"],
-  type: ProgramSession["type"],
-): string {
+function getRoomLabel(room: ProgramRoom, type: ProgramSession["type"]): string {
   const isWorkshop = type === "workshop";
   if (isWorkshop) {
     return room === "roomA" ? "WorkshopA" : "WorkshopB";
@@ -54,11 +52,12 @@ function getRoomLabel(
 }
 
 const sessionTypeLabel = getSessionTypeLabel(program, currentLocale);
-const roomLabel = getRoomLabel(program.room, type);
+const room = getProgramRoom(program.id);
+const roomLabel = getRoomLabel(room, type);
 
 const timetableParams = new URLSearchParams({
   tab: type === "workshop" ? "workshop" : "session",
-  room: program.room === "roomB" ? "b" : "a",
+  room: room === "roomB" ? "b" : "a",
 });
 const timetableUrl = `${getRelativeLocaleUrl(currentLocale, "timetable")}?${timetableParams.toString()}`;
 const description =
@@ -82,10 +81,10 @@ const description =
     </SectionTitle>
     <div class="metadata text-body-large-strong">
       <div class="badges">
-        <!-- <div class:list={["room-badge", `room-badge--${type}`]}>
+        <div class:list={["room-badge", `room-badge--${type}`]}>
           <RoomIcon class="room-icon" />
           <span>{roomLabel}</span>
-        </div> -->
+        </div>
         {
           type === "sponsorSession" && (
             <div class="sponsored-session-badge">
@@ -94,7 +93,7 @@ const description =
           )
         }
         {
-          type !== "keynote" && (
+          type !== "keynote" && program.difficulty && (
             <DifficultyBadge difficulty={program.difficulty} variant="detail" />
           )
         }
