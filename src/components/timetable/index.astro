@@ -393,8 +393,8 @@ const schedules = [
     grid-template-columns: 97px repeat(2, 1fr);
     /* スポンサーは3枠。その直後の 150px は休憩後余白 */
     grid-template-rows:
-      90px repeat(2, 300px) repeat(5, 150px)
-      114px 36px 114px repeat(2, 150px) 300px 150px repeat(2, 90px);
+      90px 90px repeat(2, 300px) repeat(5, 150px)
+      114px 36px 114px repeat(2, 150px) 300px 150px repeat(3, 90px);
     column-gap: 8px;
     row-gap: 8px;
   }
@@ -410,6 +410,7 @@ const schedules = [
     min-height: 0;
   }
 
+  /* 09:30 開場 */
   .grid-item-1 {
     grid-area: 1 / 1 / 2 / 2;
   }
@@ -435,112 +436,128 @@ const schedules = [
   }
 
   .grid-item-7 {
-    grid-area: 3 / 3 / 4 / 4;
-  }
-
-  .grid-item-8 {
     grid-area: 4 / 1 / 5 / 2;
   }
 
-  .grid-item-9 {
+  .grid-item-8 {
     grid-area: 4 / 2 / 5 / 3;
   }
 
-  .grid-item-10 {
-    grid-area: 4 / 3 / 8 / 4;
+  .grid-item-9 {
+    grid-area: 4 / 3 / 5 / 4;
   }
 
-  .grid-item-11 {
+  .grid-item-10 {
     grid-area: 5 / 1 / 6 / 2;
   }
 
-  .grid-item-12 {
+  .grid-item-11 {
     grid-area: 5 / 2 / 6 / 3;
   }
 
+  .grid-item-12 {
+    grid-area: 5 / 3 / 9 / 4;
+  }
+
   .grid-item-13 {
-    grid-area: 6 / 1 / 8 / 2;
+    grid-area: 6 / 1 / 7 / 2;
   }
 
   .grid-item-14 {
     grid-area: 6 / 2 / 7 / 3;
   }
 
-  /* 14:00〜 — row 7 は休憩後余白（150px） */
   .grid-item-15 {
-    grid-area: 8 / 1 / 10 / 2;
+    grid-area: 7 / 1 / 9 / 2;
   }
 
   .grid-item-16 {
-    grid-area: 8 / 2 / 11 / 3;
+    grid-area: 7 / 2 / 8 / 3;
   }
 
+  /* 14:00〜 — row 8 は休憩後余白（150px） */
   .grid-item-17 {
-    grid-area: 8 / 3 / 9 / 4;
+    grid-area: 9 / 1 / 11 / 2;
   }
 
   .grid-item-18 {
-    grid-area: 10 / 1 / 12 / 2;
+    grid-area: 9 / 2 / 12 / 3;
   }
 
   .grid-item-19 {
-    grid-area: 10 / 3 / 12 / 4;
+    grid-area: 9 / 3 / 10 / 4;
   }
 
   .grid-item-20 {
-    grid-area: 12 / 1 / 13 / 2;
+    grid-area: 11 / 1 / 13 / 2;
   }
 
   .grid-item-21 {
-    grid-area: 12 / 2 / 13 / 3;
+    grid-area: 11 / 3 / 13 / 4;
   }
 
   .grid-item-22 {
-    grid-area: 12 / 3 / 13 / 4;
-  }
-
-  .grid-item-23 {
     grid-area: 13 / 1 / 14 / 2;
   }
 
-  .grid-item-24 {
+  .grid-item-23 {
     grid-area: 13 / 2 / 14 / 3;
   }
 
-  .grid-item-25 {
+  .grid-item-24 {
     grid-area: 13 / 3 / 14 / 4;
   }
 
-  .grid-item-26 {
+  .grid-item-25 {
     grid-area: 14 / 1 / 15 / 2;
   }
 
-  .grid-item-27 {
+  .grid-item-26 {
     grid-area: 14 / 2 / 15 / 3;
   }
 
-  .grid-item-28 {
+  .grid-item-27 {
     grid-area: 14 / 3 / 15 / 4;
   }
 
-  .grid-item-29 {
+  .grid-item-28 {
     grid-area: 15 / 1 / 16 / 2;
   }
 
-  .grid-item-30 {
+  .grid-item-29 {
     grid-area: 15 / 2 / 16 / 3;
   }
 
-  .grid-item-31 {
+  .grid-item-30 {
     grid-area: 15 / 3 / 16 / 4;
   }
 
-  .grid-item-32 {
+  .grid-item-31 {
     grid-area: 16 / 1 / 17 / 2;
   }
 
-  .grid-item-33 {
+  .grid-item-32 {
     grid-area: 16 / 2 / 17 / 3;
+  }
+
+  .grid-item-33 {
+    grid-area: 16 / 3 / 17 / 4;
+  }
+
+  .grid-item-34 {
+    grid-area: 17 / 1 / 18 / 2;
+  }
+
+  .grid-item-35 {
+    grid-area: 17 / 2 / 18 / 3;
+  }
+
+  .grid-item-36 {
+    grid-area: 18 / 1 / 19 / 2;
+  }
+
+  .grid-item-37 {
+    grid-area: 18 / 2 / 19 / 3;
   }
 
   @media screen and (max-width: 768px) {
