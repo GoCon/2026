@@ -63,7 +63,7 @@ import { parseProgramsFromRawData } from "./parseRawData";
 const organizerPrograms = {
   opening: {
     type: "organizer",
-    timeString: "10:15 - 10:20",
+    timeString: "10:15 - 10:30",
     title: "オープニング",
   },
   closing: {
