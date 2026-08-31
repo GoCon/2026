@@ -61,6 +61,11 @@ export type ProgramSessionCommon = {
 import { parseProgramsFromRawData } from "./parseRawData";
 
 const organizerPrograms = {
+  open: {
+    type: "organizer",
+    timeString: "09:30",
+    title: "開場",
+  },
   opening: {
     type: "organizer",
     timeString: "10:15 - 10:30",
@@ -76,6 +81,11 @@ const organizerPrograms = {
     timeString: "12:05 - 14:00",
     title: "お昼休憩",
     spHeight: "150px",
+  },
+  afterParty: {
+    type: "organizer",
+    timeString: "18:30 - 20:00",
+    title: "After Party",
   },
 } as const satisfies Record<string, ProgramOrganizer>;
 
