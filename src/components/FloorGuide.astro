@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import FloorMapImage from "../assets/map/floor-map.png";
+
+interface Props {
+  lang?: "ja" | "en";
+}
+const { lang = "ja" } = Astro.props;
+const altText = lang === "en" ? "Floor Map" : "フロアマップ";
+---
+
+<div class="floor-map-wrapper">
+  <Image
+    src={FloorMapImage}
+    alt={altText}
+    sizes="(max-width: 768px) 100vw, 80vw"
+    priority
+    class="floor-map"
+  />
+</div>
+
+<style>
+  .floor-map-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .floor-map {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
