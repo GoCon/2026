@@ -15,6 +15,8 @@ import silver7Img from "../assets/jobboard/silver/silver_7.jpg";
 import silver8Img from "../assets/jobboard/silver/silver_8.png";
 import silver10Img from "../assets/jobboard/silver/silver_10.png";
 import silver11Img from "../assets/jobboard/silver/silver_11.png";
+import silver12Img from "../assets/jobboard/silver/silver_12.png";
+import silver13Img from "../assets/jobboard/silver/silver_13.png";
 import lunch1Img from "../assets/jobboard/lunch/lunch_1.png";
 import lunch2Img from "../assets/jobboard/lunch/lunch_2.png";
 import drink1Img from "../assets/jobboard/drink/drink_1.jpg";
@@ -39,6 +41,7 @@ import bronze19Img from "../assets/jobboard/bronze/bronze_19.png";
 import bronze20Img from "../assets/jobboard/bronze/bronze_20.png";
 import bronze21Img from "../assets/jobboard/bronze/bronze_21.png";
 import bronze22Img from "../assets/jobboard/bronze/bronze_22.png";
+import bronze24Img from "../assets/jobboard/bronze/bronze_24.jpg";
 import bronze25Img from "../assets/jobboard/bronze/bronze_25.png";
 import bronze26Img from "../assets/jobboard/bronze/bronze_26.png";
 import bronze27Img from "../assets/jobboard/bronze/bronze_27.png";
@@ -46,6 +49,7 @@ import bronze28Img from "../assets/jobboard/bronze/bronze_28.png";
 import bronze29Img from "../assets/jobboard/bronze/bronze_29.png";
 import bronze30Img from "../assets/jobboard/bronze/bronze_30.jpg";
 import bronze31Img from "../assets/jobboard/bronze/bronze_31.png";
+import bronze32Img from "../assets/jobboard/bronze/bronze_32.png";
 import bronze33Img from "../assets/jobboard/bronze/bronze_33.png";
 import bronze34Img from "../assets/jobboard/bronze/bronze_34.png";
 import bronze35Img from "../assets/jobboard/bronze/bronze_35.png";
@@ -140,6 +144,16 @@ export const jobBoards: JobBoard[] = [
     image: silver11Img,
     description: "株式会社サイバーエージェント",
     url: "https://hrmos.co/pages/cyberagent-group",
+  },
+  {
+    image: silver12Img,
+    description: "freee株式会社",
+    url: "https://jobs.freee.co.jp/engineers/",
+  },
+  {
+    image: silver13Img,
+    description: "株式会社ベースマキナ",
+    url: "https://basemachina.jp/recruit",
   },
   // Lunch
   {
@@ -266,7 +280,11 @@ export const jobBoards: JobBoard[] = [
     url: "https://careers.kaminashi.jp/",
   },
   // 株式会社ギークニア: ジョブボード画像未提出
-  // 株式会社ギフティ: 未登録
+  {
+    image: bronze24Img,
+    description: "株式会社ギフティ",
+    url: "https://herp.careers/v1/gifteegroup/4AEtBsRvjr26",
+  },
   {
     image: bronze25Img,
     description: "株式会社スタンバイ",
@@ -302,7 +320,11 @@ export const jobBoards: JobBoard[] = [
     description: "株式会社バニッシュ・スタンダード",
     url: "https://recruit.v-standard.com/about",
   },
-  // ハンディ株式会社: 未登録
+  {
+    image: bronze32Img,
+    description: "ハンディ株式会社",
+    url: "https://zinc-anise-fe5.notion.site/Handy-2f8a8064beb6800884a4cdca87652d03#2fba8064beb680f896b4fd7f4a67d985",
+  },
   {
     image: bronze33Img,
     description: "フラー株式会社",
