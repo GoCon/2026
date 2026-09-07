@@ -6,3 +6,11 @@ import FloorGuide from "../components/FloorGuide.astro";
 <SubPage pageTitleJa="フロアガイド" pageTitleEn="Floor Guide">
   <FloorGuide />
 </SubPage>
+
+<style is:global>
+  @media screen and (max-width: 768px) {
+    .text-page-title {
+      font-size: clamp(32px, 26.286px + 1.786vw, 40px);
+    }
+  }
+</style>
