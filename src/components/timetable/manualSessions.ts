@@ -44,6 +44,9 @@ export const manualSessions: SessionProgram[] = [
     speaker: {
       name: "Takeshi Watanabe",
       avatar: eurekaAvatar.src,
+      company: "株式会社エウレカ",
+      description: "Machine Learning Engineer、Data Scientist、Infrastructure Engineer、Platform Engineer などの職種を経験してきました。現在は株式会社エウレカで、Go を中心にバックエンド開発に携わっています。",
+      xUrl: "https://x.com/buzz_tkc",
     },
     description:
       "【ショートセッション／中級者向け】\n\n我々が提供するペアーズの本番運用中のGo APIサーバーで、まれにtarget 5xxが発生しGoプロセスだけがpanic logなしに落ちる事象が続いていました。一方で、PodはOOMKilledにならず、同じコンテナ内のNginxは生き続けており、Kubernetes上の状態や通常のアプリケーションログだけでは原因を特定しづらい、いわゆる“Invisible OOM Kill”と呼べる状態でした。\n\n本セッションでは、この見えにくい障害を、Goランタイム・Kubernetes・コンテナ内の複数プロセスという複数のレイヤーから一つずつ紐解いていきます。なぜPodは生きているように見えたのか、なぜGoプロセスだけが落ちたのか、なぜメモリ使用量が少なく見えていたのにOOMが起きたのか。調査の過程で見えてきたGOGCとGOMEMLIMITの関係、Go以外のメモリを考慮した値決め、GCやレイテンシに与える影響について、実際のメトリクスと意思決定を交えて紹介します。\n最終的には、本番APIサーバーの安定性を高めながらmemory limitを8GBから3GBへ削減しました。その過程で得られた、Goアプリケーションをコンテナ環境で安全かつ効率的に動かすための監視・設定・ロールアウトの考え方を共有します。",
