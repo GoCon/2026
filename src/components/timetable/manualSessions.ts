@@ -11,19 +11,20 @@ import m3Avatar from "../../assets/sponsors/session-avatars/lunch_2.png";
  * - 未入力の枠はこの配列に含めない（プレースホルダー表示のまま）
  */
 export const manualSessions: SessionProgram[] = [
-  // {
-  //   id: "keynote",
-  //   type: "keynote",
-  //   title: "基調講演のタイトル",
-  //   speaker: {
-  //     name: "登壇者名",
-  //     avatar: "https://example.com/avatar.jpg",
-  //     xUrl: "https://x.com/example",
-  //     company: "所属",
-  //     description: "登壇者紹介",
-  //   },
-  //   description: "セッション概要",
-  // },
+  {
+    id: "keynote",
+    type: "keynote",
+    title: "Open Source, Open World",
+    speaker: {
+      name: "sanposhiho",
+      avatar: "https://avatars.githubusercontent.com/u/44139130?v=4",
+      company: "(秘密)",
+      description: "Kubernetes SIG Scheduling TL / Chair",
+      xUrl: "https://x.com/sanpo_shiho",
+    },
+    description:
+      "「OSSをやっている人って、なんかかっこいい。」\nそんな単純な憧れから始めたOSS活動。英語も得意ではなく、知り合いもいない状態からKubernetesへのコントリビューションを始め、気づけば数年間にわたって活動を続けてきました。\n\nなぜOSSを続けてきたのか。OSSに時間を使うことで何が得られるのか。その先にどんな世界があったのか。自身の経験を振り返りながら、OSSに関わり続けることの価値について考えます。",
+  },
   {
     id: "sponsorSlot1",
     type: "sponsorSession",
