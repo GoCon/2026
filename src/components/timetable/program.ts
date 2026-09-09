@@ -165,6 +165,10 @@ export type ProgramSession = Extract<
   }
 >;
 
+const excludeProgramSessionIds = [
+  '1257333',
+];
+
 export function getProgramSessions(): ProgramSession[] {
   const sessions: ProgramSession[] = [];
 
@@ -182,6 +186,9 @@ export function getProgramSessions(): ProgramSession[] {
       continue;
     }
     if (program.type === "keynote" && program.isPlaceholder) {
+      continue;
+    }
+    if (excludeProgramSessionIds.includes(program.id)) {
       continue;
     }
     sessions.push(program);

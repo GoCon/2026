@@ -136,13 +136,6 @@ export const sessionGridCells: SessionGridCell[] = [
     gridItem: 23,
     startTime: "15：05",
   },
-  {
-    type: "card",
-    programId: "1257333",
-    room: "roomB",
-    gridItem: 24,
-    startTime: "15：05",
-  },
 
   // 15:40
   { type: "time", startTime: "15：40", gridItem: 25 },
