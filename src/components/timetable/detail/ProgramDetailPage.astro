@@ -69,6 +69,12 @@ const connpassUrl =
   type === "workshop" ? getWorkshopConnpassUrl(program.id) : undefined;
 const registerLabel =
   currentLocale === "ja" ? "このワークショップに参加" : "Join this workshop";
+const shareLabel = currentLocale === "ja" ? "Xでシェア" : "Share on X";
+const shareUrl = `https://x.com/intent/post?${new URLSearchParams({
+  text: `\n\n`,
+  url: Astro.url.href,
+  hashtags: "gocon26",
+}).toString()}`;
 ---
 
 <SubPage
@@ -158,6 +164,12 @@ const registerLabel =
           )
         }
       </section>
+
+      <div class="share-action">
+        <Button variant="secondary" size="large" href={shareUrl} isBlankLink>
+          {shareLabel}
+        </Button>
+      </div>
     </div>
 
     {
@@ -194,7 +206,7 @@ const registerLabel =
   }
 
   .detail--with-fab .detail-body {
-    padding-bottom: 88px;
+    padding-bottom: 27px;
   }
 
   .header {
@@ -326,6 +338,26 @@ const registerLabel =
     color: var(--text-secondary);
   }
 
+  .share-action {
+    margin-top: var(--space-m);
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .share-action :global(a) {
+    width: auto;
+    max-width: 100%;
+    display: block;
+  }
+
+  .share-action :global(.c-button) {
+    width: auto;
+    max-width: 100%;
+    /* large の縦余白より画像に合わせて詰める（変数指定だと data-size に負ける） */
+    padding: calc(var(--space-xxxs) - 2px) var(--space-s);
+    white-space: nowrap;
+  }
+
   .floating-register-column {
     pointer-events: none;
     z-index: 100;
@@ -363,6 +395,10 @@ const registerLabel =
   }
 
   @media screen and (max-width: 768px) {
+    .detail--with-fab .detail-body {
+      padding-bottom: 80px;
+    }
+
     .floating-register-sticky {
       top: calc(100vh - 4.5rem);
       top: calc(100dvh - 4.5rem);
