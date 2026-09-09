@@ -71,9 +71,7 @@ const registerLabel =
   currentLocale === "ja" ? "このワークショップに参加" : "Join this workshop";
 const shareLabel = currentLocale === "ja" ? "Xでシェア" : "Share on X";
 const shareUrl = `https://x.com/intent/post?${new URLSearchParams({
-  text: `\n\n`,
-  url: Astro.url.href,
-  hashtags: "gocon26",
+  text: `\n\n${Astro.url.href} #gocon26`,
 }).toString()}`;
 ---
 
