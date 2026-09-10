@@ -4,10 +4,12 @@ import { constants } from "../../../constants";
 import SubPage from "../../../layouts/SubPage.astro";
 import { getProgramOgImagePublicPath } from "../../../utils/generateOgImage";
 import BackLink from "../../ui/BackLink.astro";
+import Button from "../../ui/Button.astro";
 import SectionTitle from "../../ui/SectionTitle.astro";
 import DifficultyBadge from "../DifficultyBadge.astro";
 import type { ProgramSession } from "./programDetail";
 import { getProgramRoom, type ProgramRoom } from "../programRoom";
+import { getWorkshopConnpassUrl } from "../workshopConnpass";
 import RoomIcon from "../../../assets/icons/room.svg";
 import XLogo from "../../../assets/icons/x.svg";
 
@@ -63,6 +65,14 @@ const timetableUrl = `${getRelativeLocaleUrl(currentLocale, "timetable")}?${time
 const description =
   program.description ??
   `${program.title} - ${sectionTitle} | ${constants.pageTitle}`;
+const connpassUrl =
+  type === "workshop" ? getWorkshopConnpassUrl(program.id) : undefined;
+const registerLabel =
+  currentLocale === "ja" ? "このワークショップに参加" : "Join this workshop";
+const shareLabel = currentLocale === "ja" ? "Xでシェア" : "Share on X";
+const shareUrl = `https://x.com/intent/post?${new URLSearchParams({
+  text: `\n\n${Astro.url.href} #gocon26`,
+}).toString()}`;
 ---
 
 <SubPage
@@ -74,82 +84,129 @@ const description =
   ogType="article"
   twitterCard="summary_large_image"
 >
-  <div class="header">
-    <BackLink href={timetableUrl} text={backLinkText} />
-    <SectionTitle>
-      <span class="section-title">{program.title}</span>
-    </SectionTitle>
-    <div class="metadata text-body-large-strong">
-      <div class="badges">
-        <div class:list={["room-badge", `room-badge--${type}`]}>
-          <RoomIcon class="room-icon" />
-          <span>{roomLabel}</span>
+  <div class:list={["detail", { "detail--with-fab": connpassUrl }]}>
+    <div class="detail-body">
+      <div class="header">
+        <BackLink href={timetableUrl} text={backLinkText} />
+        <SectionTitle>
+          <span class="section-title">{program.title}</span>
+        </SectionTitle>
+        <div class="metadata text-body-large-strong">
+          <div class="badges">
+            <div class:list={["room-badge", `room-badge--${type}`]}>
+              <RoomIcon class="room-icon" />
+              <span>{roomLabel}</span>
+            </div>
+            {
+              type === "sponsorSession" && (
+                <div class="sponsored-session-badge">
+                  <span>Sponsored Session</span>
+                </div>
+              )
+            }
+            {
+              type !== "keynote" && program.difficulty && (
+                <DifficultyBadge
+                  difficulty={program.difficulty}
+                  variant="detail"
+                />
+              )
+            }
+          </div>
+          <div class="session-type-label">
+            <span class="text-body-large-strong">{sessionTypeLabel}</span>
+          </div>
+        </div>
+      </div>
+
+      <section id="content">
+        <div class="description">{program.description}</div>
+      </section>
+
+      <section id="speaker">
+        <div class="speaker-info">
+          <div class="speaker-info-name">
+            <img
+              class="speaker-avatar"
+              src={program.speaker.avatar}
+              alt={program.speaker.name}
+            />
+            <span class="text-body-medium-strong">{program.speaker.name}</span>
+          </div>
+          {
+            program.speaker.xUrl && (
+              <a
+                href={program.speaker.xUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link"
+                aria-label={`X Link`}
+              >
+                <XLogo />
+              </a>
+            )
+          }
         </div>
         {
-          type === "sponsorSession" && (
-            <div class="sponsored-session-badge">
-              <span>Sponsored Session</span>
+          program.speaker.company && (
+            <div class="company-name text-body-small-strong">
+              <p>{program.speaker.company}</p>
             </div>
           )
         }
         {
-          type !== "keynote" && program.difficulty && (
-            <DifficultyBadge difficulty={program.difficulty} variant="detail" />
+          program.speaker.description && (
+            <div class="text-body-medium">
+              <p>{program.speaker.description}</p>
+            </div>
           )
         }
-      </div>
-      <div class="session-type-label">
-        <span class="text-body-large-strong">{sessionTypeLabel}</span>
+      </section>
+
+      <div class="share-action">
+        <Button variant="secondary" size="large" href={shareUrl} isBlankLink>
+          {shareLabel}
+        </Button>
       </div>
     </div>
+
+    {
+      connpassUrl && (
+        <div class="floating-register-column">
+          <div class="floating-register-sticky">
+            <div class="floating-register">
+              <Button
+                variant="primary"
+                size="large"
+                href={connpassUrl}
+                isBlankLink
+              >
+                {registerLabel}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )
+    }
   </div>
-
-  <section id="content">
-    <div class="description">{program.description}</div>
-  </section>
-
-  <section id="speaker">
-    <div class="speaker-info">
-      <div class="speaker-info-name">
-        <img
-          class="speaker-avatar"
-          src={program.speaker.avatar}
-          alt={program.speaker.name}
-        />
-        <span class="text-body-medium-strong">{program.speaker.name}</span>
-      </div>
-      {
-        program.speaker.xUrl && (
-          <a
-            href={program.speaker.xUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="social-link"
-            aria-label={`X Link`}
-          >
-            <XLogo />
-          </a>
-        )
-      }
-    </div>
-    {
-      program.speaker.company && (
-        <div class="company-name text-body-small-strong">
-          <p>{program.speaker.company}</p>
-        </div>
-      )
-    }
-    {
-      program.speaker.description && (
-        <div class="text-body-medium">
-          <p>{program.speaker.description}</p>
-        </div>
-      )
-    }
-  </section></SubPage
->
+</SubPage>
 
 <style>
+  .detail--with-fab {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .detail--with-fab .detail-body,
+  .detail--with-fab .floating-register-column {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .detail--with-fab .detail-body {
+    padding-bottom: 27px;
+  }
+
   .header {
     display: flex;
     flex-direction: column;
@@ -277,5 +334,77 @@ const description =
 
   section#speaker .company-name {
     color: var(--text-secondary);
+  }
+
+  .share-action {
+    margin-top: var(--space-xs);
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .share-action :global(a) {
+    width: auto;
+    max-width: 100%;
+    display: block;
+  }
+
+  .share-action :global(.c-button) {
+    width: auto;
+    max-width: 100%;
+    /* large の縦余白より画像に合わせて詰める（変数指定だと data-size に負ける） */
+    padding: calc(var(--space-xxxs) - 2px) var(--space-s);
+    white-space: nowrap;
+  }
+
+  .floating-register-column {
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .floating-register-sticky {
+    position: sticky;
+    /* 画面下端付近に固定し、コンテンツ末尾（footer-visual 手前）で解除 */
+    top: calc(100vh - 6rem);
+    top: calc(100dvh - 6rem);
+    display: flex;
+    justify-content: flex-end;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .floating-register {
+    pointer-events: auto;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .floating-register :global(a) {
+    width: auto;
+    max-width: 100%;
+    display: block;
+  }
+
+  .floating-register :global(.c-button) {
+    width: auto;
+    max-width: 100%;
+    padding-inline: var(--space-s);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 16%);
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 768px) {
+    .detail--with-fab .detail-body {
+      padding-bottom: 100px;
+    }
+
+    .floating-register-sticky {
+      top: calc(100vh - 4.5rem);
+      top: calc(100dvh - 4.5rem);
+    }
+
+    .floating-register :global(.c-button) {
+      font-size: clamp(17px, 14.857px + 0.67vw, 20px);
+      box-shadow: 0 2px 8px rgb(0 0 0 / 14%);
+    }
   }
 </style>
