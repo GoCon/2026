@@ -67,8 +67,8 @@ const description =
   `${program.title} - ${sectionTitle} | ${constants.pageTitle}`;
 const connpassUrl =
   type === "workshop" ? getWorkshopConnpassUrl(program.id) : undefined;
-const registerLabel =
-  currentLocale === "ja" ? "このワークショップに参加" : "Join this workshop";
+const connpassLabel =
+  currentLocale === "ja" ? "詳細はこちら" : "See details";
 const shareLabel = currentLocale === "ja" ? "Xでシェア" : "Share on X";
 const shareUrl = `https://x.com/intent/post?${new URLSearchParams({
   text: `\n\n${Astro.url.href} #gocon26`,
@@ -181,7 +181,7 @@ const shareUrl = `https://x.com/intent/post?${new URLSearchParams({
                 href={connpassUrl}
                 isBlankLink
               >
-                {registerLabel}
+                {connpassLabel}
               </Button>
             </div>
           </div>
@@ -192,21 +192,6 @@ const shareUrl = `https://x.com/intent/post?${new URLSearchParams({
 </SubPage>
 
 <style>
-  .detail--with-fab {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .detail--with-fab .detail-body,
-  .detail--with-fab .floating-register-column {
-    grid-row: 1;
-    grid-column: 1;
-  }
-
-  .detail--with-fab .detail-body {
-    padding-bottom: 27px;
-  }
-
   .header {
     display: flex;
     flex-direction: column;
@@ -336,6 +321,21 @@ const shareUrl = `https://x.com/intent/post?${new URLSearchParams({
     color: var(--text-secondary);
   }
 
+  .detail--with-fab {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .detail--with-fab .detail-body,
+  .detail--with-fab .floating-register-column {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .detail--with-fab .detail-body {
+    padding-bottom: 27px;
+  }
+
   .share-action {
     margin-top: var(--space-xs);
     width: fit-content;
@@ -363,7 +363,6 @@ const shareUrl = `https://x.com/intent/post?${new URLSearchParams({
 
   .floating-register-sticky {
     position: sticky;
-    /* 画面下端付近に固定し、コンテンツ末尾（footer-visual 手前）で解除 */
     top: calc(100vh - 6rem);
     top: calc(100dvh - 6rem);
     display: flex;
