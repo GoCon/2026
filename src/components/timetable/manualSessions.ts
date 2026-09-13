@@ -24,6 +24,7 @@ export const manualSessions: SessionProgram[] = [
     },
     description:
       "「OSSをやっている人って、なんかかっこいい。」\nそんな単純な憧れから始めたOSS活動。英語も得意ではなく、知り合いもいない状態からKubernetesへのコントリビューションを始め、気づけば数年間にわたって活動を続けてきました。\n\nなぜOSSを続けてきたのか。OSSに時間を使うことで何が得られるのか。その先にどんな世界があったのか。自身の経験を振り返りながら、OSSに関わり続けることの価値について考えます。",
+    slidesUrl: "https://speakerdeck.com/player/5bd8d25f80b84fff8882303812ece8fb",
   },
   {
     id: "sponsorSlot1",
