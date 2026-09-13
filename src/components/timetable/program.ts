@@ -56,6 +56,7 @@ export type ProgramSessionCommon = {
   difficulty: "beginner" | "intermediate" | "advanced";
   speaker: Speaker;
   description?: string;
+  slidesUrl?: string;
 };
 
 import { parseProgramsFromRawData } from "./parseRawData";
@@ -165,9 +166,7 @@ export type ProgramSession = Extract<
   }
 >;
 
-const excludeProgramSessionIds = [
-  '1257333',
-];
+const excludeProgramSessionIds = ["1257333"];
 
 export function getProgramSessions(): ProgramSession[] {
   const sessions: ProgramSession[] = [];

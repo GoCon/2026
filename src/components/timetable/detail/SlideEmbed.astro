@@ -1,0 +1,69 @@
+---
+import Button from "../../ui/Button.astro";
+import { getSlidesPresentation } from "../parseSlideEmbed";
+
+interface Props {
+  slidesUrl: string;
+  title: string;
+  locale: string;
+}
+
+const { slidesUrl, title, locale } = Astro.props;
+const presentation = getSlidesPresentation(slidesUrl);
+const linkLabel = locale === "ja" ? "登壇資料を見る" : "View materials";
+---
+
+{
+  presentation === "embed" && (
+    <section id="slides" class="slides">
+      <div class="slides-frame">
+        <iframe
+          src={slidesUrl}
+          title={title}
+          loading="lazy"
+          allowfullscreen
+          allow="web-share"
+        />
+      </div>
+    </section>
+  )
+}
+
+{
+  presentation === "link" && (
+    <section id="slides" class="slides link-button">
+      <Button variant="secondary" size="large" href={slidesUrl} isBlankLink>
+        {linkLabel}
+      </Button>
+    </section>
+  )
+}
+
+<style>
+  .slides {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-m);
+  }
+
+  .slides-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .slides-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .link-button {
+    max-width: 250px;
+  }
+</style>

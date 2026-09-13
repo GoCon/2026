@@ -5,6 +5,7 @@ type SessionProgramBase = {
   title: string;
   speaker: Speaker;
   description?: string;
+  slidesUrl?: string;
 };
 
 export type SessionProgram =

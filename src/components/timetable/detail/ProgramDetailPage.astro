@@ -10,6 +10,7 @@ import DifficultyBadge from "../DifficultyBadge.astro";
 import type { ProgramSession } from "./programDetail";
 import { getProgramRoom, type ProgramRoom } from "../programRoom";
 import { getWorkshopConnpassUrl } from "../workshopConnpass";
+import SlideEmbed from "./SlideEmbed.astro";
 import RoomIcon from "../../../assets/icons/room.svg";
 import XLogo from "../../../assets/icons/x.svg";
 
@@ -118,6 +119,16 @@ const shareUrl = `https://x.com/intent/post?${new URLSearchParams({
           </div>
         </div>
       </div>
+
+      {
+        program.slidesUrl && (
+          <SlideEmbed
+            slidesUrl={program.slidesUrl}
+            title={program.title}
+            locale={currentLocale}
+          />
+        )
+      }
 
       <section id="content">
         <div class="description">{program.description}</div>

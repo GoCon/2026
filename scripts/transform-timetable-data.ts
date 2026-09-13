@@ -4,6 +4,8 @@
  * - Accepted のみ残す
  * - スピーカー情報をセッションへ埋め込む
  * - categoryItems から type / difficulty / duration を解決する（欠けていればエラー）
+ * - 登壇資料 URL は埋め込み形式へ変換し slidesUrl として残す
+ *   （想定外ドメインは元 URL。変換不可は needsManual。既存の URL は上書きしない）
  * - 部屋・開始時刻は Sessionize に含まれないため、ここでは扱わない
  *   （sessionGrid.ts / schedule.ts で手動紐づけする）
  *
@@ -13,6 +15,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  isPreservableSlidesUrl,
+  parseSlideEmbed,
+  SLIDES_URL_NEEDS_MANUAL,
+  toSlidesUrl,
+} from "../src/components/timetable/parseSlideEmbed.ts";
 
 const rootDir = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -59,6 +67,7 @@ type ShapedSession = {
   speaker: Speaker;
   description: string;
   duration?: WorkshopDuration;
+  slidesUrl?: string;
 };
 
 type ShapedData = {
@@ -80,14 +89,22 @@ type RawSpeaker = {
   links?: RawSpeakerLink[];
 };
 
+type RawQuestionAnswer = {
+  questionId: number;
+  answerValue?: string | null;
+};
+
 type RawSession = {
   id: string;
   title: string;
   description?: string;
   speakers?: string[];
   categoryItems?: number[];
+  questionAnswers?: RawQuestionAnswer[];
   status: string;
 };
+
+const SLIDES_QUESTION_ID = 138931;
 
 type RawData = {
   sessions?: RawSession[];
@@ -109,6 +126,53 @@ const DIFFICULTY_KINDS: ReadonlyArray<readonly [number, Difficulty]> = [
 
 function normalizeDescription(description: string): string {
   return description.replace(/\r\n/g, "\n");
+}
+
+function extractSlidesUrl(session: RawSession): string | undefined {
+  const answer = (session.questionAnswers ?? []).find(
+    (qa) => qa.questionId === SLIDES_QUESTION_ID,
+  );
+  const value = answer?.answerValue?.trim();
+  if (!value) {
+    return undefined;
+  }
+
+  return toSlidesUrl(parseSlideEmbed(value));
+}
+
+function resolveSlidesUrl(
+  session: RawSession,
+  existingSlidesUrls: Map<string, string>,
+): string | undefined {
+  const parsed = extractSlidesUrl(session);
+  const existing = existingSlidesUrls.get(session.id);
+
+  if (
+    existing &&
+    isPreservableSlidesUrl(existing) &&
+    (!parsed || parsed === SLIDES_URL_NEEDS_MANUAL)
+  ) {
+    return existing;
+  }
+
+  return parsed;
+}
+
+function loadExistingSlidesUrls(filePath: string): Map<string, string> {
+  const map = new Map<string, string>();
+  if (!fs.existsSync(filePath)) {
+    return map;
+  }
+
+  const existing = JSON.parse(fs.readFileSync(filePath, "utf8")) as {
+    sessions?: Array<{ id?: string; slidesUrl?: string }>;
+  };
+  for (const session of existing.sessions ?? []) {
+    if (session.id && session.slidesUrl) {
+      map.set(session.id, session.slidesUrl);
+    }
+  }
+  return map;
 }
 
 function requireExactlyOne<T>(
@@ -153,6 +217,7 @@ function parseSpeaker(rawSpeaker: RawSpeaker, sessionId: string): Speaker {
 function transformSession(
   session: RawSession,
   speakerMap: Map<string, RawSpeaker>,
+  existingSlidesUrls: Map<string, string>,
 ): ShapedSession {
   const categoryItems = session.categoryItems;
   if (!categoryItems || categoryItems.length === 0) {
@@ -208,10 +273,18 @@ function transformSession(
     shaped.duration = proposal.duration;
   }
 
+  const slidesUrl = resolveSlidesUrl(session, existingSlidesUrls);
+  if (slidesUrl) {
+    shaped.slidesUrl = slidesUrl;
+  }
+
   return shaped;
 }
 
-function transform(raw: RawData): ShapedData {
+function transform(
+  raw: RawData,
+  existingSlidesUrls: Map<string, string>,
+): ShapedData {
   if (!raw.sessions) {
     throw new Error("rawData.json に sessions がありません");
   }
@@ -225,7 +298,9 @@ function transform(raw: RawData): ShapedData {
 
   const sessions = raw.sessions
     .filter((session) => session.status === "Accepted")
-    .map((session) => transformSession(session, speakerMap));
+    .map((session) =>
+      transformSession(session, speakerMap, existingSlidesUrls),
+    );
 
   return { sessions };
 }
@@ -240,7 +315,8 @@ function main(): void {
   }
 
   const raw = JSON.parse(fs.readFileSync(inputPath, "utf8")) as RawData;
-  const shaped = transform(raw);
+  const existingSlidesUrls = loadExistingSlidesUrls(outputPath);
+  const shaped = transform(raw, existingSlidesUrls);
   fs.writeFileSync(outputPath, `${JSON.stringify(shaped, null, 2)}\n`, "utf8");
 
   console.log(`Wrote ${outputPath} (${shaped.sessions.length} sessions)`);

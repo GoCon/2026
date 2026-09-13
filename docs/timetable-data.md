@@ -72,6 +72,7 @@ SESSIONIZE_API_URL='https://sessionize.com/api/v2/<id>/view/All' pnpm fetch:time
   - Accepted セッションのみ残す
   - スピーカー情報をセッションへ埋め込む
   - `categoryItems` から `type` / `difficulty` / `duration` を解決する（欠けていればエラー）
+  - `questionAnswers` の questionId `138931` を埋め込み用 `slidesUrl` へ変換する（想定外ドメインは元 URL のまま。Speaker Deck 公開ページ等は `needsManual`。既存の URL は上書きしない）
   - サイト未使用のフィールドを除去する
   - 表示用の時刻・部屋は含めない（カード表示時に `sessionGrid` / `schedule` から解決）
 - `parseRawData.ts` は整形済み JSON と手動入力を `Program` のマップへ載せる薄い読み込み層
