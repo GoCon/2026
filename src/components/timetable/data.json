@@ -130,7 +130,7 @@
         "description": "合同会社DMM.comのオンラインサロン開発部でバックエンドエンジニアとしてGoを書いている。社外向けGoコミュニティ勉強会「DMM.go」の運営も担当。\n気になったGoのIssueやProposalを読んで、設計の背景を探るのが好き。"
       },
       "description": "「コレクションを走査する」という、どのGoコードにも存在する処理。なのに、filepath.Walk・sync.Map.Range・flag.Visitはすべてシグネチャが異なります。なぜGoには長年、統一されたイテレーション方法がなかったのか。そして2022年にGitHubに立てられたDiscussion#56413から始まった議論が、Go 1.23の range over func として結実するまでに何が起きたのか。\n\n本セッションでは、IssueとPRの議論を丹念に追うことで見えてくる「設計の決断」と、リリースから2年間でGo本体・標準ライブラリ・OSSエコシステムが実際にどう変化したかを、Before/Afterのコードで具体的に示します。\n\n業務でまだ使えていない方にこそ聞いてほしいセッションです。\n変化の全体像を知ることで、「自分のコードのどこに使えるか」が見えてくるはずです。\n\n【扱う内容】\n・Before: なぜ統一されたイテレーション方法がなかったか\n・設計の決断: なぜinterfaceではなく関数型になったのか\n・After(1): 標準ライブラリに加わったiter.Seq対応API\n・After(2): OSSエコシステムの2年間の変化と現在地\n・実践: []T返しとiter.Seqの使い分け判断基準",
-      "slidesUrl": "needsManual"
+      "slidesUrl": "https://speakerdeck.com/player/bc128d5ac6574008ae002db23cfedb91"
     },
     {
       "id": "1264549",
@@ -145,7 +145,7 @@
         "description": "Goが好きですʕ◔ϖ◔ʔ \n株式会社LayerX で法人向けクレジットカード/ETCカードを開発するチームのEMをしています。\n一般社団法人Gophers Japan 代表理事のひとり。"
       },
       "description": "Go 1.25 で正式導入された `testing/synctest` は、並行処理コードのテストを決定的に扱うための仕組みです。`synctest` の bubble 内では goroutine の待機状態を観測でき、時間の経過も fake clock によって制御できます。\n\n一方で Go 1.26 までの`net/http/httptest.Server` は通常のサーバと同じく OS のネットワークスタックを使うため、`synctest` と組み合わせにくい場面がありました。そのため、HTTP サーバや API クライアントのテストでタイムアウトやバックオフを扱いたくても、`synctest` による時間制御の恩恵を受けにくい問題がありました。\n\nGo 1.27 では `net/http/httptest` の `synctest` 対応により、HTTP サーバや API クライアントのテストを `synctest` の bubble 内で扱いやすくなります。この変更を支えるのが、標準ライブラリ内部に追加された `internal/nettest` による in-memory fake networking 実装です。\n\nhttps://github.com/golang/go/issues/76608\n\n本発表では、まず `synctest` がどのように時刻とgoroutineの待機状態を扱うのか軽くおさらいします。そのうえで、従来の `httptest.Server` がなぜ `synctest` と組み合わせにくかったのかを確認し、Go 1.27 で追加される `httptest` の `synctest` 対応によって、Web サーバや API クライアントのテストをどのように書けるようになるのかを紹介します。\n\n後半では `internal/nettest` の実装を読み解き、`internal/nettest`のインメモリネットワークがどのように `httptest` と `synctest` をつないでいるのかを解説します。\n\n### タイムライン\n\nこの発表ではGo 1.27から変わる`synctest`を使ったHTTPサーバテストについて以下の順に話す予定です。\n\n- synctestが何をしているのかおさらい\n- Go 1.26 以前の `httptest` がなぜ `synctest` と組み合わせにくかったのか\n- Go 1.27 の `httptest` の `synctest` 対応で書けるようになるテスト例\n- `internal/nettest` deep dive: fake listener / fake connection の設計\n- まとめ\n\n### 本セッションで得られること\n\nこのセッションでは、以下を持ち帰れます。\n\n- `httptest` と `synctest` を使って、より速く安定した HTTP/API テストを書くための考え方\n- OS の I/O wait を介さない in-memory なネットワークモデルの仕組み\n- `internal/nettest` が `httptest` と `synctest` をどのようにつないでいるのか",
-      "slidesUrl": "needsManual"
+      "slidesUrl": "https://speakerdeck.com/player/da19ec39138c44889149bbd115d2c929"
     },
     {
       "id": "1257229",
@@ -232,7 +232,7 @@
         "description": "シンプルな言語と豪奢なご飯が好きです。"
       },
       "description": "グループ会社で内製している基盤サービスを呼び出す自社製のGo Client SDKで、ある日突然、HTTP/2コネクション起因のタイムアウトが断続的に発生するようになりました。対策前は1日数十件オーダーで手動対応が必要となる状態でした。根本原因をすぐに特定することはできませんでしたが、k8sのpodごとのログを観察するうちに「何らかの理由で死んだコネクションを net/http が再利用し続けている」という仮説にたどり着きました。実際、リトライを追加するだけでは、同じ死んだコネクションでもう一度失敗するだけで、問題は解決しませんでした。\n\n本セッションでは、この障害の調査から解決までを追体験する形で、GoでHTTPクライアントを実装・運用する際の判断ポイントを共有します。\n\n扱う内容:\n\n- HTTPコネクションの基本と、HTTP/2のコネクション管理の特徴（本障害の理解に必要な範囲で）\n- net/http のコネクションプールの仕組み\n- GoでHTTPクライアントを実装するうえでの勘所と落とし穴:\n    - 単純にリトライしても、死んだコネクションを再利用してまた失敗するという罠\n    - SendPingTimeout + PingTimeout < リクエストのcontextタイムアウト のように、各パラメータを根拠を持って決める方法\n\n仮説に基づく対策を入れた経路では問題が収束し、入れていない経路では再発し続けたことで、見立ての正しさを確認できました。コネクション断自体は今も起きていますが、この設計に変えてからは手動対応が一切不要となり、障害件数ゼロを維持しています。コネクション断は起きる前提で、障害にしないための設計と設定値の決め方を、同じ問題に直面しうるチームがそのまま使える形で持ち帰ってもらいます。\n\n前提知識: net/http でAPIを呼び出した経験があれば十分です。HTTP/2の事前知識は不要で、セッション内で必要な範囲を説明します。",
-      "slidesUrl": "needsManual"
+      "slidesUrl": "https://speakerdeck.com/player/8cd0607b9254454d962ff006a3ea654c"
     },
     {
       "id": "1264524",
