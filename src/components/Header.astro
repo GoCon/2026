@@ -5,12 +5,9 @@ import MenuIcon from "../assets/icons/menu.svg";
 import Logo from "../assets/mainVisual/mv_logo_sp.svg";
 import { getLocaleUrlForPage } from "../utils/i18n";
 import TextLink from "./ui/TextLink.astro";
-import Button from "./ui/Button.astro";
 
 const currentLocale = Astro.currentLocale || "ja";
 const pathname = Astro.url.pathname;
-const ticketUrl =
-  "https://conference.findy-code.io/conferences/gocon26/23/registration";
 ---
 
 <style>
@@ -48,14 +45,6 @@ const ticketUrl =
     width: 100%;
     height: auto;
     object-fit: contain;
-  }
-
-  .header-button {
-    width: clamp(140px, 80.571px + 7.738vw, 192px);
-  }
-
-  .header-button :global(.c-button) {
-    --btn-font-size: clamp(12px, 7.429px + 0.595vw, 16px);
   }
 
   .language-switcher {
@@ -168,14 +157,6 @@ const ticketUrl =
   }
 
   @media screen and (max-width: 768px) {
-    .header-button {
-      width: 192px;
-    }
-
-    .header-button :global(.c-button) {
-      --btn-font-size: 16px;
-    }
-
     .navigation :global(.navigation-menu .link-icon) {
       --link-icon-size: 20px;
     }
@@ -271,15 +252,5 @@ const ticketUrl =
         }
       </li>
     </ul>
-
-    <div class="header-button">
-      <Button href={ticketUrl} isBlankLink>
-        {
-          currentLocale === "ja"
-            ? "イベントに申し込む"
-            : "Register for the event"
-        }
-      </Button>
-    </div>
   </div>
 </header>
