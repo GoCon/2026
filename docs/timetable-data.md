@@ -72,6 +72,11 @@ SESSIONIZE_API_URL='https://sessionize.com/api/v2/<id>/view/All' pnpm fetch:time
   - Accepted セッションのみ残す
   - スピーカー情報をセッションへ埋め込む
   - `categoryItems` から `type` / `difficulty` / `duration` を解決する（欠けていればエラー）
+  - `questionAnswers` の questionId `138931`（登壇資料 URL）を `slidesUrl` へ変換する
+    - Speaker Deck / Docswell / Google スライド → 埋め込み用 URL
+    - それ以外のドメイン → 元 URL のまま（詳細ページでは「登壇資料を見る」リンク）
+    - Speaker Deck 公開ページなど自動変換不可 → 固定値 `needsManual`（詳細ページでは非表示）
+    - 既存 `data.json` に `needsManual` 以外の `slidesUrl` がある場合は上書きしない
   - サイト未使用のフィールドを除去する
   - 表示用の時刻・部屋は含めない（カード表示時に `sessionGrid` / `schedule` から解決）
 - `parseRawData.ts` は整形済み JSON と手動入力を `Program` のマップへ載せる薄い読み込み層
@@ -81,7 +86,8 @@ SESSIONIZE_API_URL='https://sessionize.com/api/v2/<id>/view/All' pnpm fetch:time
 - ファイル: `src/components/timetable/data.json`
 - 利用時に使いやすい形（スピーカー埋め込み済みなど）で git 追跡する
 - タイムテーブル上の配置（枠・開始時刻・部屋）は、データ本体とは別に `sessionGrid.ts` / `schedule.ts` などで管理する
-- **`pnpm transform:timetable` で上書きされる**ため、基調講演・スポンサーはここに書かない
+- **`pnpm transform:timetable` で再生成される**ため、基調講演・スポンサーはここに書かない
+- ただし `slidesUrl` については、既に埋め込み URL や外部リンクが入っている場合は再生成時も保持する（`needsManual` を手動で直した値が消えない）
 
 ## 5. 基調講演・スポンサーセッション（手動入力）
 
@@ -156,5 +162,6 @@ export const manualSessions: SessionProgram[] = [
 
 1. `SESSIONIZE_API_URL` を指定して `pnpm fetch:timetable` を実行する（または GitHub Actions に任せる）
 2. `pnpm transform:timetable` で `data.json` を生成する
-3. 基調講演・スポンサーは `manualSessions.ts` を編集する
-4. `data.json` / `manualSessions.ts` の変更をコミットする
+3. `slidesUrl` が `needsManual` のセッションは、埋め込み用 URL を `data.json` に手動で書く（次回 transform でも保持される）
+4. 基調講演・スポンサーは `manualSessions.ts` を編集する
+5. `data.json` / `manualSessions.ts` の変更をコミットする
