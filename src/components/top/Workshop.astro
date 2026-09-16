@@ -54,13 +54,6 @@ const workshops: Workshop[] = [
         )
       }
     </SectionTitle>
-    <span class="text-body-large">
-      {
-        isJa
-          ? "ワークショップはConnpassより参加登録ができます。"
-          : "You can register for the workshop via Connpass."
-      }
-    </span>
   </div>
 
   <div id="workshop-details">
@@ -84,7 +77,7 @@ const workshops: Workshop[] = [
               href={workshop.href}
               isBlankLink
             >
-              {isJa ? "参加登録" : "Register"}
+              {isJa ? "詳細はこちら" : "See details"}
             </Button>
           </div>
         </div>

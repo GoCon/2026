@@ -14,6 +14,20 @@ const ticketChipText = isJa ? "参加費" : "Admission";
 ---
 
 <section id="about">
+  <div id="conference-ended">
+    <p class="text-section-title ended-title">
+      <span class="accent">Go Conference 2026</span>
+      {isJa ? "は終了いたしました" : " has ended."}
+    </p>
+    <p class="text-body-large ended-message">
+      {
+        isJa
+          ? "ご登壇、ご参加、ご協力いただいたスポンサー、運営の皆さんありがとうございました！"
+          : "Thank you to all speakers, attendees, sponsors, and organizers!"
+      }
+    </p>
+  </div>
+
   <div id="about-top">
     <SectionTitle>
       {
@@ -125,6 +139,21 @@ const ticketChipText = isJa ? "参加費" : "Admission";
 </section>
 
 <style>
+  #conference-ended {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  #conference-ended p {
+    margin: 0;
+  }
+
+  .accent {
+    color: var(--text-accent);
+  }
+
   .pc-only {
     display: block;
   }

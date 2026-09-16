@@ -6,8 +6,6 @@ import logoImageRow from "../../assets/mainVisual/mv_logo_sp.svg";
 import Button from "../ui/Button.astro";
 
 const currentLocale = Astro.currentLocale || "ja";
-const ticketUrl =
-  "https://conference.findy-code.io/conferences/gocon26/23/registration";
 ---
 
 <section id="main-visual">
@@ -42,18 +40,6 @@ const ticketUrl =
           )
         }
       </div>
-      <Button
-        size="large"
-        href={ticketUrl}
-        isBlankLink
-        class="mv-button"
-      >
-        {
-          currentLocale === "ja"
-            ? "イベントに申し込む"
-            : "Register for the event"
-        }
-      </Button>
     </div>
   </div>
 </section>
@@ -125,10 +111,6 @@ const ticketUrl =
     font-size: 40.56px;
     font-weight: 700;
     line-height: 100%;
-  }
-
-  .mv-button {
-    width: 100%;
   }
 
   @media (max-width: 768px) {
